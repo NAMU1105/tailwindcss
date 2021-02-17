@@ -13,6 +13,8 @@ const Auth = (props) => {
 
     return (
         <Container>
+            <button className="text-white rotate-90">test</button>
+
             <div className="bg-gray-500 p-10 w-5/12">
                 <h1 className="text-white mb-10  text-4xl text-center">
                     {isLoginMode ? LOGIN : SIGNUP}

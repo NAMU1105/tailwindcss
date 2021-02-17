@@ -1,10 +1,17 @@
 const plugin = require('tailwindcss/plugin');
+const _ = require('lodash');
 
 module.exports = {
     purge: [],
     darkMode: false, // or 'media' or 'class'
     theme: {
         extend: {
+            rotate: {
+                '1/4': '90deg',
+                '1/2': '180deg',
+                '3/4': '270deg',
+            },
+
             fontFamily: {
                 playfair: ['Playfair Display'],
                 libre: ['Libre Baskerville'],
@@ -53,8 +60,9 @@ module.exports = {
         require('@tailwindcss/line-clamp'),
         require('@tailwindcss/aspect-ratio'),
 
+        // custom components
         plugin(function ({ addComponents }) {
-            // 버튼 컴포넌트들
+            // 버튼
             const buttons = {
                 '.btn': {
                     padding: '.5rem 1rem',
@@ -97,6 +105,18 @@ module.exports = {
             addComponents(buttons);
             addComponents(flexAllCentered);
             addComponents(hamburgerMenu);
+        }),
+
+        plugin(function ({ addUtilities, theme, e }) {
+            const rotateUtilities = _.map(theme('rotate'), (value, key) => {
+                return {
+                    [`.${e(`rotate-${key}`)}`]: {
+                        transform: `rotate(${value})`,
+                    },
+                };
+            });
+
+            addUtilities(rotateUtilities);
         }),
     ],
 };

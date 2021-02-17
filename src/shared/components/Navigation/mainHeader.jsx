@@ -8,6 +8,7 @@ const MainHeader = (props) => {
     return (
         <header className="bg-primary-red h-header flex items-center px-5 ">
             <h1>4D REPLAY</h1>
+
             <nav className="hidden xs:block">{props.children}</nav>
             <button onClick={props.onClick} className="bg-red-100 xs:hidden">
                 open drawer
@@ -16,7 +17,7 @@ const MainHeader = (props) => {
                 User님 환영합니다.
             </a>
             <ul
-                className="absolute bg-red-300 top-20 right-5  hidden"
+                className="absolute bg-red-300 top-20 right-5   hidden"
                 id="userMenu"
             >
                 <li className="cursor-pointer">
