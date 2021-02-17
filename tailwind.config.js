@@ -52,5 +52,51 @@ module.exports = {
         require('@tailwindcss/forms'),
         require('@tailwindcss/line-clamp'),
         require('@tailwindcss/aspect-ratio'),
+
+        plugin(function ({ addComponents }) {
+            // 버튼 컴포넌트들
+            const buttons = {
+                '.btn': {
+                    padding: '.5rem 1rem',
+                    borderRadius: '.25rem',
+                    fontWeight: '600',
+                },
+                '.btn-blue': {
+                    backgroundColor: '#3490dc',
+                    color: '#fff',
+                    '&:hover': {
+                        backgroundColor: '#2779bd',
+                    },
+                },
+                '.btn-red': {
+                    backgroundColor: '#e3342f',
+                    color: '#fff',
+                    '&:hover': {
+                        backgroundColor: '#cc1f1a',
+                    },
+                },
+            };
+
+            // flex 중앙정렬
+            const flexAllCentered = {
+                '.flexAllCentered': {
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                },
+            };
+
+            const hamburgerMenu = {
+                ' .hamburgerMenu': {
+                    '&:hover + .hamburgerList': {
+                        display: 'block',
+                    },
+                },
+            };
+
+            addComponents(buttons);
+            addComponents(flexAllCentered);
+            addComponents(hamburgerMenu);
+        }),
     ],
 };

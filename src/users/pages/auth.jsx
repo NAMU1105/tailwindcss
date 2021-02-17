@@ -73,11 +73,22 @@ const Auth = (props) => {
                             </label>
                         </>
                     )}
+
+                    {/* custom component test, 삭제 예정 */}
+                    {/* <button className="btn-blue">test</button> */}
+                    {/* <div className="flexAllCentered w-full">
+                        <span>test</span>
+                        <span>test</span>
+                        <span>test</span>
+                        <span>test</span>
+                    </div> */}
+
                     {/* SNS signup/login */}
                     <div className="flex flex-col items-center">
-                        <span className="text-lg text-white ">
+                        <span className="text-lg text-white">
                             or {isLoginMode ? LOGIN : SIGNUP} with
                         </span>
+
                         <div className="mt-2 mb-5">
                             <a href="/" className="pr-1">
                                 google
@@ -89,36 +100,6 @@ const Auth = (props) => {
                                 naver
                             </a>
                         </div>
-                    </div>
-                    {/* plugin test - 지울예정 */}
-                    {/* <article className="prose">
-                        <p class="line-clamp-3">
-                            Et molestiae hic earum repellat aliquid est
-                            doloribus delectus. Enim illum odio porro ut omnis
-                            dolor debitis natus. Voluptas possimus deserunt sit
-                            delectus est saepe nihil. Qui voluptate possimus et
-                            quia. Eligendi voluptas voluptas dolor cum. Rerum
-                            est quos quos id ut molestiae fugit.
-                        </p>
-
-                        <h3>When a heading comes after a paragraph …</h3>
-                        <p>
-                            When a heading comes after a paragraph, we need a
-                            bit more space, like I already mentioned above. Now
-                            let's see what a more complex list would look like.
-                        </p>
-
-                        <code className="language-html">TEST</code>
-                    </article> */}
-
-                    <div class="aspect-w-16 aspect-h-9">
-                        <iframe
-                            title="hjk"
-                            src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                            frameBorder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                        ></iframe>
                     </div>
 
                     <button className="bg-gray-dark px-3 py-1 mb-5 rounded-sm transition duration-500 ease-in-out hover:bg-primary-red">
