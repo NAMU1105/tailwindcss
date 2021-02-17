@@ -1,10 +1,17 @@
+const plugin = require('tailwindcss/plugin');
+
 module.exports = {
     purge: [],
     darkMode: false, // or 'media' or 'class'
     theme: {
         extend: {
-            // 4D color 선언
+            fontFamily: {
+                playfair: ['Playfair Display'],
+                libre: ['Libre Baskerville'],
+            },
+
             colors: {
+                // 4D color 선언
                 primary: {
                     red: '#DD1D0F',
                     gray: '#2F4858',
@@ -19,20 +26,17 @@ module.exports = {
                     ivory: '#EDE6DF',
                     gray: '#EBEBEB',
                 },
+                // TODO: 자주 사용하는 컬러 선언 할 것(버튼 컬러, 뱃지 컬러 등 -네이버 라이브 커머스 등 참조)
             },
 
             screens: {
-                xxs: '375px',
+                xxs: '320px',
                 xs: '475px',
             },
 
             spacing: {
                 header: '5rem',
                 footer: '5rem',
-            },
-
-            fontFamily: {
-                playfair: ['Playfair Display'],
             },
 
             minHeight: {
@@ -43,5 +47,10 @@ module.exports = {
     variants: {
         extend: {},
     },
-    plugins: [],
+    plugins: [
+        require('@tailwindcss/typography'),
+        require('@tailwindcss/forms'),
+        require('@tailwindcss/line-clamp'),
+        require('@tailwindcss/aspect-ratio'),
+    ],
 };
