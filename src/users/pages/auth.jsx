@@ -22,6 +22,7 @@ const Auth = (props) => {
                         <span>test</span>
                         <span>test</span>
                     </div> */}
+
       {/* ! rotate, custom rotate */}
       {/* <div>
         <button className="rotate-45 text-red-500">default rotate</button>
@@ -32,6 +33,7 @@ const Auth = (props) => {
       <span className="text-white active:bg-red-300 hover:bg-green-200">
         variant test
       </span> */}
+
       {/* ! odd element */}
       {/* <div>
         <span className="rounded-full bg-blue-300 odd:bg-green-800">test</span>
@@ -48,10 +50,12 @@ const Auth = (props) => {
       {/* ! custom variants */}
       {/* <div>
         <span className="banana">banana</span>
-        <span className="hover:banana text-white">banana hover?</span>
-        <button className="active:banana text-white">banana active?</button>
-      fill
-      <button className="text-green-300 disabled:bg-gray-600">disabled</button>
+        <span className="hover:banana text-white">banana hover</span>
+        <button className="active:banana text-white">banana active</button>
+        fill
+        <button className="text-green-300 disabled:bg-gray-600">
+          disabled
+        </button>
       </div> */}
 
       {/* <div>
@@ -64,6 +68,7 @@ const Auth = (props) => {
       {/* <div>
         <span className="sr-only text-red-500">Settings</span>
       </div> */}
+
       {/* plugin component */}
       {/* <div>
         <button className="btn-pink">addcomponent test</button>
@@ -99,6 +104,15 @@ const Auth = (props) => {
       {/* ! Complex variants */}
       {/* <div>
         <span className="!text-red-500 md:!text-red-800">Complex variants</span>
+      </div> */}
+
+      {/* <div className="container">
+        <div>test</div>
+        <div>test</div>
+        <div>test</div>
+        <div>test</div>
+        <div>test</div>
+        <div>test</div>
       </div> */}
 
       {/* //////////////////////////////////////////////////////////* */}

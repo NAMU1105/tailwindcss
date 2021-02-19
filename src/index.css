@@ -19,7 +19,7 @@
 @tailwind utilities;
 
 /* .container {
-    @apply min-h-body uppercase flex flex-col justify-center items-center font-playfair;
+  @apply min-h-content uppercase flex flex-col justify-center items-center font-playfair text-white;
 } */
 
 @variants group-hover, hover, focus, active {

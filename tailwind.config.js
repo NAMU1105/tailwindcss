@@ -41,10 +41,11 @@ module.exports = {
       spacing: {
         header: '5rem',
         footer: '5rem',
+        content: 'calc(100vh - 10rem)',
       },
 
       minHeight: {
-        body: 'calc(100vh - 10rem)',
+        content: 'calc(100vh - 10rem)',
       },
       rotate: {
         '1/4': '90deg',
@@ -199,17 +200,6 @@ module.exports = {
     // }),
 
     // Adding variants
-    // 예)
-    /*
-
-    위에 작성한 코드가 이미 선언이 되어 있다면,
-    아래 코드를 추가해줌으로써 disabled:btn-blue를 html에 추가하여 
-    disabled:bg-red와 같은 효과를 낼 수 있다.
-    (variantes에 backgroundColor: [disabled']코드를 추가하고 
-    html에 disabled: bg-black이렇게 해도 된다.)
--> 아님,
-아래 코드로 바꿨을 때 이해가 더 될 거임
-    */
     plugin(function ({ addVariant, e }) {
       addVariant('disabled', ({ modifySelectors, separator }) => {
         modifySelectors(({ className }) => {

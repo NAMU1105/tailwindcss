@@ -7,26 +7,26 @@ import { AuthContext } from '../src/shared/context/auth-context';
 import { useAuth } from '../src/shared/hooks/auth-hooks';
 
 const App = () => {
-    const { userID, token, login, logout } = useAuth();
+  const { userID, token, login, logout } = useAuth();
 
-    return (
-        <AuthContext.Provider
-            value={{
-                userID: userID,
-                token: token,
-                login: login,
-                logout: logout,
-            }}
-        >
-            <div className="App bg-black">
-                <Header />
-                <main className="min-h-body">
-                    <Auth />
-                </main>
-                <Footer />
-            </div>
-        </AuthContext.Provider>
-    );
+  return (
+    <AuthContext.Provider
+      value={{
+        userID: userID,
+        token: token,
+        login: login,
+        logout: logout,
+      }}
+    >
+      <div className="App bg-black">
+        <Header />
+        <main>
+          <Auth />
+        </main>
+        <Footer />
+      </div>
+    </AuthContext.Provider>
+  );
 };
 
 export default App;

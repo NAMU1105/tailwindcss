@@ -3,7 +3,7 @@ import tw from 'twin.macro';
 
 export const Container = styled.section.attrs({
   className:
-    'min-h-body uppercase flex flex-col justify-center items-center font-libre',
+    'min-h-content uppercase flex flex-col justify-center items-center font-libre',
 })``;
 
 export const BackDrop = styled.div.attrs({
