@@ -11,6 +11,7 @@
  * registered by plugins.
  */
 @tailwind components;
+
 /**
  * This injects Tailwind's utility classes and any utility classes registered
  * by plugins.
@@ -28,4 +29,10 @@
 }
 /* .content-area {
   height: calc(100vh - theme('spacing.12'));
+} */
+.btn-blueTEST {
+  color: blue;
+}
+/* .btn-blueTEST:active {
+  color: red;
 } */

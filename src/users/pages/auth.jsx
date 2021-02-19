@@ -14,7 +14,7 @@ const Auth = (props) => {
   return (
     <Container>
       {/* //////////////////////////////////////////////////////////* */}
-      {/* custom component test, 삭제 예정 */}
+      {/* ! customization test, 삭제 예정 */}
       {/* <button className="btn-blue">test</button> */}
       {/* <div className="flexAllCentered w-full">
                         <span>test</span>
@@ -22,7 +22,7 @@ const Auth = (props) => {
                         <span>test</span>
                         <span>test</span>
                     </div> */}
-      {/* rotate, custom rotate */}
+      {/* ! rotate, custom rotate */}
       {/* <div>
         <button className="rotate-45 text-red-500">default rotate</button>
         <button className="text-white rotate-5/9 bg-green-800">
@@ -32,7 +32,7 @@ const Auth = (props) => {
       <span className="text-white active:bg-red-300 hover:bg-green-200">
         variant test
       </span> */}
-      {/* odd element */}
+      {/* ! odd element */}
       {/* <div>
         <span className="rounded-full bg-blue-300 odd:bg-green-800">test</span>
         <span className="rounded-circle bg-blue-300 odd:bg-green-800">
@@ -45,41 +45,43 @@ const Auth = (props) => {
         <span className="bg-blue-300 odd:bg-green-800">test</span>
         <span className="bg-blue-300 odd:bg-green-800">test</span>
       </div> */}
-      {/* custom variants */}
+      {/* ! custom variants */}
       {/* <div>
         <span className="banana">banana</span>
         <span className="hover:banana text-white">banana hover?</span>
         <button className="active:banana text-white">banana active?</button>
+      fill
+      <button className="text-green-300 disabled:bg-gray-600">disabled</button>
       </div> */}
-      {/* fill */}
+
       {/* <div>
         <svg className="text-red-300 fill-gray-900 hover:fill-secondary-magenta">
           <path d="M18 9.87V20H2V9.87a4.25 4.25 0 0 0 3-.38V14h10V9.5a4.26 4.26 0 0 0 3 .37zM3 0h4l-.67 6.03A3.43 3.43 0 0 1 3 9C1.34 9 .42 7.73.95 6.15L3 0zm5 0h4l.7 6.3c.17 1.5-.91 2.7-2.42 2.7h-.56A2.38 2.38 0 0 1 7.3 6.3L8 0zm5 0h4l2.05 6.15C19.58 7.73 18.65 9 17 9a3.42 3.42 0 0 1-3.33-2.97L13 0z"></path>
         </svg>
       </div> */}
 
-      {/* screen readers */}
+      {/* ! screen readers */}
       {/* <div>
         <span className="sr-only text-red-500">Settings</span>
       </div> */}
       {/* plugin component */}
-      <div>
+      {/* <div>
         <button className="btn-pink">addcomponent test</button>
-      </div>
+      </div> */}
 
-      <div className="simpleFlex-md">
-        {/* <div className="flexResponsive skew-10deg"> */}
+      {/* <div className="flexResponsive skew-10deg"> */}
+      {/* <div className="simpleFlex-md">
         <div>special</div>
         <div>special</div>
         <div>special</div>
         <div>special</div>
         <div>special</div>
         <div>special</div>
-      </div>
+      </div> */}
 
-      <TestResponsiveStyled>test</TestResponsiveStyled>
+      {/* <TestResponsiveStyled>test</TestResponsiveStyled> */}
 
-      {/* animation */}
+      {/* ! animation */}
       {/* <div>
         <span className="flex h-3 w-3">
           <span className="animate-wiggle  md:animate-none absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
@@ -87,7 +89,17 @@ const Auth = (props) => {
         </span>
       </div> */}
 
-      <button className="text-green-300">disabled</button>
+      {/* ! Adding variants  */}
+      {/* <div>
+        <button className="btn-blueTEST wow:text-white" disabled>
+          disabled
+        </button>
+      </div> */}
+
+      {/* ! Complex variants */}
+      {/* <div>
+        <span className="!text-red-500 md:!text-red-800">Complex variants</span>
+      </div> */}
 
       {/* //////////////////////////////////////////////////////////* */}
       <div className="bg-gray-500 p-10 w-5/12">

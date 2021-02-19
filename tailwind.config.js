@@ -3,6 +3,8 @@ const plugin = require('tailwindcss/plugin');
 const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
+  // separator: '___',
+
   purge: [],
   darkMode: false, // or 'media' or 'class'
   theme: {
@@ -69,12 +71,10 @@ module.exports = {
   },
   variants: {
     extend: {
-      backgroundColor: ['active'],
-      backgroundColor: ['disabled'],
-      backgroundColor: ['checked'],
+      backgroundColor: ['active', 'checked', 'odd', 'disabled'],
       borderColor: ['checked'],
-      backgroundColor: ['odd'],
       fill: ['hover', 'focus'],
+      textColor: ['disabled', 'important'],
       //   rotateUtilities: ['hover'],
     },
   },
@@ -146,6 +146,7 @@ module.exports = {
       addComponents(hamburgerMenu);
     }),
 
+    // use addUtilities
     plugin(function ({ addUtilities, theme, e }) {
       const rotateUtilities = _.map(theme('rotate'), (value, key) => {
         return {
@@ -156,6 +157,19 @@ module.exports = {
       });
 
       addUtilities(rotateUtilities);
+    }),
+
+    plugin(function ({ addUtilities }) {
+      const newUtilities = {
+        '.skew-10deg': {
+          backgroundColor: 'red',
+        },
+        '.skew-15deg': {
+          transform: 'skewY(-15deg)',
+        },
+      };
+
+      addUtilities(newUtilities, ['hover']);
     }),
 
     // 간단 반응형 flex, 사용자에게서 받은 브레이크 포인트에서 flex-direction이 column으로 변경된다.
@@ -184,25 +198,45 @@ module.exports = {
     //   addUtilities(customGridUtilities);
     // }),
 
+    // Adding variants
+    // 예)
+    /*
+
+    위에 작성한 코드가 이미 선언이 되어 있다면,
+    아래 코드를 추가해줌으로써 disabled:btn-blue를 html에 추가하여 
+    disabled:bg-red와 같은 효과를 낼 수 있다.
+    (variantes에 backgroundColor: [disabled']코드를 추가하고 
+    html에 disabled: bg-black이렇게 해도 된다.)
+-> 아님,
+아래 코드로 바꿨을 때 이해가 더 될 거임
+    */
     plugin(function ({ addVariant, e }) {
       addVariant('disabled', ({ modifySelectors, separator }) => {
         modifySelectors(({ className }) => {
-          return `.${e(`disabled${separator}${className}`)}:disabled`;
+          return `.${e(`wow${separator}${className}`)}:disabled`;
         });
       });
     }),
 
-    plugin(function ({ addUtilities }) {
-      const newUtilities = {
-        '.skew-10deg': {
-          backgroundColor: 'red',
-        },
-        '.skew-15deg': {
-          transform: 'skewY(-15deg)',
-        },
-      };
+    // use modifySelectors
+    plugin(function ({ addVariant, e }) {
+      addVariant('first-child', ({ modifySelectors, separator }) => {
+        modifySelectors(({ className }) => {
+          return `.${e(`first-child${separator}${className}`)}:first-child`;
+        });
+      });
+    }),
 
-      addUtilities(newUtilities, ['hover']);
+    // Complex variants
+    plugin(function ({ addVariant }) {
+      addVariant('important', ({ container }) => {
+        container.walkRules((rule) => {
+          rule.selector = `.\\!${rule.selector.slice(1)}`;
+          rule.walkDecls((decl) => {
+            decl.important = true;
+          });
+        });
+      });
     }),
   ],
 };
