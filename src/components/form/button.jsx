@@ -48,7 +48,7 @@ const ButtonWapper = styled.button.attrs({
   ${(props) =>
     props.notFullWidth &&
     css`
-      ${tw`w-auto`}
+      ${tw`w-auto  whitespace-nowrap`}
     `};
 
   // 왼쪽 정렬된 버튼을 원할 때
@@ -56,6 +56,13 @@ const ButtonWapper = styled.button.attrs({
     props.alignLeft &&
     css`
       ${tw`justify-start pl-0 mx-0`}
+    `};
+
+  // disbled된 버튼을 원할 때
+  ${(props) =>
+    props.disabled &&
+    css`
+      ${tw`bg-disabled cursor-default hover:bg-disabled`}
     `};
 `;
 
@@ -77,6 +84,7 @@ const Button = (props) => {
     notFullWidth,
     alignLeft,
     color,
+    style,
   } = props;
 
   //   앵커 태그로 만든 버튼일 때
@@ -93,6 +101,7 @@ const Button = (props) => {
         notFullWidth={notFullWidth}
         alignLeft={alignLeft}
         color={color}
+        style={style}
       >
         {children}
       </ButtonWapper>
@@ -115,6 +124,7 @@ const Button = (props) => {
         notFullWidth={notFullWidth}
         alignLeft={alignLeft}
         color={color}
+        style={style}
       >
         {children}
       </ButtonWapper>
@@ -122,9 +132,9 @@ const Button = (props) => {
   }
   return (
     <ButtonWapper
+      disabled={disabled}
       onClick={onClick}
       type={type}
-      disabled={disabled}
       // href={href}
       size={size}
       inverse={inverse}
@@ -134,6 +144,7 @@ const Button = (props) => {
       notFullWidth={notFullWidth}
       alignLeft={alignLeft}
       color={color}
+      style={style}
     >
       {children}
     </ButtonWapper>

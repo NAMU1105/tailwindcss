@@ -21,6 +21,7 @@ module.exports = {
         },
         header: "rgba(255, 255, 255, 0.9)",
         // TODO: 자주 사용하는 컬러 선언 할 것(버튼 컬러, 뱃지 컬러 등 -네이버 라이브 커머스 등 참조)
+        disabled: "#736f6f4d",
       },
 
       screens: {

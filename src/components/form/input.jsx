@@ -1,87 +1,52 @@
-// import React, { useReducer, useEffect } from "react";
+import React, { Children } from "react";
+import { formik, useField } from "formik";
 
-// import { validate } from "../../util/validators";
+// input
+export const Input = ({ label, ...props }) => {
+  const [field, meta] = useField(props);
 
-// import styles from "./input.module.css";
+  return (
+    <>
+      <label htmlFor={props.id || props.name}>{label}</label>
+      <input className="text-input" {...field} {...props} />
+      {meta.touched && meta.error ? (
+        <div className="error">{meta.error}</div>
+      ) : null}
+    </>
+  );
+};
 
-// const inputReducer = (state, action) => {
-//   switch (action.type) {
-//     case "CHANGE":
-//       return {
-//         ...state,
-//         value: action.val,
-//         isValid: validate(action.val, action.validators),
-//       };
+// TODO: 글씨 영역 클릭해도 체크되는 코드 가져와서 붙이기
+// checkbox
+export const Checkbox = ({ label, ...props }) => {
+  const [field, meta] = useField(props, "checkbox");
 
-//     //   처음 페이지가 로드 됐을 때부터 에러 메시지가 뜨는 것이 아니라,
-//     //   한 번 터치 된 후에 발리데이션을 진행하기 위해 touch 액션을 추가함
-//     case "TOUCH":
-//       return {
-//         ...state,
-//         isTouched: true,
-//       };
-//     default:
-//       return state;
-//   }
-// };
+  return (
+    <>
+      <label className="checkbox">
+        <input type="checkbox" {...field} {...props} />
+        {children}
+      </label>
+      {meta.touched && meta.error ? (
+        <div className="error">{meta.error}</div>
+      ) : null}
+    </>
+  );
+};
 
-// const Input = (props) => {
-//   const [inputState, dispatch] = useReducer(inputReducer, {
-//     value: props.initialValue || "",
-//     isTouched: false,
-//     isValid: props.initialValid || false,
-//   });
+// select
+export const Select = ({ label, ...props }) => {
+  const [field, meta] = useField(props, "checkbox");
 
-//   const changeHandler = (event) => {
-//     dispatch({
-//       type: "CHANGE",
-//       val: event.target.value,
-//       validators: props.validators,
-//     });
-//   };
+  return (
+    <>
+      <label htmlFor={props.id || props.name}>{label}</label>
+      <select {...field} {...props} />
+      {meta.touched && meta.error ? (
+        <div className="error">{meta.error}</div>
+      ) : null}
+    </>
+  );
+};
 
-//   const touchHandler = () => {
-//     dispatch({
-//       type: "TOUCH",
-//     });
-//   };
-
-//   // id, value, isValid값을 newPlace에 전달
-//   useEffect(() => {
-//     props.onInput(props.id, inputState.value, inputState.isValid);
-//   }, [props.onInput, inputState.value, inputState.isValid]);
-
-//   const element =
-//     props.element === "input" ? (
-//       <input
-//         id={props.id}
-//         type={props.type}
-//         placeholder={props.placeholder}
-//         onChange={changeHandler}
-//         onBlur={touchHandler}
-//         value={inputState.value}
-//         autoComplete={props.offAutoComplete || "on"}
-//       />
-//     ) : (
-//       <textarea
-//         id={props.id}
-//         rows={props.rows || 3}
-//         onChange={changeHandler}
-//         onBlur={touchHandler}
-//         value={inputState.value}
-//       />
-//     );
-
-//   return (
-//     <div
-//       className={`${styles.form} ${
-//         !inputState.isValid && inputState.isTouched && styles.formInvalid
-//       }`}
-//     >
-//       <label htmlFor={props.id}>{props.label}</label>
-//       {element}
-//       {!inputState.isValid && inputState.isTouched && <p>{props.errorText}</p>}
-//     </div>
-//   );
-// };
 // export default Input;

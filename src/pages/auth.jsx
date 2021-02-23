@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+// import { Link } from "react-router-dom";
+
+import { Formik } from "formik";
+
 import Logo from "../components/UI/logo";
 import Button from "../components/form/button";
 
 import Sprite from "../assets/images/sprite.svg";
-import { Link } from "react-router-dom";
 
 const Auth = (props) => {
   const [isLoginMode, setLoginMode] = useState(true);
@@ -22,143 +25,189 @@ const Auth = (props) => {
             {isLoginMode ? "Welcome Back!" : "Create a new account"}
           </h2>
         </div>
-        <form className="mt-8 space-y-6" action="#" method="POST">
-          <input type="hidden" name="remember" value="true" />
-          <div className="rounded-md shadow-sm -space-y-px">
-            {/* 회원가입 */}
-            {!isLoginMode && (
-              <div className="flex">
-                <label htmlFor="first-name" className="sr-only">
-                  First name
-                </label>
-                <input
-                  id="first-name"
-                  name="firstName"
-                  type="text"
-                  autoComplete="on"
-                  required
-                  className="w-6/12	 appearance-none rounded-none relative block  px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-tl-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                  placeholder="First name"
-                />
-                <label htmlFor="last-name" className="sr-only">
-                  Last name
-                </label>
-                <input
-                  id="last-name"
-                  name="lastName"
-                  type="text"
-                  autoComplete="on"
-                  required
-                  className="w-6/12	 appearance-none rounded-none relative block  px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-tr-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                  placeholder="Last name"
-                />
-              </div>
-            )}
-            <div>
-              <label htmlFor="email-address" className="sr-only">
-                Email address
-              </label>
-              <input
-                id="email-address"
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-                className={
-                  isLoginMode
-                    ? `  rounded-t-md appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm`
-                    : `appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm`
-                }
-                placeholder="Email address"
-              />
-            </div>
-            <div>
-              <label htmlFor="password" className="sr-only">
-                Password
-              </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Password"
-              />
-            </div>
-          </div>
-
-          <div className="flex items-center justify-between">
-            {isLoginMode ? (
-              <>
-                <div className="flex items-center">
-                  <input
-                    id="remember_me"
-                    name="remember_me"
-                    type="checkbox"
-                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                  />
-                  <label
-                    htmlFor="remember_me"
-                    className="ml-2 block text-sm text-gray-900"
-                  >
-                    Remember me
+        <Formik
+          initialValues={{ email: "", password: "" }}
+          validate={(values) => {
+            const errors = {};
+            if (!values.email) {
+              errors.email = "Required";
+            } else if (
+              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+            ) {
+              errors.email = "Invalid email address";
+            }
+            return errors;
+          }}
+          onSubmit={(values, { setSubmitting }) => {
+            setTimeout(() => {
+              alert(JSON.stringify(values, null, 2));
+              setSubmitting(false);
+            }, 400);
+          }}
+        >
+          {({
+            values,
+            errors,
+            touched,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            isSubmitting,
+            /* and other goodies */
+          }) => (
+            <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+              <input type="hidden" name="remember" value="true" />
+              <div className="rounded-md shadow-sm -space-y-px">
+                {/* 회원가입 */}
+                {!isLoginMode && (
+                  <div className="flex">
+                    <label htmlFor="first-name" className="sr-only">
+                      First name
+                    </label>
+                    <input
+                      id="first-name"
+                      name="firstName"
+                      type="text"
+                      autoComplete="on"
+                      required
+                      className="w-6/12	 appearance-none rounded-none relative block  px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-tl-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                      placeholder="First name"
+                    />
+                    <label htmlFor="last-name" className="sr-only">
+                      Last name
+                    </label>
+                    <input
+                      id="last-name"
+                      name="lastName"
+                      type="text"
+                      autoComplete="on"
+                      required
+                      className="w-6/12	 appearance-none rounded-none relative block  px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-tr-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                      placeholder="Last name"
+                    />
+                  </div>
+                )}
+                {/* email input */}
+                <div>
+                  <label htmlFor="email-address" className="sr-only">
+                    Email address
                   </label>
-                </div>
-                <div className="text-sm">
-                  <Button href="/password" planeText>
-                    Forgot your password?
-                  </Button>
-                </div>
-              </>
-            ) : (
-              <div className="flex items-center">
-                <input
-                  id="agree_term"
-                  name="agree_term"
-                  type="checkbox"
-                  className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                />
-                <label
-                  htmlFor="agree_term"
-                  className="ml-2 block text-sm text-gray-900"
-                >
-                  I have read and agree to the{" "}
-                  <a href="/" className="text-indigo-600">
-                    Terms of Use
-                  </a>{" "}
-                  and
-                  <a href="/" className="text-indigo-600">
-                    {" "}
-                    Customer Privacy Policy.
-                  </a>
-                </label>
-              </div>
-            )}
-          </div>
-
-          <div>
-            <Button type="submit">
-              <span className="absolute left-0 inset-y-0 flex items-center pl-3">
-                <svg
-                  className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
-                    clipRule="evenodd"
+                  <input
+                    id="email-address"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    required
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.email}
+                    className={
+                      isLoginMode
+                        ? `  rounded-t-md appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm`
+                        : `appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm`
+                    }
+                    placeholder="Email address"
                   />
-                </svg>
-              </span>
-              {isLoginMode ? "Sign in" : "Sign up"}
-            </Button>
-          </div>
-        </form>
+                </div>
+                {/* 에러 메시지 출력 */}
+                {errors.email && touched.email && errors.email}
 
+                {/* password input */}
+                <div>
+                  <label htmlFor="password" className="sr-only">
+                    Password
+                  </label>
+                  <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    autoComplete="current-password"
+                    required
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.password}
+                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                    placeholder="Password"
+                  />
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between">
+                {isLoginMode ? (
+                  <>
+                    <div className="flex items-center">
+                      <input
+                        id="remember_me"
+                        name="remember_me"
+                        type="checkbox"
+                        className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                      />
+                      <label
+                        htmlFor="remember_me"
+                        className="ml-2 block text-sm text-gray-900"
+                      >
+                        Remember me
+                      </label>
+                    </div>
+                    <div className="text-sm">
+                      <Button href="/password" planeText>
+                        Forgot your password?
+                      </Button>
+                    </div>
+                  </>
+                ) : (
+                  <div className="flex items-center">
+                    <input
+                      id="agree_term"
+                      name="agree_term"
+                      type="checkbox"
+                      className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                    />
+                    <label
+                      htmlFor="agree_term"
+                      className="ml-2 block text-sm text-gray-900"
+                    >
+                      I have read and agree to the{" "}
+                      <a href="/" className="text-indigo-600">
+                        Terms of Use
+                      </a>{" "}
+                      and
+                      <a href="/" className="text-indigo-600">
+                        {" "}
+                        Customer Privacy Policy.
+                      </a>
+                    </label>
+                  </div>
+                )}
+              </div>
+
+              <div>
+                {/* 에러 메시지 출력 */}
+                {errors.password && touched.password && errors.password}
+
+                {/* submit button */}
+                <Button type="submit" disabled={isSubmitting}>
+                  <span className="absolute left-0 inset-y-0 flex items-center pl-3">
+                    <svg
+                      className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  {isLoginMode ? "Sign in" : "Sign up"}
+                </Button>
+              </div>
+            </form>
+          )}
+        </Formik>
         {/* sns login/signup */}
         <div>
           <h3 className="text-center">
