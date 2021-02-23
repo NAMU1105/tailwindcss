@@ -6,7 +6,7 @@ import {
   Switch,
 } from "react-router-dom";
 
-import Header from "./container/mainHeader";
+import Header from "./container/header";
 import Footer from "./container/footer";
 import Auth from "./pages/auth";
 import Users from "./pages/users";

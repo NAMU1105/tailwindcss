@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 
-import HeaderMenu from "./mainHeaderMenu";
+import HeaderMenu from "./headerMenu";
 
-const NavNavLinks = (props) => {
+const NavLinks = (props) => {
   const { linkType, title, to, withMenu } = props;
   const [isHidden, setisHidden] = useState(true);
 
@@ -71,4 +71,4 @@ const NavNavLinks = (props) => {
   return <>{elem}</>;
 };
 
-export default NavNavLinks;
+export default NavLinks;

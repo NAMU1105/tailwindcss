@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
-let logoutTimer;
+let logoutTimer; // int
 
 export const useAuth = () => {
   //   const [isLoggedIn, setIsLoggedIn] = useState(false);
