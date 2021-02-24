@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 // import { Link } from "react-router-dom";
-
-import { Formik } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
 import Logo from "../components/UI/logo";
 import Button from "../components/form/button";
@@ -26,15 +26,29 @@ const Auth = (props) => {
           </h2>
         </div>
         <Formik
-          initialValues={{ email: "", password: "" }}
+          initialValues={{
+            strEmail: "",
+            strPassword: "",
+            strFirstName: "",
+            strLastName: "",
+          }}
           validate={(values) => {
             const errors = {};
-            if (!values.email) {
-              errors.email = "Required";
+            if (!values.strEmail) {
+              errors.strEmail = "Required";
             } else if (
-              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.strEmail)
             ) {
-              errors.email = "Invalid email address";
+              errors.strEmail = "Invalid email address";
+            }
+            if (!values.strPassword) {
+              errors.strPassword = "Required";
+            }
+            if (!isLoginMode && !values.strFirstName) {
+              errors.strFirstName = "Required";
+            }
+            if (!isLoginMode && !values.strLastName) {
+              errors.strLastName = "Required";
             }
             return errors;
           }}
@@ -55,83 +69,101 @@ const Auth = (props) => {
             isSubmitting,
             /* and other goodies */
           }) => (
-            <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+            <Form className="mt-8 space-y-6" onSubmit={handleSubmit}>
               <input type="hidden" name="remember" value="true" />
               <div className="rounded-md shadow-sm -space-y-px">
                 {/* 회원가입 */}
                 {!isLoginMode && (
                   <div className="flex">
+                    {/* 이름 */}
                     <label htmlFor="first-name" className="sr-only">
                       First name
                     </label>
                     <input
                       id="first-name"
-                      name="firstName"
+                      name="strFirstName"
                       type="text"
                       autoComplete="on"
                       required
                       className="w-6/12	 appearance-none rounded-none relative block  px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-tl-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                       placeholder="First name"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.strFirstName}
                     />
+                    {/* 에러 메시지 출력 */}
+                    {errors.strFirstName &&
+                      touched.strFirstName &&
+                      errors.strFirstName}
+                    {/* 성 */}
                     <label htmlFor="last-name" className="sr-only">
                       Last name
                     </label>
                     <input
                       id="last-name"
-                      name="lastName"
+                      name="strLastName"
                       type="text"
                       autoComplete="on"
                       required
                       className="w-6/12	 appearance-none rounded-none relative block  px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-tr-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                       placeholder="Last name"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.strLastName}
                     />
+                    {/* 에러 메시지 출력 */}
+                    {errors.strLastName &&
+                      touched.strLastName &&
+                      errors.strLastName}
                   </div>
                 )}
-                {/* email input */}
+                {/* 이메일 */}
                 <div>
                   <label htmlFor="email-address" className="sr-only">
                     Email address
                   </label>
                   <input
                     id="email-address"
-                    name="email"
+                    name="strEmail"
                     type="email"
                     autoComplete="email"
                     required
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    value={values.email}
+                    value={values.strEmail}
                     className={
                       isLoginMode
-                        ? `  rounded-t-md appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm`
+                        ? `rounded-t-md appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm`
                         : `appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm`
                     }
                     placeholder="Email address"
                   />
                 </div>
                 {/* 에러 메시지 출력 */}
-                {errors.email && touched.email && errors.email}
+                {/* {errors.strEmail && touched.strEmail && errors.strEmail} */}
+                <ErrorMessage name="strEmail" />
 
-                {/* password input */}
+                {/* 비밀번호 */}
                 <div>
                   <label htmlFor="password" className="sr-only">
                     Password
                   </label>
                   <input
                     id="password"
-                    name="password"
+                    name="strPassword"
                     type="password"
                     autoComplete="current-password"
                     required
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    value={values.password}
+                    value={values.strPassword}
                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                     placeholder="Password"
                   />
                 </div>
               </div>
-
+              {/* 에러 메시지 출력 */}
+              {errors.strPassword && touched.strPassword && errors.strPassword}
               <div className="flex items-center justify-between">
                 {isLoginMode ? (
                   <>
@@ -182,9 +214,6 @@ const Auth = (props) => {
               </div>
 
               <div>
-                {/* 에러 메시지 출력 */}
-                {errors.password && touched.password && errors.password}
-
                 {/* submit button */}
                 <Button type="submit" disabled={isSubmitting}>
                   <span className="absolute left-0 inset-y-0 flex items-center pl-3">
@@ -205,7 +234,7 @@ const Auth = (props) => {
                   {isLoginMode ? "Sign in" : "Sign up"}
                 </Button>
               </div>
-            </form>
+            </Form>
           )}
         </Formik>
         {/* sns login/signup */}

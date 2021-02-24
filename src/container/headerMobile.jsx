@@ -1,14 +1,13 @@
 import React from "react";
 
-import styled, { css } from "styled-components";
-import tw from "twin.macro";
+// import styled, { css } from "styled-components";
+// import tw from "twin.macro";
 
 import Button from "../components/form/button";
 import HeaderMenuItem from "../components/navigation/headerMenuItem";
 import Logo from "../components/UI/logo";
 
-{
-  /* <!--
+/* <!--
         Mobile menu, show/hide based on mobile menu state.
     
         Entering: "duration-200 ease-out"
@@ -18,12 +17,13 @@ import Logo from "../components/UI/logo";
           From: "opacity-100 scale-100"
           To: "opacity-0 scale-95"
       --> */
-}
 
 const MainHeaderMobile = (props) => {
   const { show, onToggle } = props;
 
   return (
+    // className={`md:hidden absolute top-0 inset-x-0 p-2 transition transform origin-top-right ${show}`}
+    // TODO: 화면이 커지면 자동으로 꺼져야 한다.
     <div
       className={`absolute top-0 inset-x-0 p-2 transition transform origin-top-right ${show}`}
       id="dropdown-mobile"

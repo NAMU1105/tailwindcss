@@ -35,7 +35,7 @@ const ButtonWapper = styled.button.attrs({
   ${(props) =>
     props.planeText &&
     css`
-      ${tw`bg-transparent shadow-none  mx-auto h-12 w-full text-indigo-600  focus:outline-none focus:border-transparent focus:ring-transparent hover:text-indigo-800 hover:bg-transparent`}
+      ${tw`bg-transparent shadow-none  mx-auto h-auto w-full text-indigo-600  focus:outline-none focus:border-transparent focus:ring-transparent hover:text-indigo-800 hover:bg-transparent`}
     `};
 
   // 모바일 화면 등에서 나오는 햄버거 버튼
