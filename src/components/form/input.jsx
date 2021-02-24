@@ -1,5 +1,10 @@
-import React, { Children } from "react";
-import { formik, useField } from "formik";
+import React from "react";
+import { useField } from "formik";
+import styled from "styled-components";
+
+const ErrorMessage = styled.span.attrs({
+  className: "text-right	text-red-500 text-xxs font-bold mb-2 px-1.2 block",
+})``;
 
 // input
 export const Input = ({ label, ...props }) => {
@@ -7,28 +12,32 @@ export const Input = ({ label, ...props }) => {
 
   return (
     <>
-      <label htmlFor={props.id || props.name}>{label}</label>
-      <input className="text-input" {...field} {...props} />
+      <label htmlFor={props.id || props.name} className="sr-only">
+        {label}
+      </label>
+      <input className={props.customstyle} {...field} {...props} />
       {meta.touched && meta.error ? (
-        <div className="error">{meta.error}</div>
+        <ErrorMessage className="error">{meta.error}</ErrorMessage>
       ) : null}
     </>
   );
 };
 
-// TODO: 글씨 영역 클릭해도 체크되는 코드 가져와서 붙이기
 // checkbox
-export const Checkbox = ({ label, ...props }) => {
+export const Checkbox = ({ children, ...props }) => {
   const [field, meta] = useField(props, "checkbox");
 
   return (
     <>
-      <label className="checkbox">
-        <input type="checkbox" {...field} {...props} />
-        {children}
-      </label>
+      <input
+        className={props.customstyle}
+        type="checkbox"
+        {...field}
+        {...props}
+      />
+      {children}
       {meta.touched && meta.error ? (
-        <div className="error">{meta.error}</div>
+        <ErrorMessage className="error">{meta.error}</ErrorMessage>
       ) : null}
     </>
   );
@@ -43,7 +52,7 @@ export const Select = ({ label, ...props }) => {
       <label htmlFor={props.id || props.name}>{label}</label>
       <select {...field} {...props} />
       {meta.touched && meta.error ? (
-        <div className="error">{meta.error}</div>
+        <ErrorMessage className="error">{meta.error}</ErrorMessage>
       ) : null}
     </>
   );

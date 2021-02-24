@@ -68,5 +68,7 @@ export const SignupSchema = Yup.object().shape({
     .min(2, "Too Short!")
     .max(50, "Too Long!")
     .required("Required"),
-  isAgreed: Yup.boolean().required("Required"),
+  isAgreed: Yup.boolean()
+    .required("Required")
+    .oneOf([true], "You must accept the terms and conditions"),
 });

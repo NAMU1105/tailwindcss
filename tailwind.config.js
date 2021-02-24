@@ -31,6 +31,7 @@ module.exports = {
 
       spacing: {
         0.25: "0.1rem",
+        1.2: "0.3rem",
         header: "6rem",
         footer: "6rem",
         content: "calc(100vh - 12rem)",
@@ -38,6 +39,10 @@ module.exports = {
 
       minHeight: {
         content: "calc(100vh - 12rem)",
+      },
+
+      fontSize: {
+        xxs: ["0.3rem", { lineHeight: "1rem" }],
       },
     },
   },

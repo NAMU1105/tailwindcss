@@ -1,16 +1,35 @@
 import React, { useState } from "react";
 // import { Link } from "react-router-dom";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, ErrorMessage, useFormikContext } from "formik";
 
 import Logo from "../components/UI/logo";
 import Button from "../components/form/button";
+import { Input, Checkbox } from "../components/form/input";
 
 import Sprite from "../assets/images/sprite.svg";
 import { SignupSchema, LoginSchema } from "../utils/validator";
 
+const enumInputStyles = {
+  loginEmail:
+    "rounded-t-md appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm",
+  signupEmail:
+    "appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm",
+  password:
+    "appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm",
+  firstName:
+    "w-full	 appearance-none rounded-none relative block  px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-tl-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm",
+  lastName:
+    "w-full	 appearance-none rounded-none relative block  px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-tr-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm",
+  checkbox:
+    "h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded",
+};
+
 const Auth = (props) => {
   const [isLoginMode, setLoginMode] = useState(true);
-
+  const formik = useFormikContext();
+  if (!formik) {
+    throw "Error loading form";
+  }
   const changeModeHandler = () => {
     setLoginMode((prevState) => !prevState);
   };
@@ -35,134 +54,83 @@ const Auth = (props) => {
             isAgreed: false,
           }}
           validationSchema={isLoginMode ? LoginSchema : SignupSchema}
-          onSubmit={(values, { setSubmitting }) => {
+          onSubmit={(values, errors, touched, { setSubmitting }) => {
             setTimeout(() => {
               alert(JSON.stringify(values, null, 2));
               setSubmitting(false);
             }, 400);
           }}
         >
-          {({
-            values,
-            errors,
-            touched,
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            isSubmitting,
-            /* and other goodies */
-          }) => (
+          {({ handleSubmit, isSubmitting }) => (
             <Form className="mt-8 space-y-6" onSubmit={handleSubmit}>
               <input type="hidden" name="remember" value="true" />
-              <div className="rounded-md shadow-sm -space-y-px">
+              <div className="rounded-md -space-y-px">
                 {/* 회원가입 */}
                 {!isLoginMode && (
-                  <div className="flex">
-                    {/* 이름 */}
-                    <label htmlFor="first-name" className="sr-only">
-                      First name
-                    </label>
-                    <input
-                      id="first-name"
-                      name="strFirstName"
-                      type="text"
-                      autoComplete="on"
-                      required
-                      className="w-6/12	 appearance-none rounded-none relative block  px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-tl-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                      placeholder="First name"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.strFirstName || ""}
-                    />
-                    {/* 에러 메시지 출력 */}
-                    {errors.strFirstName &&
-                      touched.strFirstName &&
-                      errors.strFirstName}
+                  <div className="flex w-full">
+                    <div className="flex flex-col w-full">
+                      {/* 이름 */}
+                      <Input
+                        label="firstName"
+                        name="strFirstName"
+                        type="text"
+                        placeholder="First name"
+                        customstyle={enumInputStyles["firstName"]}
+                      />
+                    </div>
+
                     {/* 성 */}
-                    <label htmlFor="last-name" className="sr-only">
-                      Last name
-                    </label>
-                    <input
-                      id="last-name"
-                      name="strLastName"
-                      type="text"
-                      autoComplete="on"
-                      required
-                      className="w-6/12	 appearance-none rounded-none relative block  px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-tr-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                      placeholder="Last name"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.strLastName || ""}
-                    />
-                    {/* 에러 메시지 출력 */}
-                    {errors.strLastName &&
-                      touched.strLastName &&
-                      errors.strLastName}
+                    <div className="flex flex-col w-full">
+                      <Input
+                        label="lastName"
+                        name="strLastName"
+                        type="text"
+                        placeholder="Last name"
+                        customstyle={enumInputStyles["lastName"]}
+                      />
+                    </div>
                   </div>
                 )}
                 {/* 이메일 */}
                 <div>
-                  <label htmlFor="email-address" className="sr-only">
-                    Email address
-                  </label>
-                  <input
-                    id="email-address"
+                  <Input
+                    label="Email"
                     name="strEmail"
                     type="email"
-                    autoComplete="email"
-                    required
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.strEmail}
-                    className={
-                      isLoginMode
-                        ? `rounded-t-md appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm`
-                        : `appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm`
-                    }
                     placeholder="Email address"
+                    customstyle={
+                      isLoginMode
+                        ? enumInputStyles["loginEmail"]
+                        : enumInputStyles["signupEmail"]
+                    }
                   />
                 </div>
-                {/* 에러 메시지 출력 */}
-                {/* {errors.strEmail && touched.strEmail && errors.strEmail} */}
-                <ErrorMessage name="strEmail" />
 
                 {/* 비밀번호 */}
-                <div>
-                  <label htmlFor="password" className="sr-only">
-                    Password
-                  </label>
-                  <input
-                    id="password"
-                    name="strPassword"
-                    type="password"
-                    autoComplete="current-password"
-                    required
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.strPassword}
-                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                    placeholder="Password"
-                  />
-                </div>
+                {/* <div> */}
+                <Input
+                  label="Password"
+                  name="strPassword"
+                  type="password"
+                  placeholder="Password"
+                  customstyle={enumInputStyles["password"]}
+                />
+                {/* </div> */}
               </div>
-              {/* 에러 메시지 출력 */}
-              {errors.strPassword && touched.strPassword && errors.strPassword}
+
+              {/* 자동로그인 체크박스, 비밀번호 재발급 link */}
               <div className="flex items-center justify-between">
                 {isLoginMode ? (
                   <>
                     <div className="flex items-center">
-                      <input
-                        id="remember_me"
-                        name="remember_me"
-                        type="checkbox"
-                        className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                      />
-                      <label
-                        htmlFor="remember_me"
-                        className="ml-2 block text-sm text-gray-900"
-                      >
-                        Remember me
-                      </label>
+                      <Checkbox id="remember_me" name="remember_me">
+                        <label
+                          htmlFor="remember_me"
+                          className="ml-2 block text-sm text-gray-900"
+                        >
+                          Remember me
+                        </label>
+                      </Checkbox>
                     </div>
                     <div className="text-sm">
                       <Button href="/password" planeText>
@@ -172,37 +140,35 @@ const Auth = (props) => {
                   </>
                 ) : (
                   // 약관 동의
+
                   <div className="flex items-center">
-                    <input
-                      id="agree_term"
-                      name="agreeTerm"
-                      type="checkbox"
-                      value={values.isAgreed}
-                      onChange={handleChange}
-                      required
-                      className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                    />
-                    <label
-                      htmlFor="agree_term"
-                      className="ml-2 block text-sm text-gray-900"
+                    <Checkbox
+                      id="agreeTerm"
+                      name="isAgreed"
+                      customstyle={enumInputStyles["checkbox"]}
                     >
-                      I have read and agree to the{" "}
-                      <a href="/" className="text-indigo-600">
-                        Terms of Use
-                      </a>{" "}
-                      and
-                      <a href="/" className="text-indigo-600">
-                        {" "}
-                        Customer Privacy Policy.
-                      </a>
-                    </label>
+                      <label
+                        htmlFor="agreeTerm"
+                        className="ml-2 block text-sm text-gray-900"
+                      >
+                        I have read and agree to the{" "}
+                        <a href="/" className="text-indigo-600">
+                          Terms of Use
+                        </a>{" "}
+                        and
+                        <a href="/" className="text-indigo-600">
+                          {" "}
+                          Customer Privacy Policy.
+                        </a>
+                      </label>
+                    </Checkbox>
                   </div>
                 )}
                 <ErrorMessage name="agreeTerm" />
               </div>
 
               <div>
-                {/* submit button */}
+                {/* 제출 버튼 */}
                 <Button type="submit" disabled={isSubmitting}>
                   <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                     <svg
@@ -219,13 +185,17 @@ const Auth = (props) => {
                       />
                     </svg>
                   </span>
-                  {isLoginMode ? "Sign in" : "Sign up"}
+                  {isSubmitting
+                    ? "Submitting..."
+                    : isLoginMode
+                    ? "Sign in"
+                    : "Sign up"}
                 </Button>
               </div>
             </Form>
           )}
         </Formik>
-        {/* sns login/signup */}
+        {/* SNS 로그인/회원가입 */}
         <div>
           <h3 className="text-center">
             or {isLoginMode ? "sign in" : "sign up"} with
@@ -249,7 +219,7 @@ const Auth = (props) => {
           </ul>
         </div>
 
-        {/* change login mode */}
+        {/* 로그인/회원가입 상태 변경 */}
         <Button onClick={changeModeHandler} planeText>
           {isLoginMode ? `Create a new account` : `I already have an account!`}
         </Button>
