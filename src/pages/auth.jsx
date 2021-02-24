@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 // import { Link } from "react-router-dom";
-import { Formik, Form, ErrorMessage, useFormikContext } from "formik";
+import { Formik, Form, ErrorMessage } from "formik";
 
 import Logo from "../components/UI/logo";
 import Button from "../components/form/button";
@@ -11,25 +11,22 @@ import { SignupSchema, LoginSchema } from "../utils/validator";
 
 const enumInputStyles = {
   loginEmail:
-    "rounded-t-md appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm",
+    "sm:text-sm rounded-t-md appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 ",
   signupEmail:
-    "appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm",
+    "sm:text-sm appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 ",
   password:
-    "appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm",
+    "sm:text-sm appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 ",
   firstName:
-    "w-full	 appearance-none rounded-none relative block  px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-tl-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm",
+    "sm:text-sm w-full	 appearance-none rounded-none relative block  px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-tl-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 ",
   lastName:
-    "w-full	 appearance-none rounded-none relative block  px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-tr-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm",
+    "sm:text-sm w-full	 appearance-none rounded-none relative block  px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-tr-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 ",
   checkbox:
     "h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded",
 };
 
 const Auth = (props) => {
   const [isLoginMode, setLoginMode] = useState(true);
-  const formik = useFormikContext();
-  if (!formik) {
-    throw "Error loading form";
-  }
+
   const changeModeHandler = () => {
     setLoginMode((prevState) => !prevState);
   };
@@ -50,18 +47,18 @@ const Auth = (props) => {
             strEmail: "",
             strPassword: "",
             strFirstName: "",
-            strFirstName: "",
+            strLastName: "",
             isAgreed: false,
           }}
           validationSchema={isLoginMode ? LoginSchema : SignupSchema}
-          onSubmit={(values, errors, touched, { setSubmitting }) => {
+          onSubmit={(values, { setSubmitting }) => {
             setTimeout(() => {
               alert(JSON.stringify(values, null, 2));
               setSubmitting(false);
             }, 400);
           }}
         >
-          {({ handleSubmit, isSubmitting }) => (
+          {({ errors, touched, handleSubmit, isSubmitting }) => (
             <Form className="mt-8 space-y-6" onSubmit={handleSubmit}>
               <input type="hidden" name="remember" value="true" />
               <div className="rounded-md -space-y-px">
@@ -104,6 +101,8 @@ const Auth = (props) => {
                         : enumInputStyles["signupEmail"]
                     }
                   />
+                  {/* <ErrorMessage name="strEmail" /> */}
+                  {/* {errors.strEmail && touched.strEmail && errors.strEmail} */}
                 </div>
 
                 {/* 비밀번호 */}

@@ -6,6 +6,11 @@ const ErrorMessage = styled.span.attrs({
   className: "text-right	text-red-500 text-xxs font-bold mb-2 px-1.2 block",
 })``;
 
+const ErrorInput = "border-b-2 border-red-500";
+// const ErrorInput = styled.input.attrs({
+//   className: "border-red-500 border-solid	border-b-2	",
+// })``;
+
 // input
 export const Input = ({ label, ...props }) => {
   const [field, meta] = useField(props);
@@ -15,7 +20,16 @@ export const Input = ({ label, ...props }) => {
       <label htmlFor={props.id || props.name} className="sr-only">
         {label}
       </label>
-      <input className={props.customstyle} {...field} {...props} />
+      <input
+        className={
+          meta.touched && meta.error
+            ? props.customstyle + ErrorInput
+            : props.customstyle
+        }
+        {...field}
+        {...props}
+      />
+      {/* <input className={props.customstyle} {...field} {...props} /> */}
       {meta.touched && meta.error ? (
         <ErrorMessage className="error">{meta.error}</ErrorMessage>
       ) : null}
