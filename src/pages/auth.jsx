@@ -2,8 +2,6 @@ import React, { useState } from "react";
 // import { Link } from "react-router-dom";
 import { Formik, Form, ErrorMessage } from "formik";
 
-import { strAuth } from "../utils/strings/base";
-
 import Logo from "../components/UI/logo";
 import Button from "../components/form/button";
 import { Input, Checkbox } from "../components/form/input";
@@ -225,6 +223,8 @@ const Auth = (props) => {
           {/* {isLoginMode ? `Create a new account` : `I already have an account!`} */}
           {isLoginMode ? strAuth.changeToSignUp : strAuth.changeToSignIn}
         </Button>
+
+        {/* <Button onClick={changeLangHandler}>change Lang(for test)</Button> */}
       </div>
     </div>
   );
