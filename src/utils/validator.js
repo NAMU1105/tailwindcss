@@ -1,3 +1,5 @@
+import * as Yup from "yup";
+
 const VALIDATOR_TYPE_REQUIRE = "REQUIRE";
 const VALIDATOR_TYPE_MINLENGTH = "MINLENGTH";
 const VALIDATOR_TYPE_MAXLENGTH = "MAXLENGTH";
@@ -44,3 +46,27 @@ export const validate = (value, validators) => {
   }
   return isValid;
 };
+
+// ********************************************************** //
+// yup
+// ********************************************************** //
+export const LoginSchema = Yup.object().shape({
+  strEmail: Yup.string().email("Invalid email").required("Required"),
+  strPassword: Yup.string().required("Required"),
+});
+export const SignupSchema = Yup.object().shape({
+  strEmail: Yup.string().email("Invalid email").required("Required"),
+  strPassword: Yup.string()
+    .min(10, "Too Short!")
+    .max(15, "Too Long!")
+    .required("Required"),
+  strFirstName: Yup.string()
+    .min(2, "Too Short!")
+    .max(50, "Too Long!")
+    .required("Required"),
+  strLastName: Yup.string()
+    .min(2, "Too Short!")
+    .max(50, "Too Long!")
+    .required("Required"),
+  isAgreed: Yup.boolean().required("Required"),
+});

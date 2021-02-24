@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 // import { Link } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
 
 import Logo from "../components/UI/logo";
 import Button from "../components/form/button";
 
 import Sprite from "../assets/images/sprite.svg";
+import { SignupSchema, LoginSchema } from "../utils/validator";
 
 const Auth = (props) => {
   const [isLoginMode, setLoginMode] = useState(true);
@@ -25,33 +25,16 @@ const Auth = (props) => {
             {isLoginMode ? "Welcome Back!" : "Create a new account"}
           </h2>
         </div>
+
         <Formik
           initialValues={{
             strEmail: "",
             strPassword: "",
             strFirstName: "",
-            strLastName: "",
+            strFirstName: "",
+            isAgreed: false,
           }}
-          validate={(values) => {
-            const errors = {};
-            if (!values.strEmail) {
-              errors.strEmail = "Required";
-            } else if (
-              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.strEmail)
-            ) {
-              errors.strEmail = "Invalid email address";
-            }
-            if (!values.strPassword) {
-              errors.strPassword = "Required";
-            }
-            if (!isLoginMode && !values.strFirstName) {
-              errors.strFirstName = "Required";
-            }
-            if (!isLoginMode && !values.strLastName) {
-              errors.strLastName = "Required";
-            }
-            return errors;
-          }}
+          validationSchema={isLoginMode ? LoginSchema : SignupSchema}
           onSubmit={(values, { setSubmitting }) => {
             setTimeout(() => {
               alert(JSON.stringify(values, null, 2));
@@ -89,7 +72,7 @@ const Auth = (props) => {
                       placeholder="First name"
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      value={values.strFirstName}
+                      value={values.strFirstName || ""}
                     />
                     {/* 에러 메시지 출력 */}
                     {errors.strFirstName &&
@@ -109,7 +92,7 @@ const Auth = (props) => {
                       placeholder="Last name"
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      value={values.strLastName}
+                      value={values.strLastName || ""}
                     />
                     {/* 에러 메시지 출력 */}
                     {errors.strLastName &&
@@ -188,11 +171,15 @@ const Auth = (props) => {
                     </div>
                   </>
                 ) : (
+                  // 약관 동의
                   <div className="flex items-center">
                     <input
                       id="agree_term"
-                      name="agree_term"
+                      name="agreeTerm"
                       type="checkbox"
+                      value={values.isAgreed}
+                      onChange={handleChange}
+                      required
                       className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
                     />
                     <label
@@ -211,6 +198,7 @@ const Auth = (props) => {
                     </label>
                   </div>
                 )}
+                <ErrorMessage name="agreeTerm" />
               </div>
 
               <div>
