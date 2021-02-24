@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 // import { NavLink } from "react-router-dom";
 
+import { strAuth } from "../utils/strings/base";
+
 import HeaderMobile from "./headerMobile";
 import NavLinks from "../components/navigation/navLinks";
 import Logo from "../components/UI/logo";
@@ -70,7 +72,7 @@ const Header = (props) => {
               Sign in
             </a> */}
             <Button href="/auth" notFullWidth>
-              sign in
+              {strAuth.sigIn}
             </Button>
           </div>
         </div>

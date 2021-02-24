@@ -2,6 +2,8 @@ import React, { useState } from "react";
 // import { Link } from "react-router-dom";
 import { Formik, Form, ErrorMessage } from "formik";
 
+import { strAuth } from "../utils/strings/base";
+
 import Logo from "../components/UI/logo";
 import Button from "../components/form/button";
 import { Input, Checkbox } from "../components/form/input";
@@ -26,9 +28,21 @@ const enumInputStyles = {
 
 const Auth = (props) => {
   const [isLoginMode, setLoginMode] = useState(true);
+  const [strCurrentLang, setCurrentLang] = useState("ko");
 
   const changeModeHandler = () => {
     setLoginMode((prevState) => !prevState);
+  };
+
+  const changeLangHandler = () => {
+    console.log(strCurrentLang);
+    if (strCurrentLang === "ko") {
+      strAuth.setLanguage("en");
+      setCurrentLang("en");
+    } else {
+      strAuth.setLanguage("ko");
+      setCurrentLang("ko");
+    }
   };
 
   return (
@@ -127,13 +141,13 @@ const Auth = (props) => {
                           htmlFor="remember_me"
                           className="ml-2 block text-sm text-gray-900"
                         >
-                          Remember me
+                          {strAuth.autoLogin}
                         </label>
                       </Checkbox>
                     </div>
                     <div className="text-sm">
                       <Button href="/password" planeText>
-                        Forgot your password?
+                        {strAuth.forgotPassword}
                       </Button>
                     </div>
                   </>
@@ -197,7 +211,7 @@ const Auth = (props) => {
         {/* SNS 로그인/회원가입 */}
         <div>
           <h3 className="text-center">
-            or {isLoginMode ? "sign in" : "sign up"} with
+            {isLoginMode ? strAuth.snsLogin : strAuth.snsSignUp}
           </h3>
           <ul className="flex justify-center mt-5">
             <li>
@@ -220,8 +234,11 @@ const Auth = (props) => {
 
         {/* 로그인/회원가입 상태 변경 */}
         <Button onClick={changeModeHandler} planeText>
-          {isLoginMode ? `Create a new account` : `I already have an account!`}
+          {/* {isLoginMode ? `Create a new account` : `I already have an account!`} */}
+          {isLoginMode ? strAuth.changeToSignUp : strAuth.changeToSignIn}
         </Button>
+
+        <Button onClick={changeLangHandler}>change Lang</Button>
       </div>
     </div>
   );
