@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   BrowserRouter as Router,
   Route,
   Redirect,
   Switch,
 } from "react-router-dom";
+
+import { strAuth } from "./utils/strings/base";
 
 import Header from "./container/header";
 import Footer from "./container/footer";
@@ -19,6 +21,17 @@ import { useAuth } from "../src/utils/hooks/auth-hooks";
 
 const App = () => {
   const { userID, token, login, logout } = useAuth();
+  const [strCurrentLang, setCurrentLang] = useState("ko");
+
+  const changeLangHandler = () => {
+    if (strCurrentLang === "ko") {
+      strAuth.setLanguage("en");
+      setCurrentLang("en");
+    } else {
+      strAuth.setLanguage("ko");
+      setCurrentLang("ko");
+    }
+  };
 
   return (
     <AuthContext.Provider
@@ -48,6 +61,7 @@ const App = () => {
           </main>
           <Footer />
         </Router>
+        <button onClick={changeLangHandler}>change Lang(for test)</button>;
       </div>
     </AuthContext.Provider>
   );

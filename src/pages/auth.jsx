@@ -28,21 +28,9 @@ const enumInputStyles = {
 
 const Auth = (props) => {
   const [isLoginMode, setLoginMode] = useState(true);
-  const [strCurrentLang, setCurrentLang] = useState("ko");
 
   const changeModeHandler = () => {
     setLoginMode((prevState) => !prevState);
-  };
-
-  const changeLangHandler = () => {
-    console.log(strCurrentLang);
-    if (strCurrentLang === "ko") {
-      strAuth.setLanguage("en");
-      setCurrentLang("en");
-    } else {
-      strAuth.setLanguage("ko");
-      setCurrentLang("ko");
-    }
   };
 
   return (
@@ -153,7 +141,6 @@ const Auth = (props) => {
                   </>
                 ) : (
                   // 약관 동의
-
                   <div className="flex items-center">
                     <Checkbox
                       id="agreeTerm"
@@ -164,15 +151,16 @@ const Auth = (props) => {
                         htmlFor="agreeTerm"
                         className="ml-2 block text-sm text-gray-900"
                       >
-                        I have read and agree to the{" "}
+                        {strAuth.agreeFirst}{" "}
                         <a href="/" className="text-indigo-600">
-                          Terms of Use
+                          {strAuth.termsOfUse}
                         </a>{" "}
-                        and
+                        {strAuth.agreeSecond}
                         <a href="/" className="text-indigo-600">
                           {" "}
-                          Customer Privacy Policy.
+                          {strAuth.customerPolicy}
                         </a>
+                        {strCurrentLang === "ko" && strAuth.agreeThird}
                       </label>
                     </Checkbox>
                   </div>
@@ -201,8 +189,8 @@ const Auth = (props) => {
                   {isSubmitting
                     ? "Submitting..."
                     : isLoginMode
-                    ? "Sign in"
-                    : "Sign up"}
+                    ? strAuth.signIn
+                    : strAuth.signUp}
                 </Button>
               </div>
             </Form>
@@ -237,8 +225,6 @@ const Auth = (props) => {
           {/* {isLoginMode ? `Create a new account` : `I already have an account!`} */}
           {isLoginMode ? strAuth.changeToSignUp : strAuth.changeToSignIn}
         </Button>
-
-        <Button onClick={changeLangHandler}>change Lang</Button>
       </div>
     </div>
   );

@@ -72,7 +72,7 @@ const Header = (props) => {
               Sign in
             </a> */}
             <Button href="/auth" notFullWidth>
-              {strAuth.sigIn}
+              {strAuth.signIn}
             </Button>
           </div>
         </div>
