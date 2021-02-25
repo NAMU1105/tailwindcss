@@ -1,6 +1,6 @@
 import { createContext } from "react";
 
 export const LangContext = createContext({
-  currentLang: "ko",
+  strCurrentLang: "ko",
   changeLang: () => {},
 });

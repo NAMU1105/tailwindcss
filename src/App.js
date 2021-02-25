@@ -6,8 +6,6 @@ import {
   Switch,
 } from "react-router-dom";
 
-import { strAuth } from "./utils/strings/base";
-
 import Header from "./container/header";
 import Footer from "./container/footer";
 import Auth from "./pages/auth";
@@ -18,22 +16,23 @@ import { AuthContext } from "../src/context/auth-context";
 import { LangContext } from "../src/context/lang-context";
 import { useAuth } from "../src/utils/hooks/auth-hooks";
 import { useLang } from "../src/utils/hooks/lang-hooks";
+import ConfirmEmail from "./pages/confirmEmail";
 
 // import { Main } from "./assets/styles/pages";
 
 const App = () => {
   const { userID, token, login, logout } = useAuth();
-  const { strCurrentLang, changeLangHandler } = useAuth();
+  const { strCurrentLang, changeLangHandler } = useLang();
 
   return (
     <>
-      <AuthContext.Provider
+      <LangContext.Provider
         value={{
           strCurrentLang,
-          changeLangHandler,
+          changeLang: changeLangHandler,
         }}
       >
-        <LangContext.Provider
+        <AuthContext.Provider
           value={{
             userID: userID,
             token: token,
@@ -55,15 +54,17 @@ const App = () => {
                   <Route path="/password" exact>
                     <NewPassword />
                   </Route>
+                  <Route path="/confirmemail" exact>
+                    <ConfirmEmail />
+                  </Route>
                   <Redirect to="/" />
                 </Switch>
               </main>
               <Footer />
             </Router>
-            <button onClick={changeLangHandler}>change Lang(for test)</button>;
           </div>
-        </LangContext.Provider>
-      </AuthContext.Provider>
+        </AuthContext.Provider>
+      </LangContext.Provider>
     </>
   );
 };

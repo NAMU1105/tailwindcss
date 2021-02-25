@@ -1,13 +1,17 @@
-import React, { useState } from "react";
-// import { Link } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { useHistory } from "react-router";
 import { Formik, Form, ErrorMessage } from "formik";
+
+import { strAuth } from "../utils/strings/base";
+import { SignupSchema, LoginSchema } from "../utils/validator";
+import { LangContext } from "../context/lang-context";
+import { ContainerLayout } from "../assets/styles/layout";
 
 import Logo from "../components/UI/logo";
 import Button from "../components/form/button";
 import { Input, Checkbox } from "../components/form/input";
 
 import Sprite from "../assets/images/sprite.svg";
-import { SignupSchema, LoginSchema } from "../utils/validator";
 
 const enumInputStyles = {
   loginEmail:
@@ -26,13 +30,21 @@ const enumInputStyles = {
 
 const Auth = (props) => {
   const [isLoginMode, setLoginMode] = useState(true);
+  const history = useHistory();
+  const objLangContext = useContext(LangContext);
+  const strCurrentLang = objLangContext.strCurrentLang;
 
   const changeModeHandler = () => {
     setLoginMode((prevState) => !prevState);
   };
 
+  // const submitAuth = () => {
+  //   const strDirection = isLoginMode ? "/" : "confirmemail";
+  //   history.push(strDirection);
+  // };
+
   return (
-    <div className="min-h-content flex items-center justify-center  py-12 px-4 sm:px-6 lg:px-8">
+    <ContainerLayout>
       <div className="max-w-md w-full space-y-8">
         <div>
           <Logo classStyle="mx-auto h-12 w-auto" />
@@ -55,6 +67,10 @@ const Auth = (props) => {
             setTimeout(() => {
               alert(JSON.stringify(values, null, 2));
               setSubmitting(false);
+
+              // 조건에 모두 부합하면 페이지 이동
+              const strDirection = isLoginMode ? "/" : "confirmemail";
+              history.push(strDirection);
             }, 400);
           }}
         >
@@ -71,7 +87,7 @@ const Auth = (props) => {
                         label="firstName"
                         name="strFirstName"
                         type="text"
-                        placeholder="First name"
+                        placeholder={strAuth.firstName}
                         customstyle={enumInputStyles["firstName"]}
                       />
                     </div>
@@ -82,7 +98,7 @@ const Auth = (props) => {
                         label="lastName"
                         name="strLastName"
                         type="text"
-                        placeholder="Last name"
+                        placeholder={strAuth.lastName}
                         customstyle={enumInputStyles["lastName"]}
                       />
                     </div>
@@ -94,7 +110,7 @@ const Auth = (props) => {
                     label="Email"
                     name="strEmail"
                     type="email"
-                    placeholder="Email address"
+                    placeholder={strAuth.email}
                     customstyle={
                       isLoginMode
                         ? enumInputStyles["loginEmail"]
@@ -111,7 +127,7 @@ const Auth = (props) => {
                   label="Password"
                   name="strPassword"
                   type="password"
-                  placeholder="Password"
+                  placeholder={strAuth.password}
                   customstyle={enumInputStyles["password"]}
                 />
                 {/* </div> */}
@@ -168,7 +184,11 @@ const Auth = (props) => {
 
               <div>
                 {/* 제출 버튼 */}
-                <Button type="submit" disabled={isSubmitting}>
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  // onClick={submitAuth}
+                >
                   <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                     <svg
                       className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400"
@@ -220,13 +240,14 @@ const Auth = (props) => {
 
         {/* 로그인/회원가입 상태 변경 */}
         <Button onClick={changeModeHandler} planeText>
-          {/* {isLoginMode ? `Create a new account` : `I already have an account!`} */}
           {isLoginMode ? strAuth.changeToSignUp : strAuth.changeToSignIn}
         </Button>
 
-        {/* <Button onClick={changeLangHandler}>change Lang(for test)</Button> */}
+        {/* <Button onClick={objLangContext.changeLang}>
+          change Lang(for test)
+        </Button> */}
       </div>
-    </div>
+    </ContainerLayout>
   );
 };
 
