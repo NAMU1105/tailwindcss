@@ -16,9 +16,8 @@ const Header = (props) => {
   const [isOpenHeaderMobile, setToggleHeaderMobile] = useState("hidden");
 
   const objLangContext = useContext(LangContext);
-  const strCurrentLang = objLangContext.strCurrentLang;
-  console.log(objLangContext);
 
+  // 모바일 화면 시 나오는 메뉴 토글하는 함수
   const toggleHeaderMobile = () => {
     if (isOpenHeaderMobile === "hidden") {
       setToggleHeaderMobile("");
@@ -27,9 +26,25 @@ const Header = (props) => {
     }
   };
 
+  // 언어 설정 바꾸는 함수
   const changeLang = (lang) => {
-    console.log(lang);
     objLangContext.changeLang(lang);
+  };
+
+  // 전체 화면 띄우는 함수
+  const popFullScreen = () => {
+    /* Get the documentElement (<html>) to display the page in fullscreen */
+    const elem = document.documentElement;
+
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) {
+      /* Safari */
+      elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) {
+      /* IE11 */
+      elem.msRequestFullscreen();
+    }
   };
 
   return (
@@ -37,11 +52,41 @@ const Header = (props) => {
       <div className="px-4 sm:px-20">
         {/* <div className="max-w-7xl mx-auto px-4 sm:px-6"> */}
         <div className="flex justify-between items-center border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
-          <Logo
-            withLink
-            type={{ type: "LogoHorizontalLight" }}
-            classStyle="h-8 w-auto sm:h-10"
-          />
+          <div className="flex md:flex-1 items-center">
+            <Logo
+              withLink
+              type={{ type: "LogoHorizontalLight" }}
+              classStyle="h-8 w-auto sm:h-10"
+            />
+            {/* 검색창 */}
+            <div className="hidden md:flex justify-between items-center bg-background-gray p-2 rounded-3xl ml-5">
+              {/* 검색 아이콘 */}
+              <a href="/" className="">
+                <svg
+                  className="animate-wiggle text-gray-500 h-5 w-5 group-hover:text-gray-900 mr-2"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M8 16l2.879-2.879m0 0a3 3 0 104.243-4.242 3 3 0 00-4.243 4.242zM21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+              </a>
+              {/* 검색 인풋창 */}
+              <input
+                type="text"
+                name="input_text"
+                className="bg-background-gray w-full outline-none"
+                placeholder="Search..."
+                autoComplete="off"
+              />
+            </div>
+          </div>
 
           {/* 반응형 햄버거 메뉴 */}
           <div className="-mr-2 -my-2 md:hidden">
@@ -91,29 +136,32 @@ const Header = (props) => {
               </svg>
 
               <span className="flex h-3 relative">
-                {/* <span className="animate-ping absolute inline-flex h-full w-10/12 rounded-full bg-purple-400 opacity-75"></span> */}
                 <span className="absolute -top-2.5 -left-1.5 inline-flex rounded-full h-4 w-4 bg-purple-500 text-black">
                   {/* 3 */}
                 </span>
               </span>
             </NavLinks>
+            {/* 전체화면 메뉴 */}
+            <NavLinks linkType="button" noArrow>
+              <svg
+                onClick={popFullScreen}
+                className="text-gray-500 h-5 w-5 mt-2 group-hover:text-gray-900 "
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
+                />
+              </svg>
+            </NavLinks>
           </nav>
           <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-            {/* <NavLink
-              to="/auth"
-              className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
-            >
-              Sign in
-            </NavLink> */}
-
-            {/* <a
-              href="/auth"
-              className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-layout hover:bg-layout-dark"
-            >
-              Sign in
-            </a> */}
             {/* 언어 변경 메뉴 */}
-            {/* <NavLinks linkType="a"> */}
             <img
               className="w-14 mr-2 cursor-pointer"
               src={KoreaFlag}
@@ -122,8 +170,7 @@ const Header = (props) => {
                 changeLang("ko");
               }}
             />
-            {/* </NavLinks> */}
-            {/* <NavLinks linkType="a"> */}
+
             <img
               className="w-14 mr-2 cursor-pointer"
               src={USFlag}
@@ -132,7 +179,6 @@ const Header = (props) => {
                 changeLang("en");
               }}
             />
-            {/* </NavLinks> */}
             <Button href="/auth" notFullWidth>
               {strAuth.signIn}
             </Button>

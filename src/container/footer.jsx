@@ -6,16 +6,20 @@ const Footer = (props) => {
   const strCurrentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-gray-50 h-footer grid  place-items-center	text-base font-medium text-gray-500">
+    <footer className="bg-gray-50 h-footer grid  place-items-center	text-base font-medium text-gray-700">
       <ul className="flex self-end justify-evenly w-1/5">
         <li>
           <a
             href="https://www.linkedin.com/company/4dreplay/"
             target="_blank"
             rel="noreferrer"
+            className="text-gray-700"
           >
             <svg className="w-6 h-5">
-              <use xlinkHref={`${Sprite}#icon-linkedin2`}></use>
+              <use
+                xlinkHref={`${Sprite}#icon-linkedin2`}
+                className="fill-current"
+              ></use>
             </svg>
           </a>
         </li>
@@ -24,9 +28,13 @@ const Footer = (props) => {
             href="https://www.youtube.com/channel/UClDdv8u-xhIQREDIFmFNnpQ"
             target="_blank"
             rel="noreferrer"
+            className="text-gray-700"
           >
             <svg className="w-6 h-5 mt-0.5">
-              <use xlinkHref={`${Sprite}#icon-youtube`}></use>
+              <use
+                xlinkHref={`${Sprite}#icon-youtube`}
+                className="fill-current"
+              ></use>
             </svg>
           </a>
         </li>
@@ -35,9 +43,13 @@ const Footer = (props) => {
             href="https://twitter.com/4dreplay"
             target="_blank"
             rel="noreferrer"
+            className="text-gray-700"
           >
             <svg className="w-6 h-5">
-              <use xlinkHref={`${Sprite}#icon-twitter`}></use>
+              <use
+                xlinkHref={`${Sprite}#icon-twitter`}
+                className="fill-current"
+              ></use>
             </svg>
           </a>
         </li>
@@ -46,9 +58,13 @@ const Footer = (props) => {
             href="https://www.instagram.com/4dreplay/?hl=ko"
             target="_blank"
             rel="noreferrer"
+            className="text-gray-700"
           >
             <svg className="w-6 h-5">
-              <use xlinkHref={`${Sprite}#icon-instagram`}></use>
+              <use
+                xlinkHref={`${Sprite}#icon-instagram`}
+                className="fill-current"
+              ></use>
             </svg>
           </a>
         </li>
@@ -57,16 +73,28 @@ const Footer = (props) => {
             href="https://www.facebook.com/4DReplay/"
             target="_blank"
             rel="noreferrer"
+            className="text-gray-700"
           >
             <svg className="w-6 h-5">
-              <use xlinkHref={`${Sprite}#icon-facebook`}></use>
+              <use
+                xlinkHref={`${Sprite}#icon-facebook`}
+                className="fill-current"
+              ></use>
             </svg>
           </a>
         </li>
         <li>
-          <a href="https://vimeo.com/4dreplay" target="_blank" rel="noreferrer">
+          <a
+            href="https://vimeo.com/4dreplay"
+            target="_blank"
+            rel="noreferrer"
+            className="text-gray-700"
+          >
             <svg className="w-6 h-5 ">
-              <use xlinkHref={`${Sprite}#icon-vimeo`}></use>
+              <use
+                xlinkHref={`${Sprite}#icon-vimeo`}
+                className="fill-current"
+              ></use>
             </svg>
           </a>
         </li>

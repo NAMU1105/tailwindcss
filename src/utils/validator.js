@@ -22,10 +22,10 @@ export const SignupSchema = Yup.object().shape({
   isAgreed: Yup.boolean().required("required").oneOf([true], "mustAgree"),
 });
 export const ConfirmEmailSchema = Yup.object().shape({
-  strConfirmEmailFirst: Yup.string().required("required"),
-  strConfirmEmailSecond: Yup.string().required("required"),
-  strConfirmEmailThird: Yup.string().required("required"),
-  strConfirmEmailFourth: Yup.string().required("required"),
-  strConfirmEmailFifth: Yup.string().required("required"),
-  strConfirmEmailSixth: Yup.string().required("required"),
+  strConfirmEmailFirst: Yup.string().required(null),
+  strConfirmEmailSecond: Yup.string().required(null),
+  strConfirmEmailThird: Yup.string().required(null),
+  strConfirmEmailFourth: Yup.string().required(null),
+  strConfirmEmailFifth: Yup.string().required(null),
+  strConfirmEmailSixth: Yup.string().required(null),
 });

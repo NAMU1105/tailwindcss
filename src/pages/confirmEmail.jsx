@@ -17,36 +17,21 @@ import Button from "../components/form/button";
 import { Input } from "../components/form/input";
 
 const InputItem = styled.div`
-  --saf-0: rgba(var(--sk_foreground_max, 29, 28, 29), 0.7);
-  border: 1px solid var(--saf-0);
-  border-color: rgba(var(--sk_foreground_high, 29, 28, 29), 0.5);
+  ${tw`border border-gray-300`}
 
   & {
     > input {
-      color: rgba(var(--sk_primary_foreground, 29, 28, 29), 1);
-      height: 92px;
-      width: 100%;
-      font-size: 50px;
-      line-height: 56px;
-      text-align: center;
-      border: none;
-      background: none;
-      box-shadow: none;
+      ${tw`shadow-none text-gray-900 text-5xl w-full text-center leading-3 border-0 bg-transparent`}
     }
   }
 `;
 
 const OpenEmail = styled.a`
-  font-size: 14px;
-  line-height: 20px;
-  color: #616061;
-  margin: 20px;
-  display: flex;
-  align-items: center;
+  ${tw`text-sm	leading-6 text-gray-600 m-1.5 flex items-center`}
 
   & {
     > img {
-      margin-right: 0.5rem;
+      ${tw`mr-2`}
     }
   }
 `;
