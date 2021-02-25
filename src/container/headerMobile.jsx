@@ -63,7 +63,7 @@ const MainHeaderMobile = (props) => {
               <HeaderMenuItem mobile title="Analytics">
                 {
                   <svg
-                    className="flex-shrink-0 h-6 w-6 text-indigo-600"
+                    className="flex-shrink-0 h-6 w-6 text-layout"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
@@ -83,7 +83,7 @@ const MainHeaderMobile = (props) => {
               <HeaderMenuItem mobile title="Engagement">
                 {
                   <svg
-                    className="flex-shrink-0 h-6 w-6 text-indigo-600"
+                    className="flex-shrink-0 h-6 w-6 text-layout"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
@@ -102,7 +102,7 @@ const MainHeaderMobile = (props) => {
               <HeaderMenuItem mobile title="Security">
                 {
                   <svg
-                    className="flex-shrink-0 h-6 w-6 text-indigo-600"
+                    className="flex-shrink-0 h-6 w-6 text-layout"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
@@ -121,7 +121,7 @@ const MainHeaderMobile = (props) => {
               <HeaderMenuItem mobile title="Integration">
                 {
                   <svg
-                    className="flex-shrink-0 h-6 w-6 text-indigo-600"
+                    className="flex-shrink-0 h-6 w-6 text-layout"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
@@ -140,7 +140,7 @@ const MainHeaderMobile = (props) => {
               <HeaderMenuItem mobile title="Automation">
                 {
                   <svg
-                    className="flex-shrink-0 h-6 w-6 text-indigo-600"
+                    className="flex-shrink-0 h-6 w-6 text-layout"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
@@ -227,7 +227,7 @@ const MainHeaderMobile = (props) => {
 
             <p className="mt-6 text-center text-base font-medium text-gray-500">
               Existing customer?
-              <a href="/" className="text-indigo-600 hover:text-indigo-500">
+              <a href="/" className="text-layout hover:text-layout-light">
                 Sign in
               </a>
             </p>

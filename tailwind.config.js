@@ -6,22 +6,47 @@ module.exports = {
       colors: {
         // 4D color 선언
         primary: {
-          red: "#DD1D0F",
+          red: {
+            dark: "#800000​",
+            DEFAULT: "#C00000",
+          },
           gray: "#2F4858",
         },
         secondary: {
-          magenta: "#CF0157",
-          purple: "#A22F81",
-          grape: "#65488C",
+          vermilion: "#CF0157",
+          violet: "#A22F81",
+          purple: "#65488C",
           navy: "#334D79",
+          gray: {
+            medium: "7F7F7F",
+            light: "#D9D9D9",
+          },
         },
         background: {
           ivory: "#EDE6DF",
           gray: "#EBEBEB",
         },
-        header: "rgba(255, 255, 255, 0.9)",
         // TODO: 자주 사용하는 컬러 선언 할 것(버튼 컬러, 뱃지 컬러 등 -네이버 라이브 커머스 등 참조)
+        header: "rgba(255, 255, 255, 0.9)",
         disabled: "#736f6f4d",
+        layout: {
+          // 디폴트를 제외한 색은 내가 임의로 지정함
+          dark: "#493465",
+          DEFAULT: "#65488C",
+          light: "#976cd0",
+        },
+        footer: "#D9D9D9",
+      },
+
+      keyframes: {
+        wiggle: {
+          "0%, 100%": { transform: "rotate(-6deg)" },
+          "50%": { transform: "rotate(6deg)" },
+        },
+      },
+
+      animation: {
+        wiggle: "wiggle 0.5s ease-in-out infinite",
       },
 
       screens: {

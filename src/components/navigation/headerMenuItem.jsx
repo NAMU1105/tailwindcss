@@ -7,7 +7,7 @@ const MenuItem = styled.a.attrs({
 })`
     & {
       > svg {
-        ${tw`flex-shrink-0 h-6 w-6 text-indigo-600`}
+        ${tw`flex-shrink-0 h-6 w-6 text-layout`}
       }
 
 

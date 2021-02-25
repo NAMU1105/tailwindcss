@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import styled, { css } from "styled-components";
 
 import HeaderMenu from "./headerMenu";
 
+export const Button = styled.button.attrs({
+  className:
+    "text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-layout-light",
+})``;
+
 const NavLinks = (props) => {
-  const { linkType, title, to, withMenu } = props;
+  const { linkType, noArrow, to, withMenu, children } = props;
   const [isHidden, setisHidden] = useState(true);
 
   const toggleMenu = () => {
@@ -19,21 +25,24 @@ const NavLinks = (props) => {
         to="/"
         className="uppercase text-base font-medium text-gray-500 hover:text-gray-900"
       >
-        {title}
+        {children}
       </NavLink>
+    );
+  } else if (linkType === "button" && noArrow) {
+    elem = (
+      <div className="relative">
+        <Button type="button" aria-expanded="false" onClick={toggleMenu}>
+          {children}
+        </Button>
+
+        {withMenu && <HeaderMenu show={isHidden} />}
+      </div>
     );
   } else {
     elem = (
       <div className="relative">
-        {/* <!-- Item active: "text-gray-900", Item inactive: "text-gray-500" --> */}
-        <button
-          type="button"
-          className="text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          aria-expanded="false"
-          onClick={toggleMenu}
-        >
-          <span className="uppercase">{title}</span>
-
+        <Button type="button" aria-expanded="false" onClick={toggleMenu}>
+          {children}
           {isHidden ? (
             <svg
               className="text-gray-400 ml-2 h-5 w-5 group-hover:text-gray-500"
@@ -62,7 +71,7 @@ const NavLinks = (props) => {
               />
             </svg>
           )}
-        </button>
+        </Button>
 
         {withMenu && <HeaderMenu show={isHidden} />}
       </div>

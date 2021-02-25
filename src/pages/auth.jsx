@@ -15,17 +15,17 @@ import Sprite from "../assets/images/sprite.svg";
 
 const enumInputStyles = {
   loginEmail:
-    "sm:text-sm rounded-t-md appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 ",
+    "sm:text-sm rounded-t-md appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-layout focus:border-layout focus:z-10 ",
   signupEmail:
-    "sm:text-sm appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 ",
+    "sm:text-sm appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-layout focus:border-layout focus:z-10 ",
   password:
-    "sm:text-sm appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 ",
+    "sm:text-sm appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-layout focus:border-layout focus:z-10 ",
   firstName:
-    "sm:text-sm w-full	 appearance-none rounded-none relative block  px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-tl-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 ",
+    "sm:text-sm w-full	 appearance-none rounded-none relative block  px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-tl-md focus:outline-none focus:ring-layout focus:border-layout focus:z-10 ",
   lastName:
-    "sm:text-sm w-full	 appearance-none rounded-none relative block  px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-tr-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 ",
+    "sm:text-sm w-full	 appearance-none rounded-none relative block  px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-tr-md focus:outline-none focus:ring-layout focus:border-layout focus:z-10 ",
   checkbox:
-    "h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded",
+    "h-4 w-4 text-layout-dark focus:ring-layout border-gray-300 rounded",
 };
 
 const Auth = (props) => {
@@ -166,11 +166,11 @@ const Auth = (props) => {
                         className="ml-2 block text-sm text-gray-900"
                       >
                         {strAuth.agreeFirst}{" "}
-                        <a href="/" className="text-indigo-600">
+                        <a href="/" className="text-layout-dark">
                           {strAuth.termsOfUse}
                         </a>{" "}
                         {strAuth.agreeSecond}
-                        <a href="/" className="text-indigo-600">
+                        <a href="/" className="text-layout-dark">
                           {" "}
                           {strAuth.customerPolicy}
                         </a>
@@ -191,7 +191,7 @@ const Auth = (props) => {
                 >
                   <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                     <svg
-                      className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400"
+                      className="h-5 w-5 text-layout group-hover:text-layout-light"
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 20 20"
                       fill="currentColor"
@@ -221,17 +221,17 @@ const Auth = (props) => {
           </h3>
           <ul className="flex justify-center mt-5">
             <li>
-              <svg className="w-12 h-8 hover:fill-current text-indigo-600 cursor-pointer">
+              <svg className="w-12 h-8 hover:fill-current text-layout cursor-pointer">
                 <use xlinkHref={`${Sprite}#icon-google2`}></use>
               </svg>
             </li>
             <li>
-              <svg className="w-12 h-8 hover:fill-current text-indigo-600 cursor-pointer">
+              <svg className="w-12 h-8 hover:fill-current text-layout cursor-pointer">
                 <use xlinkHref={`${Sprite}#icon-facebook2`}></use>
               </svg>
             </li>
             <li>
-              <svg className="w-12 h-8 hover:fill-current text-indigo-600 cursor-pointer">
+              <svg className="w-12 h-8 hover:fill-current text-layout cursor-pointer">
                 <use xlinkHref={`${Sprite}#icon-linkedin`}></use>
               </svg>
             </li>

@@ -9,8 +9,7 @@ import tw from "twin.macro";
 
 const ButtonWapper = styled.button.attrs({
   className:
-    // "ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700",
-    "uppercase group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500",
+    "uppercase group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-layout hover:bg-layout-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-layout",
 })`
   // 사이즈 커스텀 가능(다만 pure css방식으로 프롭전달해야함)
   ${(props) =>
@@ -37,7 +36,7 @@ const ButtonWapper = styled.button.attrs({
   ${(props) =>
     props.planeText &&
     css`
-      ${tw`bg-transparent shadow-none  mx-auto h-auto w-full text-indigo-600  focus:outline-none focus:border-transparent focus:ring-transparent hover:text-indigo-800 hover:bg-transparent`}
+      ${tw`bg-transparent shadow-none  mx-auto h-auto w-full text-layout  focus:outline-none focus:border-transparent focus:ring-transparent hover:text-layout-dark hover:bg-transparent`}
     `};
 
   // 모바일 화면 등에서 나오는 햄버거 버튼

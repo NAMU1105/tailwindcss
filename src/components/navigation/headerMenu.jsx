@@ -48,7 +48,7 @@ const MainHeaderMenu = (props) => {
             subTitle="  Get all of your questions answered in our forums or contact support."
           >
             <svg
-              className="flex-shrink-0 h-6 w-6 text-indigo-600"
+              className="flex-shrink-0 h-6 w-6 text-layout"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -68,7 +68,8 @@ const MainHeaderMenu = (props) => {
             subTitle="  Get all of your questions answered in our forums or contact support."
           >
             <svg
-              className="flex-shrink-0 h-6 w-6 text-indigo-600"
+              className="flex-shrink-0 h-6 w-6 text-layout"
+              // className="flex-shrink-0 h-6 w-6 text-indigo-600"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -88,7 +89,7 @@ const MainHeaderMenu = (props) => {
             subTitle="  Get all of your questions answered in our forums or contact support."
           >
             <svg
-              className="flex-shrink-0 h-6 w-6 text-indigo-600"
+              className="flex-shrink-0 h-6 w-6 text-layout"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -108,7 +109,7 @@ const MainHeaderMenu = (props) => {
             subTitle="  Get all of your questions answered in our forums or contact support."
           >
             <svg
-              className="flex-shrink-0 h-6 w-6 text-indigo-600"
+              className="flex-shrink-0 h-6 w-6 text-layout"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"

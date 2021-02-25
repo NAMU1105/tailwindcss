@@ -62,7 +62,7 @@ const NewPassword = (props) => {
                     type="email"
                     autoComplete="email"
                     required
-                    className={` appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm`}
+                    className={` appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-layout focus:border-layout focus:z-10 sm:text-sm`}
                     placeholder="Email address"
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -78,7 +78,7 @@ const NewPassword = (props) => {
                 <Button disabled={isSubmitting}>
                   <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                     <svg
-                      className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400"
+                      className="h-5 w-5 text-layout group-hover:text-layout-light"
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 20 20"
                       fill="currentColor"
