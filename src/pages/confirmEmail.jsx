@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { useLocation } from "react-router";
 import { Formik, Form } from "formik";
 import styled, { css } from "styled-components";
 import tw from "twin.macro";
@@ -11,8 +12,10 @@ import Logo from "../components/UI/logo";
 import Gmail from "../assets/images/gmail.png";
 import Outlook from "../assets/images/outlook.png";
 
+// css
 import { ContainerLayout } from "../assets/styles/layout";
-import { H2 } from "../assets/styles/base";
+import { HeadingFirst } from "../assets/styles/base";
+// component
 import Button from "../components/form/button";
 import { Input } from "../components/form/input";
 
@@ -36,20 +39,23 @@ const OpenEmail = styled.a`
   }
 `;
 
+// TODO: 바로 url로 이 페이지 컴포넌트 접근하는 거 막기
+
 const ConfirmEmail = (props) => {
   const strCurrentLang = useContext(LangContext).strCurrentLang;
+  const location = useLocation();
+  const strEmail = location.state.email;
 
   return (
     <ContainerLayout>
       <div className="max-w-md w-full space-y-8">
         <div>
           <Logo classStyle="mx-auto h-12 w-auto" />
-          <H2>Confirm your verify code</H2>
-          {/* 사용자 이메일 값 받아서 넣어주기 */}
+          <HeadingFirst>Confirm your verify code</HeadingFirst>
           <p>
             {strCurrentLang === "en"
-              ? `${strAuth.emailConfirmSub} {사용자 이메일주소} ${strAuth.emailConfirmSubSecond}`
-              : `{사용자 이메일주소} ${strAuth.emailConfirmSub}`}
+              ? `${strAuth.emailConfirmSub} ${strEmail} ${strAuth.emailConfirmSubSecond}`
+              : `${strEmail} ${strAuth.emailConfirmSub}`}
           </p>
         </div>
 

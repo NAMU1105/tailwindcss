@@ -10,7 +10,7 @@ export const Button = styled.button.attrs({
 })``;
 
 const NavLinks = (props) => {
-  const { linkType, noArrow, to, withMenu, children } = props;
+  const { linkType, noArrow, to = "/", withMenu, children } = props;
   const [isHidden, setisHidden] = useState(true);
 
   const toggleMenu = () => {
@@ -22,7 +22,7 @@ const NavLinks = (props) => {
   if (linkType === "a") {
     elem = (
       <NavLink
-        to="/"
+        to={to}
         className="uppercase text-base font-medium text-gray-500 hover:text-gray-900"
       >
         {children}

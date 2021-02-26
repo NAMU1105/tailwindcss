@@ -69,6 +69,10 @@ module.exports = {
       fontSize: {
         xxs: ["0.3rem", { lineHeight: "1rem" }],
       },
+
+      flexGrow: {
+        3: 3,
+      },
     },
   },
   variants: {

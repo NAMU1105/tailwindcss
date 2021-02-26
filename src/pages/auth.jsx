@@ -2,11 +2,16 @@ import React, { useState, useContext } from "react";
 import { useHistory } from "react-router";
 import { Formik, Form, ErrorMessage } from "formik";
 
+// strings
 import { strAuth } from "../utils/strings/base";
+// utils
 import { SignupSchema, LoginSchema } from "../utils/validator";
 import { LangContext } from "../context/lang-context";
+import { AuthContext } from "../context/auth-context";
+// css
 import { ContainerLayout } from "../assets/styles/layout";
-
+import { HeadingFirst } from "../assets/styles/base";
+// component
 import Logo from "../components/UI/logo";
 import Button from "../components/form/button";
 import { Input, Checkbox } from "../components/form/input";
@@ -32,6 +37,7 @@ const Auth = (props) => {
   const [isLoginMode, setLoginMode] = useState(true);
   const history = useHistory();
   const objLangContext = useContext(LangContext);
+  const objAuthContext = useContext(AuthContext);
   const strCurrentLang = objLangContext.strCurrentLang;
 
   const changeModeHandler = () => {
@@ -49,9 +55,9 @@ const Auth = (props) => {
         <div>
           <Logo classStyle="mx-auto h-12 w-auto" />
 
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          <HeadingFirst>
             {isLoginMode ? "Welcome Back!" : "Create a new account"}
-          </h2>
+          </HeadingFirst>
         </div>
 
         <Formik
@@ -61,6 +67,7 @@ const Auth = (props) => {
             strFirstName: "",
             strLastName: "",
             isAgreed: false,
+            isAutoLoginChecked: false,
           }}
           validationSchema={isLoginMode ? LoginSchema : SignupSchema}
           onSubmit={(values, { setSubmitting }) => {
@@ -68,9 +75,28 @@ const Auth = (props) => {
               alert(JSON.stringify(values, null, 2));
               setSubmitting(false);
 
-              // 조건에 모두 부합하면 페이지 이동
-              const strDirection = isLoginMode ? "/" : "confirmemail";
-              history.push(strDirection);
+              const tokenExpirationDate = new Date(
+                new Date().getTime() + 1000 * 60 * 60
+              );
+
+              // TODO:  조건에 모두 부합하면 페이지 이동
+              // 테스트용 더미 데이터 넣어둠
+              objAuthContext.login({
+                strUserID: values.strEmail,
+                strToken: "fakeToken",
+                expirationDate: tokenExpirationDate,
+              });
+
+              if (isLoginMode) {
+                history.push("/");
+              } else {
+                history.push({
+                  pathname: "/confirmemail",
+                  state: { email: values.strEmail },
+                });
+              }
+              // const strDirection = isLoginMode ? "/" : "confirmemail";
+              // history.push(strDirection);
             }, 400);
           }}
         >
@@ -138,7 +164,7 @@ const Auth = (props) => {
                 {isLoginMode ? (
                   <>
                     <div className="flex items-center">
-                      <Checkbox id="remember_me" name="remember_me">
+                      <Checkbox name="isAutoLoginChecked">
                         <label
                           htmlFor="remember_me"
                           className="ml-2 block text-sm text-gray-900"

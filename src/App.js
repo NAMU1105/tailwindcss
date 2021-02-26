@@ -17,11 +17,12 @@ import { LangContext } from "../src/context/lang-context";
 import { useAuth } from "../src/utils/hooks/auth-hooks";
 import { useLang } from "../src/utils/hooks/lang-hooks";
 import ConfirmEmail from "./pages/confirmEmail";
+import Dashboard from "./pages/dashboard";
 
 // import { Main } from "./assets/styles/pages";
 
 const App = () => {
-  const { userID, token, login, logout } = useAuth();
+  const { strUserID, strToken, login, logout } = useAuth();
   const { strCurrentLang, changeLangHandler } = useLang();
 
   return (
@@ -34,8 +35,8 @@ const App = () => {
       >
         <AuthContext.Provider
           value={{
-            userID: userID,
-            token: token,
+            userID: strUserID,
+            token: strToken,
             login: login,
             logout: logout,
           }}
@@ -46,6 +47,9 @@ const App = () => {
               <main className="min-h-content">
                 <Switch>
                   <Route path="/" exact>
+                    <Dashboard />
+                  </Route>
+                  <Route path="/users" exact>
                     <Users />
                   </Route>
                   <Route path="/auth" exact>

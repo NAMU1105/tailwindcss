@@ -1,6 +1,8 @@
 import React from "react";
 import { Formik } from "formik";
 
+import { HeadingFirst } from "../assets/styles/base";
+
 import Button from "../components/form/button";
 import Logo from "../components/UI/logo";
 
@@ -11,9 +13,7 @@ const NewPassword = (props) => {
         <div>
           <Logo classStyle="mx-auto h-12 w-auto" />
 
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Forgot your Password?
-          </h2>
+          <HeadingFirst>Forgot your Password?</HeadingFirst>
           <p className="mt-6">
             Enter the email you signed up with and we will send you reset
             instructions.

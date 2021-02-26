@@ -3,6 +3,7 @@ import React, { useState, useContext } from "react";
 
 import { strAuth } from "../utils/strings/base";
 import { LangContext } from "../context/lang-context";
+import { AuthContext } from "../context/auth-context";
 
 import KoreaFlag from "../assets/images/flags/korea.svg";
 import USFlag from "../assets/images/flags/us.jpg";
@@ -16,6 +17,7 @@ const Header = (props) => {
   const [isOpenHeaderMobile, setToggleHeaderMobile] = useState("hidden");
 
   const objLangContext = useContext(LangContext);
+  const objAuthContext = useContext(AuthContext);
 
   // 모바일 화면 시 나오는 메뉴 토글하는 함수
   const toggleHeaderMobile = () => {
@@ -113,7 +115,9 @@ const Header = (props) => {
             <NavLinks linkType="button" withMenu>
               4DREPLAY
             </NavLinks>
-            <NavLinks linkType="a">USERS</NavLinks>
+            <NavLinks linkType="a" to="/users">
+              USERS
+            </NavLinks>
             <NavLinks linkType="a">DOCS</NavLinks>
             <NavLinks linkType="button" withMenu>
               MORE
@@ -179,9 +183,14 @@ const Header = (props) => {
                 changeLang("en");
               }}
             />
-            <Button href="/auth" notFullWidth>
-              {strAuth.signIn}
-            </Button>
+
+            {objAuthContext.token ? (
+              <span>{objAuthContext.userID}</span>
+            ) : (
+              <Button href="/auth" notFullWidth>
+                {strAuth.signIn}
+              </Button>
+            )}
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import react, { useState, useCallback } from "react";
+import { useState } from "react";
 import { strAuth } from "../strings/base";
 
 export const useLang = () => {
