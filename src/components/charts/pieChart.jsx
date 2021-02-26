@@ -47,7 +47,7 @@ const PieChart = (props) => {
 
   return (
     <article>
-      <h3 className="text-center">New users/sales</h3>
+      {/* <h3 className="text-center">New users/sales</h3> */}
       <ChartContainer responsiveWidth={responsiveWidth}>
         <Pie
           id="barChart"

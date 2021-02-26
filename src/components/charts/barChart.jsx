@@ -1,5 +1,5 @@
 import React from "react";
-import { Bar, defaults } from "react-chartjs-2";
+import { Bar, HorizontalBar, defaults } from "react-chartjs-2";
 
 // defaults.global.tooltips.enabled = false;
 // defaults.global.legend.position = "bottom";
@@ -21,37 +21,16 @@ const DUMMY_CHART_DATA = {
   ],
 };
 
-const BarChart = (props) => {
-  const {
-    horizontal,
-    vertical,
-    width,
-    responsiveWidth,
-    height,
-    responsiveHight,
-  } = props;
+export const BarChart = (props) => {
+  const { vertical, width, responsiveWidth, height, responsiveHight } = props;
 
   return (
     <article>
-      <h3 className="my-3">New users/sales</h3>
+      {/* <h3 className="my-3">New users/sales</h3> */}
       <Bar
         id="barChart"
         data={{
           labels: [...DUMMY_CHART_DATA.labels],
-          //   labels: [
-          //     "Jan",
-          //     "Feb",
-          //     "Mar",
-          //     "Apr",
-          //     "May",
-          //     "Jun",
-          //     "Jul",
-          //     "Aug",
-          //     "Sep",
-          //     "Oct",
-          //     "Nov",
-          //     "Dec",
-          //   ],
           datasets: [
             {
               label: "Food",
@@ -103,5 +82,52 @@ const BarChart = (props) => {
     </article>
   );
 };
+export const HorizontalBarChart = (props) => {
+  const { vertical, width, responsiveWidth, height, responsiveHight } = props;
 
-export default BarChart;
+  return (
+    <article>
+      <HorizontalBar
+        id="barChart"
+        data={{
+          labels: ["San Francisco", "Los Angeles", "San Diego"],
+          datasets: [
+            {
+              label: "Food",
+              data: [1455, 1032, 564],
+              backgroundColor: "rgba(54, 162, 235, 0.2)",
+              borderColor: "rgba(54, 162, 235, 1)",
+              borderWidth: 1,
+            },
+          ],
+        }}
+        height={300}
+        width={300}
+        options={{
+          maintainAspectRatio: false,
+          scales: {
+            xAxes: [
+              {
+                stacked: true,
+              },
+            ],
+            yAxes: [
+              {
+                stacked: true,
+                barThickness: 6, // number (pixels) or 'flex'
+                maxBarThickness: 8, // number (pixels)
+              },
+            ],
+          },
+          legend: {
+            labels: {
+              fontSize: 16,
+            },
+          },
+        }}
+      />
+    </article>
+  );
+};
+
+// export default BarChart;
