@@ -4,7 +4,7 @@ import { Formik } from "formik";
 import { HeadingFirst } from "../assets/styles/base";
 
 import Button from "../components/form/button";
-import Logo from "../components/UI/logo";
+import Logo from "../components/stateless/logo";
 
 const NewPassword = (props) => {
   return (

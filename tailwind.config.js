@@ -1,8 +1,14 @@
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 module.exports = {
   purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      fontFamily: {
+        inter: ["Inter", ...defaultTheme.fontFamily.sans],
+      },
+
       colors: {
         // 4D color 선언
         primary: {
@@ -43,10 +49,15 @@ module.exports = {
           "0%, 100%": { transform: "rotate(-6deg)" },
           "50%": { transform: "rotate(6deg)" },
         },
+        bounceHorizontal: {
+          "0%, 100%": { transform: "translateX(0.5rem)", opacity: 0 },
+          "50%": { transform: "translateX(0px)", opacity: 1 },
+        },
       },
 
       animation: {
         wiggle: "wiggle 0.5s ease-in-out infinite",
+        bounceHorizontal: "bounceHorizontal 1s ease-in infinite",
       },
 
       screens: {

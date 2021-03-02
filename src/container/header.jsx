@@ -10,7 +10,7 @@ import USFlag from "../assets/images/flags/us.jpg";
 
 import HeaderMobile from "./headerMobile";
 import NavLinks from "../components/navigation/navLinks";
-import Logo from "../components/UI/logo";
+import Logo from "../components/stateless/logo";
 import Button from "../components/form/button";
 
 const Header = (props) => {

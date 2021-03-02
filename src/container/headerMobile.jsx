@@ -5,7 +5,7 @@ import React from "react";
 
 import Button from "../components/form/button";
 import HeaderMenuItem from "../components/navigation/headerMenuItem";
-import Logo from "../components/UI/logo";
+import Logo from "../components/stateless/logo";
 
 /* <!--
         Mobile menu, show/hide based on mobile menu state.

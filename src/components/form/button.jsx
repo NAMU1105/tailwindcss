@@ -9,7 +9,7 @@ import tw from "twin.macro";
 
 const ButtonWapper = styled.button.attrs({
   className:
-    "uppercase group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-layout hover:bg-layout-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-layout",
+    "uppercase group relative w-full flex justify-center items-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-layout hover:bg-layout-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-layout",
 })`
   // 사이즈 커스텀 가능(다만 pure css방식으로 프롭전달해야함)
   ${(props) =>

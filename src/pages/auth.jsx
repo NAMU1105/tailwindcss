@@ -12,7 +12,7 @@ import { AuthContext } from "../context/auth-context";
 import { ContainerLayout } from "../assets/styles/layout";
 import { HeadingFirst } from "../assets/styles/base";
 // component
-import Logo from "../components/UI/logo";
+import Logo from "../components/stateless/logo";
 import Button from "../components/form/button";
 import { Input, Checkbox } from "../components/form/input";
 

@@ -8,7 +8,7 @@ import { strAuth } from "../utils/strings/base";
 import { ConfirmEmailSchema } from "../utils/validator";
 import { LangContext } from "../context/lang-context";
 
-import Logo from "../components/UI/logo";
+import Logo from "../components/stateless/logo";
 import Gmail from "../assets/images/gmail.png";
 import Outlook from "../assets/images/outlook.png";
 

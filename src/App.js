@@ -41,7 +41,7 @@ const App = () => {
             logout: logout,
           }}
         >
-          <div className="App">
+          <div className="App font-inter">
             <Router>
               <Header />
               <main className="min-h-content">
