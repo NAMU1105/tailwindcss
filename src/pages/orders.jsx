@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import Table from "../components/table/table";
-// import Pagination from "../container/pagination";
+import OrderTable from "../components/table/orderTable";
 
-const Users = (props) => {
+/* 구매 관리 하는 페이지 */
+const Order = (props) => {
   const [arrPosts, setPosts] = useState([]);
   const [arrCurrentPosts, setCurrentPosts] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [intCurrentPage, setCurrentPage] = useState(1);
   const [intPostsPerPage, setPostsPerPage] = useState(10);
 
@@ -32,32 +32,28 @@ const Users = (props) => {
     setCurrentPage(1);
   };
 
-  const handleSortDate = () => {};
+  const paginate = () => {};
 
   return (
     <section className="flex flex-col px-4 sm:px-20 sm:my-5">
-      <h1 className="uppercase py-5 font-bold">user list</h1>
+      <h1 className="uppercase pb-5 font-bold">order list</h1>
       <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-        <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-          <div>
-            {/* <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg"> */}
-            <Table
-              type="user"
-              data={arrPosts}
-              posts={arrCurrentPosts}
-              postsPerPage={intPostsPerPage}
-              totalPosts={arrPosts.length}
-              handleDataNumber={handleDataNumber}
-              isLoading={isLoading}
-              handleSortDate={handleSortDate}
-              // paginate={paginate}
-            />
-          </div>
+        <div className="flex flex-col items-center py-2 align-middle min-w-full sm:px-6 lg:px-8">
+          <OrderTable
+            type="orders"
+            data={arrPosts}
+            posts={arrCurrentPosts}
+            postsPerPage={intPostsPerPage}
+            totalPosts={arrPosts.length}
+            handleDataNumber={handleDataNumber}
+            isLoading={isLoading}
+            // handleSortDate={handleSortDate}
+            paginate={paginate}
+          />
         </div>
       </div>
-      {/* <Pagination /> */}
     </section>
   );
 };
 
-export default Users;
+export default Order;

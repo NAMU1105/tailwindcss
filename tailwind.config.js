@@ -94,5 +94,8 @@ module.exports = {
       textColor: ["disabled"],
     },
   },
-  plugins: [],
+  plugins: [
+    //
+    // require("@tailwindcss/forms"),
+  ],
 };

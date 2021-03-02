@@ -38,7 +38,7 @@ const Logo = (props) => {
       <div className="flex justify-start ">
         <a href="/">
           <span className="sr-only">4DREPLAY</span>
-          <img className="h-8 w-auto sm:h-6" src={strImg} alt="logo" />
+          <img className={`h-8 w-auto sm:h-6`} src={strImg} alt="logo" />
         </a>
       </div>
     );

@@ -12,6 +12,7 @@ import HeaderMobile from "./headerMobile";
 import NavLinks from "../components/navigation/navLinks";
 import Logo from "../components/stateless/logo";
 import Button from "../components/form/button";
+import { SearchBarInput } from "../components/form/input";
 
 const Header = (props) => {
   const [isOpenHeaderMobile, setToggleHeaderMobile] = useState("hidden");
@@ -61,33 +62,7 @@ const Header = (props) => {
               classStyle="h-8 w-auto sm:h-10"
             />
             {/* 검색창 */}
-            <div className="hidden md:flex justify-between items-center bg-background-gray p-2 rounded-3xl ml-5">
-              {/* 검색 아이콘 */}
-              <a href="/" className="">
-                <svg
-                  className="animate-wiggle text-gray-500 h-5 w-5 group-hover:text-gray-900 mr-2"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M8 16l2.879-2.879m0 0a3 3 0 104.243-4.242 3 3 0 00-4.243 4.242zM21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-              </a>
-              {/* 검색 인풋창 */}
-              <input
-                type="text"
-                name="input_text"
-                className="bg-background-gray w-full outline-none"
-                placeholder="Search..."
-                autoComplete="off"
-              />
-            </div>
+            <SearchBarInput classStyle="ml-5" />
           </div>
 
           {/* 반응형 햄버거 메뉴 */}
@@ -118,7 +93,9 @@ const Header = (props) => {
             <NavLinks linkType="a" to="/users">
               USERS
             </NavLinks>
-            <NavLinks linkType="a">DOCS</NavLinks>
+            <NavLinks linkType="a" to="/orders">
+              ORDERS
+            </NavLinks>
             <NavLinks linkType="button" withMenu>
               MORE
             </NavLinks>

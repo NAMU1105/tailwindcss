@@ -5,8 +5,9 @@ import styled, { css } from "styled-components";
 // import { CheckboxContext } from "../../context/checkbox-context";
 
 // import UserList from "../../container/userList";
-import UserItem from "../userItem";
+import OrderItem from "../orderItem";
 import Pagination from "../../container/pagination";
+import { SearchBarInput } from "../form/input";
 
 // CSS
 const TableWrapper = styled.table.attrs({
@@ -25,11 +26,11 @@ const Thead = styled.thead.attrs({
 `;
 const Th = styled.th.attrs({
   className:
-    "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider",
+    "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider ",
 })``;
 
 //  TODO: 다이나믹 테이블 생성할 수 있는 컴포넌트 만들기
-const Table = ({
+const OrderTable = ({
   type,
   totalPosts,
   postsPerPage,
@@ -37,7 +38,7 @@ const Table = ({
   handleSortDate,
   paginate,
   handleDataNumber,
-  loading,
+  isLoading,
 }) => {
   const [checkItems, setCheckItems] = useState([]);
 
@@ -80,18 +81,35 @@ const Table = ({
     setCheckItems([]);
   };
 
-  // 로딩 중일 경우
-  if (loading) {
-    return <span>Loading...</span>;
+  if (isLoading) {
+    return <h3>Loading...</h3>;
   }
 
   return (
     <>
+      <div className="w-full flex items-center justify-between pb-5">
+        <SearchBarInput />
+
+        {/* 검색 정렬 */}
+        <div>
+          <select name="" id="" onChange={handleSortDate}>
+            <option value="최신주문일순">최신주문일순</option>
+            <option value="주문일의 역순">주문일의 역순</option>
+          </select>
+
+          <select name="" id="" defaultValue="50" onChange={handleChange}>
+            <option value="10">10개씩보기</option>
+            <option value="20">20개씩보기</option>
+            <option value="50">50개씩보기</option>
+            <option value="100">100개씩보기</option>
+            <option value="150">150개씩보기</option>
+          </select>
+        </div>
+      </div>
+
       <TableWrapper>
         <Thead color="light-gray">
           <tr>
-            {/* 나중에 map으로 할 수 있으면 map으로 만들기
-          type별 th미리 만들어두고 분기처리해서 사용하는 방법도 고려해보기 */}
             {/* 전체 선택 체크박스 */}
             <Th scope="col">
               <input
@@ -104,18 +122,21 @@ const Table = ({
                 checked={checkItems.length === postsPerPage ? true : false}
               />
             </Th>
-            <Th scope="col">Name</Th>
-            <Th scope="col">Title</Th>
-            <Th scope="col">Status</Th>
-            {/* <Th scope="col">Role</Th> */}
+            <Th scope="col">order no.</Th>
+            <Th scope="col">date</Th>
+            <Th scope="col">Billing Name</Th>
+            <Th scope="col">total</Th>
+            <Th scope="col">Payment Status </Th>
+            <Th scope="col">Payment Method</Th>
+            <Th scope="col">View Details</Th>
             <Th scopt="col">
-              <span className="sr-only">Edit</span>
+              <span className="sr-only">Action</span>
             </Th>
           </tr>
         </Thead>
         <tbody className="bg-white divide-y divide-gray-200">
           {posts.map((el, index) => (
-            <UserItem
+            <OrderItem
               key={index}
               data={el}
               index={index}
@@ -131,4 +152,4 @@ const Table = ({
   );
 };
 
-export default Table;
+export default OrderTable;
