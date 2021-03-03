@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
-import { useLocation } from "react-router";
+import React, { useContext, useEffect } from "react";
+import { useLocation, useHistory } from "react-router";
 import { Formik, Form } from "formik";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import tw from "twin.macro";
 
 import { strAuth } from "../utils/strings/base";
@@ -44,7 +44,17 @@ const OpenEmail = styled.a`
 const ConfirmEmail = (props) => {
   const strCurrentLang = useContext(LangContext).strCurrentLang;
   const location = useLocation();
-  const strEmail = location.state.email;
+  const history = useHistory();
+  let strEmail;
+
+  // url 직접접근 방지
+  useEffect(() => {
+    if (location.state) {
+      strEmail = location.state.email;
+    } else {
+      history.push("/auth");
+    }
+  }, []);
 
   return (
     <ContainerLayout>

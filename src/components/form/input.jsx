@@ -56,7 +56,7 @@ export const Input = ({ label, ...props }) => {
 export const SearchBarInput = (props) => {
   return (
     <div
-      className={`hidden md:flex justify-between items-center bg-background-gray p-2 rounded-3xl ${props.classStyle}`}
+      className={`hidden lg:flex justify-between items-center bg-background-gray p-2 rounded-3xl ${props.classStyle}`}
     >
       {/* 검색 아이콘 */}
       <a href="/" className="">

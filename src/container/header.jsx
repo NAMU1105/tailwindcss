@@ -1,13 +1,18 @@
-import React, { useState, useContext } from "react";
-// import { NavLink } from "react-router-dom";
+import React, { useState, useContext, useRef, useEffect } from "react";
 
+//context
 import { strAuth } from "../utils/strings/base";
 import { LangContext } from "../context/lang-context";
 import { AuthContext } from "../context/auth-context";
 
+// css
+import { DropdownMenuWrapper } from "../assets/styles/layout";
+
+// image
 import KoreaFlag from "../assets/images/flags/korea.svg";
 import USFlag from "../assets/images/flags/us.jpg";
 
+// components
 import HeaderMobile from "./headerMobile";
 import NavLinks from "../components/navigation/navLinks";
 import Logo from "../components/stateless/logo";
@@ -16,9 +21,12 @@ import { SearchBarInput } from "../components/form/input";
 
 const Header = (props) => {
   const [isOpenHeaderMobile, setToggleHeaderMobile] = useState("hidden");
+  const [isOpenDropdownMenu, setToggleDropdownMenu] = useState(false);
 
   const objLangContext = useContext(LangContext);
   const objAuthContext = useContext(AuthContext);
+
+  const dropdownRef = useRef();
 
   // 모바일 화면 시 나오는 메뉴 토글하는 함수
   const toggleHeaderMobile = () => {
@@ -26,6 +34,18 @@ const Header = (props) => {
       setToggleHeaderMobile("");
     } else {
       setToggleHeaderMobile("hidden");
+    }
+  };
+
+  // 드롭다운 메뉴 토글 상태 바꿔주는 함수
+  const toggleDropdownMenu = () => {
+    setToggleDropdownMenu((prev) => !prev);
+  };
+
+  // 드롭다운 외부영역 클릭 시 드롭다운 닫히게 하는 함수
+  const handleClickOutside = ({ target }) => {
+    if (!dropdownRef.current || !dropdownRef.current.contains(target)) {
+      setToggleDropdownMenu(false);
     }
   };
 
@@ -50,12 +70,20 @@ const Header = (props) => {
     }
   };
 
+  // 드롭다운 외부영역의 클릭을 감지하여 드롭다운의 상태값을 바꾸기 위해 window객체에 이벤트리스너를 붙인다.
+  useEffect(() => {
+    window.addEventListener("click", handleClickOutside);
+    return () => {
+      window.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
   return (
     <header className="sticky top-0 bg-header h-header z-10	">
       <div className="px-4 sm:px-20">
         {/* <div className="max-w-7xl mx-auto px-4 sm:px-6"> */}
-        <div className="flex justify-between items-center border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
-          <div className="flex md:flex-1 items-center">
+        <div className="flex justify-between items-center border-b-2 border-gray-100 py-6 lg:justify-start lg:space-x-10">
+          <div className="flex lg:flex-1 items-center">
             <Logo
               withLink
               type={{ type: "LogoHorizontalLight" }}
@@ -66,7 +94,7 @@ const Header = (props) => {
           </div>
 
           {/* 반응형 햄버거 메뉴 */}
-          <div className="-mr-2 -my-2 md:hidden">
+          <div className="-mr-2 -my-2 lg:hidden">
             <Button planeText hamburger onClick={toggleHeaderMobile}>
               <span className="sr-only">Open menu</span>
               <svg
@@ -85,8 +113,7 @@ const Header = (props) => {
               </svg>
             </Button>
           </div>
-          {/* TODO: 메뉴 종류도 하드코딩이 아니라 백엔드에서 넘어오는 정보로 만들 수 있도록 고려해보기 */}
-          <nav className="hidden md:flex md:items-center space-x-10">
+          <nav className="hidden lg:flex lg:items-center space-x-10">
             <NavLinks linkType="button" withMenu>
               4DREPLAY
             </NavLinks>
@@ -102,7 +129,7 @@ const Header = (props) => {
             {/* 알림 메뉴 */}
             <NavLinks linkType="button" withMenu noArrow>
               <svg
-                className="animate-wiggle text-gray-500 h-5 w-5 mt-2 group-hover:text-gray-900 "
+                className="hidden lg:inline-block w-5 animate-wiggle text-gray-500 h-5 mt-2 group-hover:text-gray-900 "
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -116,8 +143,8 @@ const Header = (props) => {
                 />
               </svg>
 
-              <span className="flex h-3 relative">
-                <span className="absolute -top-2.5 -left-1.5 inline-flex rounded-full h-4 w-4 bg-purple-500 text-black">
+              <span className="hidden lg:flex h-3 relative">
+                <span className="hidden lg:absolute -top-2.5 -left-1.5 lg:inline-flex rounded-full h-4 w-4 bg-purple-500 text-black">
                   {/* 3 */}
                 </span>
               </span>
@@ -126,7 +153,7 @@ const Header = (props) => {
             <NavLinks linkType="button" noArrow>
               <svg
                 onClick={popFullScreen}
-                className="text-gray-500 h-5 w-5 mt-2 group-hover:text-gray-900 "
+                className="hidden text-gray-500 h-5 mt-2 group-hover:text-gray-900 lg:w-5 "
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -141,7 +168,7 @@ const Header = (props) => {
               </svg>
             </NavLinks>
           </nav>
-          <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
+          <div className="hidden lg:flex items-center justify-end lg:flex-1 lg:w-0">
             {/* 언어 변경 메뉴 */}
             <img
               className="w-14 mr-2 cursor-pointer"
@@ -161,8 +188,32 @@ const Header = (props) => {
               }}
             />
 
+            {/* 로그인한 유저 정보를 보여준다. */}
             {objAuthContext.token ? (
-              <span>{objAuthContext.userID}</span>
+              // <span>{objAuthContext.userID}</span>
+              // TODO: 프로필 사진을 사용하려면 추후 로그인 시 서버에서 받아서 컨텍스트에 넣어야 한다
+              <div
+                className="relative"
+                onClick={toggleDropdownMenu}
+                ref={dropdownRef}
+              >
+                <img
+                  className="w-10 rounded-full cursor-pointer"
+                  src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60"
+                  alt="photo"
+                />
+                {isOpenDropdownMenu && (
+                  <DropdownMenuWrapper>
+                    <ul>
+                      <li>profile</li>
+                      <li>my wallet</li>
+                      <li>cart</li>
+                      <li>settings</li>
+                      <li className="border-t-2">log out</li>
+                    </ul>
+                  </DropdownMenuWrapper>
+                )}
+              </div>
             ) : (
               <Button href="/auth" notFullWidth>
                 {strAuth.signIn}

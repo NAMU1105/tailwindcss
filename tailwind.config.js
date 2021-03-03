@@ -42,6 +42,7 @@ module.exports = {
           light: "#976cd0",
         },
         footer: "#D9D9D9",
+        backdrop: "rgba(0, 0, 0, 0.75)",
       },
 
       keyframes: {
@@ -71,6 +72,8 @@ module.exports = {
         header: "6rem",
         footer: "6rem",
         content: "calc(100vh - 12rem)",
+        "1/10": "10%",
+        "1/5": "20%",
       },
 
       minHeight: {
@@ -84,6 +87,23 @@ module.exports = {
       flexGrow: {
         3: 3,
       },
+
+      minWidth: {
+        0: "0",
+        10: "2.5rem",
+        20: "5rem",
+        "1/10": "10%",
+        "1/4": "25%",
+        "1/2": "50%",
+        "3/4": "75%",
+        full: "100%",
+      },
+      height: {
+        fit: "fit-content",
+      },
+
+      // inset: (theme, { negative }) => ({
+      // }),
     },
   },
   variants: {

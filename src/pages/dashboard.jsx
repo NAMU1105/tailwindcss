@@ -1,11 +1,7 @@
 import React from "react";
 import { BarChart, HorizontalBarChart } from "../components/charts/barChart";
 import PieChart from "../components/charts/pieChart";
-// import Table from "../components/table/table";
 import Button from "../components/form/button";
-// import Card from "../components/stateless/logo";
-// import styled from "styled-components";
-// import tw from "twin.macro";
 
 import { ContainerLayout } from "../assets/styles/layout";
 import { HeadingFirst } from "../assets/styles/base";
@@ -253,7 +249,7 @@ const Dashboard = (props) => {
                 <li className="flex w-full pb-12">
                   <div>
                     <svg
-                      className="w-5 absolute -left-3"
+                      className="w-5 absolute -left-2.5"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
@@ -293,7 +289,7 @@ const Dashboard = (props) => {
                 <li className="flex w-full pb-12">
                   <div>
                     <svg
-                      className="w-5 absolute -left-3"
+                      className="w-5 absolute -left-2.5"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
@@ -333,7 +329,7 @@ const Dashboard = (props) => {
                 <li className="flex w-full">
                   <div>
                     <svg
-                      className="w-5 absolute -left-3 animate-bounceHorizontal"
+                      className="w-5 absolute -left-2.5 animate-bounceHorizontal"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"

@@ -1,5 +1,6 @@
 import React from "react";
-import { Bar, HorizontalBar, defaults } from "react-chartjs-2";
+import { Bar, HorizontalBar } from "react-chartjs-2";
+// import { Bar, HorizontalBar, defaults } from "react-chartjs-2";
 
 // defaults.global.tooltips.enabled = false;
 // defaults.global.legend.position = "bottom";
@@ -22,7 +23,7 @@ const DUMMY_CHART_DATA = {
 };
 
 export const BarChart = (props) => {
-  const { vertical, width, responsiveWidth, height, responsiveHight } = props;
+  // const { vertical, width, responsiveWidth, height, responsiveHight } = props;
 
   return (
     <article>
@@ -83,7 +84,7 @@ export const BarChart = (props) => {
   );
 };
 export const HorizontalBarChart = (props) => {
-  const { vertical, width, responsiveWidth, height, responsiveHight } = props;
+  // const { vertical, width, responsiveWidth, height, responsiveHight } = props;
 
   return (
     <article>
@@ -98,6 +99,8 @@ export const HorizontalBarChart = (props) => {
               backgroundColor: "rgba(54, 162, 235, 0.2)",
               borderColor: "rgba(54, 162, 235, 1)",
               borderWidth: 1,
+              barThickness: 6, // number (pixels) or 'flex'
+              maxBarThickness: 8, // number (pixels)
             },
           ],
         }}
@@ -114,8 +117,6 @@ export const HorizontalBarChart = (props) => {
             yAxes: [
               {
                 stacked: true,
-                barThickness: 6, // number (pixels) or 'flex'
-                maxBarThickness: 8, // number (pixels)
               },
             ],
           },

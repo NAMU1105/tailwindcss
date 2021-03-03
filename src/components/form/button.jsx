@@ -5,7 +5,7 @@ import tw from "twin.macro";
 
 // import { Button } from "../../assets/styles/button";
 
-// TODO: 자물쇠 버튼을 하나의 템플릿으로 만들어도 괜찮을 것 같다.
+// TODO: 이렇게 하지말고 여러 개 버튼 템플릿 만들어두기
 
 const ButtonWapper = styled.button.attrs({
   className:
@@ -23,6 +23,12 @@ const ButtonWapper = styled.button.attrs({
     props.color &&
     css`
       color: ${props.color};
+    `};
+  // 배경색상 커스텀
+  ${(props) =>
+    props.bgcolor &&
+    css`
+      background-color: ${props.bgcolor};
     `};
 
   // 삭제, 탈퇴 등 주의 요하는 처리 버튼

@@ -1,7 +1,7 @@
 import React from "react";
 import { Pie, defaults } from "react-chartjs-2";
 
-import styled, { css } from "styled-components";
+// import styled, { css } from "styled-components";
 // import tw from "twin.macro";
 import { ChartContainer } from "../../assets/styles/layout";
 
@@ -43,12 +43,12 @@ defaults.global.legend.display = false;
 // `;
 
 const PieChart = (props) => {
-  const { width, responsiveWidth, height, responsiveHight } = props;
+  // const { width, responsiveWidth, height, responsiveHight } = props;
 
   return (
     <article>
       {/* <h3 className="text-center">New users/sales</h3> */}
-      <ChartContainer responsiveWidth={responsiveWidth}>
+      <ChartContainer responsiveWidth={props.responsiveWidth}>
         <Pie
           id="barChart"
           data={{

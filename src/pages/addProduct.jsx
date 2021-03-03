@@ -10,7 +10,7 @@ const AddProduct = (props) => {
       <ContainerLayout>
         {/* <div className="md:grid md:grid-cols-3 md:gap-6"> */}
         {/* <div className="mt-5 md:mt-0 md:col-span-2"> */}
-        <div className="flex flex-col w-2/3">
+        <div className="flex flex-col w-full ">
           <HeadingFirst align="left">ADD PRODUCT</HeadingFirst>
           <article id="upperPart" className="mt-8">
             <form className="w-full" action="#" method="POST">
@@ -20,7 +20,7 @@ const AddProduct = (props) => {
                   <span className="block">Fill all information below</span>
                   {/* grid starts */}
                   <div className="grid grid-rows-4 grid-cols-2 gap-4">
-                    <div className="">
+                    <div className="col-span-2 sm:col-span-1">
                       <label
                         htmlFor="first_name"
                         className="block text-sm font-medium text-gray-700"
@@ -36,7 +36,7 @@ const AddProduct = (props) => {
                       />
                     </div>
 
-                    <div className="">
+                    <div className="col-span-2 sm:col-span-1">
                       <label
                         htmlFor="last_name"
                         className="block text-sm font-medium text-gray-700"
@@ -51,7 +51,7 @@ const AddProduct = (props) => {
                         className="focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       />
                     </div>
-                    <div className="">
+                    <div className="col-span-2 sm:col-span-1">
                       <label
                         htmlFor="first_name"
                         className="block text-sm font-medium text-gray-700"
@@ -67,7 +67,7 @@ const AddProduct = (props) => {
                       />
                     </div>
 
-                    <div className="">
+                    <div className="col-span-2 sm:col-span-1">
                       <label
                         htmlFor="last_name"
                         className="block text-sm font-medium text-gray-700"
@@ -82,7 +82,7 @@ const AddProduct = (props) => {
                         className="focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       />
                     </div>
-                    <div className="">
+                    <div className="col-span-2 sm:col-span-1">
                       <label
                         htmlFor="first_name"
                         className="block text-sm font-medium text-gray-700"
