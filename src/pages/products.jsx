@@ -1,7 +1,149 @@
-import React from "react";
+import React, { useState, useEffect, useCallback, memo } from "react";
+import styled from "styled-components";
+
 import Button from "../components/form/button";
 import { SearchBarInput } from "../components/form/input";
 // import { Checkbox } from "../components/form/input";
+
+import { VerticalContainerLayout } from "../assets/styles/layout";
+import { HeadingFirst } from "../assets/styles/base";
+
+const RadioWrapper = styled.div`
+  display: flex;
+  background-color: rgb(244, 245, 247);
+  padding: 0.5rem;
+  border-radius: 5px;
+  & > {
+    input[type="radio"],
+    input[type="checkbox"] {
+      display: none;
+    }
+    input[type="radio"] + label,
+    input[type="checkbox"] + label {
+      text-transform: capitalize;
+      padding: 0.1rem;
+      margin: 0 0.5rem;
+      cursor: pointer;
+      // border-right: solid 1px lightgray;
+    }
+    input[type="radio"]:checked + label,
+    input[type="checkbox"]:checked + label {
+      color: #8b5cf6;
+    }
+  }
+`;
+
+const SliderWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  height: 35px;
+  text-align: center;
+
+  input {
+    pointer-events: none;
+    position: absolute;
+    overflow: hidden;
+    left: 0;
+    top: 15px;
+    width: 100%;
+    outline: none;
+    height: 18px;
+    margin: 0;
+    padding: 0;
+  }
+
+  input::-webkit-slider-thumb {
+    pointer-events: all;
+    position: relative;
+    z-index: 1;
+    outline: 0;
+  }
+
+  input::-moz-range-thumb {
+    pointer-events: all;
+    position: relative;
+    z-index: 10;
+    -moz-appearance: none;
+    width: 9px;
+  }
+
+  input::- moz-range-track {
+    position: relative;
+    z-index: -1;
+    // background-color: rgba(0, 0, 0, 1);
+    border: 0;
+  }
+  input:last-of-type::-moz-range-track {
+    -moz-appearance: none;
+    // background: none transparent;
+    border: 0;
+  }
+  input[type="range"]::-moz-focus-outer {
+    border: 0;
+  }
+`;
+
+const enumContainerStyles = {
+  grid:
+    "w-full grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-4 grid-flow-row gap-4",
+  list: "w-full  flex flex-col",
+};
+const enumItemStyles = {
+  grid: "relative w-full flex flex-col shadow-md p-2 cursor-pointer",
+  list:
+    "relative w-full flex flex-col lg:flex-row shadow-md p-2 cursor-pointer",
+};
+
+// const Slider = memo(() => {
+//   // 가격 슬라이더 관련 스테이트
+//   const [intFirstSliderValue, setFirstSliderValue] = useState(5);
+//   const [intSecondSliderValue, setSecondSliderValue] = useState(10);
+
+//   // 가격 슬라이더 중 최소가격 포인터 관련 함수
+//   const changeFirstSliderValue = useCallback((event) => {
+//     const eventValue = event.target.value;
+//     setFirstSliderValue(eventValue);
+//   });
+//   // 가격 슬라이더 중 최고가격 포인터 관련 함수
+//   const changeSecondSliderValue = (event) => {
+//     const eventValue = event.target.value;
+//     setSecondSliderValue(eventValue);
+//     // console.log(eventValue);
+//   };
+
+//   useEffect(() => {
+//     if (intFirstSliderValue >= intSecondSliderValue) {
+//       setFirstSliderValue((prev) => prev - 0.5);
+//     }
+//   }, [intFirstSliderValue]);
+
+//   useEffect(() => {
+//     if (intSecondSliderValue <= intFirstSliderValue) {
+//       setSecondSliderValue((prev) => prev + 0.5);
+//     }
+//   }, [intSecondSliderValue]);
+
+//   return (
+//     <SliderWrapper>
+//       <input
+//         min={0}
+//         max={15}
+//         step={0.5}
+//         type="range"
+//         value={intFirstSliderValue}
+//         onChange={changeFirstSliderValue}
+//       />
+//       <input
+//         min={0}
+//         max={15}
+//         step={0.5}
+//         type="range"
+//         value={intSecondSliderValue}
+//         onChange={changeSecondSliderValue}
+//       />
+//     </SliderWrapper>
+//   );
+// });
 
 const Stars = (param) => {
   const arrStarCounts = [];
@@ -35,11 +177,14 @@ const Stars = (param) => {
   );
 };
 
-const Item = () => {
+const Item = (props) => {
   return (
     <div
+      // TODO: grid, list 변경 마다 레이아웃 바꿔주기
+      // products__right로 플렉스 컬럼으로 바꾸기
+      // css="grid"
       id="products__item"
-      className="relative w-full flex flex-col shadow-md p-2 cursor-pointer"
+      className={enumItemStyles[props.style]}
     >
       {/* TODO: 나중에는 이 부분을 슬라이더로 바꾸기 */}
       <figure>
@@ -49,8 +194,9 @@ const Item = () => {
           alt="product thumbnail"
         />
       </figure>
-      <figcaption className="">
-        <button className="absolute top-5 right-5 bg-white shadow-md rounded-full w-9 h-9">
+      <figcaption className="p-5">
+        {/* 즐겨찾기 버튼은 관리자 페이지에 필요없음 */}
+        {/* <button className  ="absolute top-5 right-5 bg-white shadow-md rounded-full w-9 h-9">
           <svg
             className="absolute top-2 left-2 text-red-500 w-5 "
             xmlns="http://www.w3.org/2000/svg"
@@ -63,235 +209,316 @@ const Item = () => {
               clipRule="evenodd"
             />
           </svg>
-        </button>
+        </button> */}
 
-        <h3>Lorem ipsum dolor sit amet</h3>
-        <p>
-          <span>$99</span>
-          <del>$150</del>
-          <span>60% off</span>
+        <h3 id="product__id" className="font-bold">
+          Lorem ipsum dolor sit amet
+        </h3>
+        <p className="my-1">
+          <span className="text-indigo-500">$99</span>
+          <del className="mx-3">$150</del>
+          <span className="text-red-400">60% off</span>
         </p>
-        <div className="flex">
+        <div className="flex items-center mb-5">
           <Stars count={4} />
-          <span>4.9</span>
-          <span>778 Reviews</span>
+          <span className="mx-3">4.9</span>
+          <span className="text-xs text-gray-600">778 Reviews</span>
         </div>
-        {/* <Button bgcolor="white" color="black">
-          Add to Cart
-        </Button>
-        <Button>Buy Now</Button> */}
+
+        <div className="flex w-full justify-start">
+          {/* 아래 버튼들은 관리자에게 필요 없음 */}
+          {/* <button className="mr-5 bg-white p-2 flex items-center justify-center border border-gray-200 rounded-md">
+            <svg
+              className="w-5 mr-2"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+              />
+            </svg>
+            <span className="text-sm">Add To Cart</span>
+          </button>
+          <button className="bg-indigo-500 text-white text-sm p-2 flex  border border-gray-200 rounded-md">
+            Buy Now
+          </button> */}
+        </div>
       </figcaption>
     </div>
   );
 };
 
-<li>
-  <svg
-    className="w-4"
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 20 20"
-    fill="currentColor"
-  >
-    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-  </svg>
-</li>;
-
+// ************************************************
+// ************************************************
+// ************************************************
 const Products = (props) => {
+  const [intFirstSliderValue, setFirstSliderValue] = useState(5);
+  const [intSecondSliderValue, setSecondSliderValue] = useState(10);
+  const [strViewType, setViewType] = useState("grid");
+
+  // 가격 슬라이더 중 최소가격 포인터 관련 함수
+  const changeFirstSliderValue = (event) => {
+    const eventValue = Number(event.target.value);
+    setFirstSliderValue(eventValue);
+  };
+  // 가격 슬라이더 중 최고가격 포인터 관련 함수
+  const changeSecondSliderValue = (event) => {
+    const eventValue = Number(event.target.value);
+    // console.log("eventValue: ", typeof eventValue);
+    // console.log(typeof intSecondSliderValue);
+
+    setSecondSliderValue(eventValue);
+    // console.log(eventValue);
+  };
+
+  useEffect(() => {
+    if (intFirstSliderValue >= intSecondSliderValue) {
+      setFirstSliderValue((prev) => prev - 0.5);
+    }
+  }, [intFirstSliderValue]);
+
+  useEffect(() => {
+    if (intSecondSliderValue <= intFirstSliderValue) {
+      setSecondSliderValue((prev) => prev + 0.5);
+    }
+  }, [intSecondSliderValue]);
+
+  const toggleViewType = (type) => {
+    setViewType(type);
+  };
+
   return (
-    <section className="flex flex-col w-full md:flex-row">
-      <nav className="w-1/4 p-5 rounded-md shadow-md h-fit mr-5">
-        {/* title: filters */}
-        <h1 className="font-bold">filters</h1>
-        {/* price range */}
-        <div className="bg-white rounded-sm capitalize">
-          <h4 className="font-bold">price range</h4>
-          <div>range bar</div>
-          <span>$0-$1500</span>
-        </div>
-        {/* category */}
-        <div className="bg-white rounded-sm capitalize">
-          <h4 className="font-bold">category</h4>
-          <ul>
-            <li>All</li>
-            <li>Accessories</li>
-            <li>Appliances</li>
-            <li>Bags</li>
-            <li>Electronic</li>
-            <li>Entertainment</li>
-            <li>induction</li>
-            <li>Mobile phone</li>
-            <Button href="/" planeText>
+    <VerticalContainerLayout>
+      <HeadingFirst className="w-full md:text-left">Products</HeadingFirst>
+      {/* <section className="flex flex-col w-full md:flex-row"> */}
+      <div className="flex flex-col md:flex-row w-full">
+        <nav className="w-full md:w-1/4 p-5 rounded-md shadow-xl h-fit mr-5">
+          {/* title: filters */}
+          <h1 className="font-bold">filters</h1>
+          {/* price range */}
+          <div className="bg-white rounded-sm capitalize">
+            <h4 className="font-bold">price range</h4>
+            <SliderWrapper>
+              <input
+                min={0}
+                max={15}
+                step={0.5}
+                type="range"
+                value={intFirstSliderValue}
+                onChange={changeFirstSliderValue}
+              />
+              <input
+                min={0}
+                max={15}
+                step={0.5}
+                type="range"
+                value={intSecondSliderValue}
+                onChange={changeSecondSliderValue}
+              />
+            </SliderWrapper>
+            {/* <Slider /> */}
+            <span>
+              ${intFirstSliderValue}-${intSecondSliderValue}
+            </span>
+          </div>
+          {/* category */}
+          <div className="bg-white rounded-sm capitalize">
+            <h4 className="font-bold">category</h4>
+            <ul>
+              <li>All</li>
+              <li>Accessories</li>
+              <li>Appliances</li>
+              <li>Bags</li>
+              <li>Electronic</li>
+              <li>Entertainment</li>
+              <li>induction</li>
+              <li>Mobile phone</li>
+              <Button href="/" planeText alignLeft>
+                see more
+              </Button>
+            </ul>
+          </div>
+          {/* Brands */}
+          <div className="bg-white rounded-sm capitalize">
+            <h4 className="font-bold">Brands</h4>
+            <label htmlFor="" className="w-full block">
+              <input className="" type="checkbox" name="" id="" />
+              <span className="">
+                cup
+                <span className="float-right">25</span>
+              </span>
+            </label>
+            <label htmlFor="" className="w-full block">
+              <input className="" type="checkbox" name="" id="" />
+              <span className="">
+                cup
+                <span className="float-right">25</span>
+              </span>
+            </label>
+            <label htmlFor="" className="w-full block">
+              <input className="" type="checkbox" name="" id="" />
+              <span className="">
+                cup
+                <span className="float-right">25</span>
+              </span>
+            </label>
+            <label htmlFor="" className="w-full block">
+              <input className="" type="checkbox" name="" id="" />
+              <span className="">
+                cup
+                <span className="float-right">25</span>
+              </span>
+            </label>
+            <Button href="/" planeText alignLeft>
               see more
             </Button>
-          </ul>
-        </div>
-        {/* Brands */}
-        <div className="bg-white rounded-sm capitalize">
-          <h4 className="font-bold">Brands</h4>
-          <label htmlFor="" className="w-full block">
-            <input className="" type="checkbox" name="" id="" />
-            <span className="">
-              cup
+          </div>
+          {/* Ratings */}
+          <div className="bg-white rounded-sm capitalize">
+            <h4 className="font-bold">Ratings</h4>
+
+            <label htmlFor="" className="w-full flex">
+              <input className="" type="checkbox" name="" id="" />
+              <Stars count={5} customStyle="w-full" />
               <span className="float-right">25</span>
-            </span>
-          </label>
-          <label htmlFor="" className="w-full block">
-            <input className="" type="checkbox" name="" id="" />
-            <span className="">
-              cup
+            </label>
+
+            <label htmlFor="" className="w-full flex">
+              <input className="" type="checkbox" name="" id="" />
+              <Stars count={4} customStyle="w-full" />
               <span className="float-right">25</span>
-            </span>
-          </label>
-          <label htmlFor="" className="w-full block">
-            <input className="" type="checkbox" name="" id="" />
-            <span className="">
-              cup
+            </label>
+
+            <label htmlFor="" className="w-full flex">
+              <input className="" type="checkbox" name="" id="" />
+              <Stars count={3} customStyle="w-full" />
               <span className="float-right">25</span>
-            </span>
-          </label>
-          <label htmlFor="" className="w-full block">
-            <input className="" type="checkbox" name="" id="" />
-            <span className="">
-              cup
+            </label>
+
+            <label htmlFor="" className="w-full flex">
+              <input className="" type="checkbox" name="" id="" />
+              <Stars count={2} customStyle="w-full" />
               <span className="float-right">25</span>
-            </span>
-          </label>
-          <Button href="/" planeText>
-            see more
-          </Button>
-        </div>
-        {/* Ratings */}
-        <div className="bg-white rounded-sm capitalize">
-          <h4 className="font-bold">Ratings</h4>
+            </label>
 
-          <label htmlFor="" className="w-full flex">
-            <input className="" type="checkbox" name="" id="" />
-            <Stars count={5} />
-            <span className="float-right">25</span>
-          </label>
+            <label htmlFor="" className="w-full flex">
+              <input className="" type="checkbox" name="" id="" />
+              <Stars count={1} customStyle="w-full" />
+              <span className="float-right">25</span>
+            </label>
 
-          <label htmlFor="" className="w-full flex">
-            <input className="" type="checkbox" name="" id="" />
-            <Stars count={4} />
-            <span className="float-right">25</span>
-          </label>
-
-          <label htmlFor="" className="w-full flex">
-            <input className="" type="checkbox" name="" id="" />
-            <Stars count={3} />
-            <span className="float-right">25</span>
-          </label>
-
-          <label htmlFor="" className="w-full flex">
-            <input className="" type="checkbox" name="" id="" />
-            <Stars count={2} />
-            <span className="float-right">25</span>
-          </label>
-
-          <label htmlFor="" className="w-full flex">
-            <input className="" type="checkbox" name="" id="" />
-            <Stars count={1} />
-            <span className="float-right">25</span>
-          </label>
-
-          <label htmlFor="" className="w-full flex">
-            <input className="" type="checkbox" name="" id="" />
-            <Stars count={0} customStyle="w-full" />
-            <span className="float-right">25</span>
-          </label>
-        </div>
-        {/* <div className="bg-white rounded-sm capitalize">
+            <label htmlFor="" className="w-full flex">
+              <input className="" type="checkbox" name="" id="" />
+              <Stars count={0} customStyle="w-full" />
+              <span className="float-right">25</span>
+            </label>
+          </div>
+          {/* <div className="bg-white rounded-sm capitalize">
           <h4 className="font-bold"></h4>
         </div> */}
-      </nav>
-      {/* /////////////////////////////////////////////////////// */}
-      {/* 오른쪽 부분 */}
-      {/* /////////////////////////////////////////////////////// */}
-      <div className="w-3/4 p-5 ">
+        </nav>
+        {/* /////////////////////////////////////////////////////// */}
+        {/* 오른쪽 부분 */}
+        {/* /////////////////////////////////////////////////////// */}
         <div
-          id="products__header"
-          className="flex items-center justify-between w-full p-5 mb-5"
+          className="w-full md:w-3/4 order-first md:order-none px-5 pb-5"
+          id="products__right"
         >
-          <SearchBarInput />
+          {/* 검색 필터(오른쪽 부분 헤더) */}
+          <div
+            id="products__header"
+            className="flex flex-col 2xl:flex-row items-center justify-between w-full pb-5 2xl:pb-0 lg:mb-5"
+          >
+            <div className="w-full 2xl:w-auto flex flex-col lg:flex-row lg:items-center justify-between mb-5 2xl:mb-0">
+              <SearchBarInput classStyle="sm:flex mb-5 lg:mb-0  2xl:mr-5" />
+              <span className="text-center">Showing 1–8 of 86 results</span>
+            </div>
 
-          <span>Showing 1–8 of 86 results</span>
+            <div className="w-full 2xl:w-auto flex flex-col lg:flex-row justify-center lg:justify-between">
+              <div className="flex items-center sm:justify-center mb-5 lg:mb-0  2xl:mr-5">
+                <span className="mr-2">Status:</span>
+                <RadioWrapper>
+                  <input type="radio" name="" id="topRated" />
+                  <label htmlFor="topRated">Top rated</label>
+                  <input type="radio" name="" id="2" />
+                  <label htmlFor="2">popular</label>
+                  <input type="radio" name="" id="3" />
+                  <label htmlFor="3">newest</label>
+                  <input type="radio" name="" id="4" />
+                  <label htmlFor="4">price</label>
+                </RadioWrapper>
+              </div>
 
-          <div className="flex">
-            <span>Status:</span>
-            <div>
-              <label htmlFor="">
-                <input type="radio" name="" id="" />
-                <span className="capitalize">Top rated</span>
-              </label>
-              <label htmlFor="">
-                <input type="radio" name="" id="" />
-                <span className="capitalize">Top rated</span>
-              </label>
-              <label htmlFor="">
-                <input type="radio" name="" id="" />
-                <span className="capitalize">Top rated</span>
-              </label>
-              <label htmlFor="">
-                <input type="radio" name="" id="" />
-                <span className="capitalize">Top rated</span>
-              </label>
+              {/* view type icons */}
+              <div className="flex justify-center md:flex lg:inline-flex ">
+                <svg
+                  className={
+                    strViewType === "grid"
+                      ? `text-indigo-500 w-5 cursor-pointer mr-5`
+                      : `text-gray-600 w-5 cursor-pointer mr-5`
+                  }
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  onClick={() => toggleViewType("grid")}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+                  />
+                </svg>
+                <svg
+                  id="product__sort--list"
+                  className={
+                    strViewType === "list"
+                      ? `text-indigo-500 w-5 cursor-pointer`
+                      : `text-gray-600 w-5 cursor-pointer`
+                  }
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  onClick={() => toggleViewType("list")}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 10h16M4 14h16M4 18h16"
+                  />
+                </svg>
+              </div>
             </div>
           </div>
 
-          {/* icons */}
-          <div className="flex">
-            <svg
-              className="text-gray-600 w-12"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
-              />
-            </svg>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 10h16M4 14h16M4 18h16"
-              />
-            </svg>
+          {/* 아이템 레이아웃 */}
+          <div id="products__grid" className={enumContainerStyles[strViewType]}>
+            <Item style={strViewType} />
+            <Item style={strViewType} />
+            <Item style={strViewType} />
+            <Item style={strViewType} />
+            <Item style={strViewType} />
+            <Item style={strViewType} />
+            <Item style={strViewType} />
+            <Item style={strViewType} />
+            <Item style={strViewType} />
+            <Item style={strViewType} />
+            <Item style={strViewType} />
+            <Item style={strViewType} />
+            <Item style={strViewType} />
+            <Item style={strViewType} />
           </div>
         </div>
-        <div
-          id="products__grid"
-          className="w-full grid grid-cols-4 grid-flow-row gap-4"
-        >
-          <Item />
-          <Item />
-          <Item />
-          <Item />
-          <Item />
-          <Item />
-          <Item />
-          <Item />
-          <Item />
-          <Item />
-          <Item />
-          <Item />
-          <Item />
-          <Item />
-          <Item />
-          <Item />
-        </div>
       </div>
-    </section>
+    </VerticalContainerLayout>
   );
 };
 

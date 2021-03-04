@@ -50,6 +50,52 @@ module.exports = {
           "0%, 100%": { transform: "rotate(-6deg)" },
           "50%": { transform: "rotate(6deg)" },
         },
+        chase: {
+          "0%": {
+            top: 0,
+            left: 0,
+          },
+
+          "12.5%": {
+            top: 0,
+            left: "50%",
+          },
+
+          "25%": {
+            top: 0,
+            left: "50%",
+          },
+
+          "37.5%": {
+            top: "50%",
+            left: "50%",
+          },
+
+          "50%": {
+            top: "50%",
+            left: "50%",
+          },
+
+          "62.5%": {
+            top: "50%",
+            left: 0,
+          },
+
+          "75%": {
+            top: "50%",
+            left: 0,
+          },
+
+          "87.5%": {
+            top: 0,
+            left: 0,
+          },
+
+          "100%": {
+            top: 0,
+            left: 0,
+          },
+        },
         bounceHorizontal: {
           "0%, 100%": { transform: "translateX(0.5rem)", opacity: 0 },
           "50%": { transform: "translateX(0px)", opacity: 1 },
@@ -59,6 +105,7 @@ module.exports = {
       animation: {
         wiggle: "wiggle 0.5s ease-in-out infinite",
         bounceHorizontal: "bounceHorizontal 1s ease-in infinite",
+        chase: "chase 2s linear infinite",
       },
 
       screens: {

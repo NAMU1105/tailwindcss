@@ -8,9 +8,6 @@ import {
 
 import Header from "./container/header";
 import Footer from "./container/footer";
-import Auth from "./pages/auth";
-import Users from "./pages/users";
-import NewPassword from "./pages/newPassword";
 
 // context
 import { AuthContext } from "../src/context/auth-context";
@@ -21,13 +18,6 @@ import { useLang } from "../src/utils/hooks/lang-hooks";
 
 // routes
 import { userRoutes, authRoutes } from "./routes/allRoutes";
-
-// components
-import ConfirmEmail from "./pages/confirmEmail";
-import Dashboard from "./pages/dashboard";
-import Orders from "./pages/orders";
-import AddPost from "./pages/addPost";
-import AddProduct from "./pages/addProduct";
 
 // router component
 import Authmiddleware from "./routes/middleware/authMiddleware";
@@ -79,6 +69,7 @@ const App = () => {
                       exact
                     />
                   ))}
+                  <Redirect to="/dashboard" />
                 </Switch>
               </main>
               <Footer />

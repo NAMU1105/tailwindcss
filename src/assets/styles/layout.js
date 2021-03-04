@@ -7,6 +7,11 @@ export const ContainerLayout = styled.section.attrs({
 })``;
 // "min-h-content flex items-center justify-center  py-12 px-4 sm:px-6 lg:px-8",
 
+export const VerticalContainerLayout = styled.section.attrs({
+  className:
+    "min-h-content flex flex-col items-center justify-center  py-12 px-4 sm:px-6 lg:px-20",
+})``;
+
 export const ChartContainer = styled.div`
   position: relative;
   margin: auto;
@@ -25,7 +30,7 @@ export const ChartContainer = styled.div`
 
 export const DropdownMenuWrapper = styled.div.attrs({
   className:
-    "absolute overflow-hidden flex flex-col -left-full mt-2 bg-white rounded-md shadow-md transform transition-transform ease-in-out duration-200 scale-y-100 origin-top-left ",
+    "absolute uppercase overflow-hidden flex flex-col -left-full mt-5 bg-white rounded-md shadow-md transform transition-transform ease-in-out duration-200 scale-y-100 origin-top-left ",
 })`
   & {
     > ul > li {

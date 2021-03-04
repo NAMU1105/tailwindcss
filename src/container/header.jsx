@@ -1,4 +1,5 @@
 import React, { useState, useContext, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 //context
 import { strAuth } from "../utils/strings/base";
@@ -70,6 +71,10 @@ const Header = (props) => {
     }
   };
 
+  // 로그아웃
+  const logout = () => {
+    objAuthContext.logout();
+  };
   // 드롭다운 외부영역의 클릭을 감지하여 드롭다운의 상태값을 바꾸기 위해 window객체에 이벤트리스너를 붙인다.
   useEffect(() => {
     window.addEventListener("click", handleClickOutside);
@@ -206,10 +211,18 @@ const Header = (props) => {
                   <DropdownMenuWrapper>
                     <ul>
                       <li>profile</li>
-                      <li>my wallet</li>
-                      <li>cart</li>
-                      <li>settings</li>
-                      <li className="border-t-2">log out</li>
+                      <li>
+                        <Link to="/users">users</Link>
+                      </li>
+                      <li>
+                        <Link to="/products">products</Link>
+                      </li>
+                      <li>
+                        <Link to="/settings">settings</Link>
+                      </li>
+                      <li className="border-t-2" onClick={logout}>
+                        log out
+                      </li>
                     </ul>
                   </DropdownMenuWrapper>
                 )}

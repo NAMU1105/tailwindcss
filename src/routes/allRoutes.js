@@ -15,6 +15,7 @@ import Products from "../pages/products";
 import Auth from "../pages/auth";
 import ConfirmEmail from "../pages/confirmEmail";
 import NewPassword from "../pages/newPassword";
+import Settings from "../pages/setting";
 
 const userRoutes = [
   { path: "/dashboard", component: Dashboard },
@@ -32,6 +33,7 @@ const authRoutes = [
   { path: "/auth", component: Auth },
   { path: "/confirmEmail", component: ConfirmEmail },
   { path: "/password", component: NewPassword },
+  { path: "/settings", component: Settings },
 ];
 
 export { userRoutes, authRoutes };
