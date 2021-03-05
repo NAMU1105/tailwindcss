@@ -1,5 +1,5 @@
 import React, { useState, useContext, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 //context
 import { strAuth } from "../utils/strings/base";
@@ -22,12 +22,16 @@ import { SearchBarInput } from "../components/form/input";
 
 const Header = (props) => {
   const [isOpenHeaderMobile, setToggleHeaderMobile] = useState("hidden");
-  const [isOpenDropdownMenu, setToggleDropdownMenu] = useState(false);
+  const [isOpenSettingDropdown, setToggleSettingDropdown] = useState(false);
+  const [isOpenProductDropdown, setToggleProductDropdown] = useState(false);
 
   const objLangContext = useContext(LangContext);
   const objAuthContext = useContext(AuthContext);
 
-  const dropdownRef = useRef();
+  const settingDropdownRef = useRef();
+  const productDropdownRef = useRef();
+
+  const history = useHistory();
 
   // 모바일 화면 시 나오는 메뉴 토글하는 함수
   const toggleHeaderMobile = () => {
@@ -39,14 +43,26 @@ const Header = (props) => {
   };
 
   // 드롭다운 메뉴 토글 상태 바꿔주는 함수
-  const toggleDropdownMenu = () => {
-    setToggleDropdownMenu((prev) => !prev);
+  const toggleSettingDropdown = () => {
+    setToggleSettingDropdown((prev) => !prev);
+  };
+  const toggleProductDropdown = () => {
+    setToggleProductDropdown((prev) => !prev);
   };
 
   // 드롭다운 외부영역 클릭 시 드롭다운 닫히게 하는 함수
   const handleClickOutside = ({ target }) => {
-    if (!dropdownRef.current || !dropdownRef.current.contains(target)) {
-      setToggleDropdownMenu(false);
+    if (
+      !settingDropdownRef.current ||
+      !settingDropdownRef.current.contains(target)
+    ) {
+      setToggleSettingDropdown(false);
+    }
+    if (
+      !productDropdownRef.current ||
+      !productDropdownRef.current.contains(target)
+    ) {
+      setToggleProductDropdown(false);
     }
   };
 
@@ -128,9 +144,26 @@ const Header = (props) => {
             <NavLinks linkType="a" to="/orders">
               ORDERS
             </NavLinks>
-            <NavLinks linkType="button" withMenu>
-              MORE
-            </NavLinks>
+
+            <div
+              className="relative"
+              ref={productDropdownRef}
+              onClick={toggleProductDropdown}
+            >
+              <NavLinks linkType="button">PRODUCTS</NavLinks>
+              {isOpenProductDropdown && (
+                <DropdownMenuWrapper left="-10">
+                  <ul>
+                    <li onClick={() => history.push("/products")}>
+                      <Link to="/products">PRODUCTS</Link>
+                    </li>
+                    <li onClick={() => history.push("/products/new")}>
+                      <Link to="/products/new">ADD PRODUCT</Link>
+                    </li>
+                  </ul>
+                </DropdownMenuWrapper>
+              )}
+            </div>
             {/* 알림 메뉴 */}
             <NavLinks linkType="button" withMenu noArrow>
               <svg
@@ -199,15 +232,15 @@ const Header = (props) => {
               // TODO: 프로필 사진을 사용하려면 추후 로그인 시 서버에서 받아서 컨텍스트에 넣어야 한다
               <div
                 className="relative"
-                onClick={toggleDropdownMenu}
-                ref={dropdownRef}
+                onClick={toggleSettingDropdown}
+                ref={settingDropdownRef}
               >
                 <img
                   className="w-10 rounded-full cursor-pointer"
                   src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60"
                   alt="photo"
                 />
-                {isOpenDropdownMenu && (
+                {isOpenSettingDropdown && (
                   <DropdownMenuWrapper>
                     <ul>
                       <li>profile</li>

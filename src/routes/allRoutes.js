@@ -7,6 +7,7 @@ import { Redirect } from "react-router-dom";
 import Dashboard from "../pages/dashboard";
 import Orders from "../pages/orders";
 import Users from "../pages/users";
+import UserDetail from "../pages/userDetail";
 import AddPost from "../pages/addPost";
 import AddProduct from "../pages/addProduct";
 import Products from "../pages/products";
@@ -21,6 +22,7 @@ const userRoutes = [
   { path: "/dashboard", component: Dashboard },
   { path: "/orders", component: Orders },
   { path: "/users", component: Users },
+  { path: "/users/:userId", component: UserDetail },
   { path: "/products", component: Products },
   { path: "/posts/new", component: AddPost },
   { path: "/products/new", component: AddProduct },

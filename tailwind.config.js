@@ -123,10 +123,6 @@ module.exports = {
         "1/5": "20%",
       },
 
-      minHeight: {
-        content: "calc(100vh - 12rem)",
-      },
-
       fontSize: {
         xxs: ["0.3rem", { lineHeight: "1rem" }],
       },
@@ -135,10 +131,16 @@ module.exports = {
         3: 3,
       },
 
+      minHeight: {
+        content: "calc(100vh - 12rem)",
+      },
+
       minWidth: {
         0: "0",
         10: "2.5rem",
         20: "5rem",
+        32: "8rem",
+        40: "10rem",
         "1/10": "10%",
         "1/4": "25%",
         "1/2": "50%",

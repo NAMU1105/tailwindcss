@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, memo } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 import Button from "../components/form/button";
@@ -93,57 +93,6 @@ const enumItemStyles = {
   list:
     "relative w-full flex flex-col lg:flex-row shadow-md p-2 cursor-pointer",
 };
-
-// const Slider = memo(() => {
-//   // 가격 슬라이더 관련 스테이트
-//   const [intFirstSliderValue, setFirstSliderValue] = useState(5);
-//   const [intSecondSliderValue, setSecondSliderValue] = useState(10);
-
-//   // 가격 슬라이더 중 최소가격 포인터 관련 함수
-//   const changeFirstSliderValue = useCallback((event) => {
-//     const eventValue = event.target.value;
-//     setFirstSliderValue(eventValue);
-//   });
-//   // 가격 슬라이더 중 최고가격 포인터 관련 함수
-//   const changeSecondSliderValue = (event) => {
-//     const eventValue = event.target.value;
-//     setSecondSliderValue(eventValue);
-//     // console.log(eventValue);
-//   };
-
-//   useEffect(() => {
-//     if (intFirstSliderValue >= intSecondSliderValue) {
-//       setFirstSliderValue((prev) => prev - 0.5);
-//     }
-//   }, [intFirstSliderValue]);
-
-//   useEffect(() => {
-//     if (intSecondSliderValue <= intFirstSliderValue) {
-//       setSecondSliderValue((prev) => prev + 0.5);
-//     }
-//   }, [intSecondSliderValue]);
-
-//   return (
-//     <SliderWrapper>
-//       <input
-//         min={0}
-//         max={15}
-//         step={0.5}
-//         type="range"
-//         value={intFirstSliderValue}
-//         onChange={changeFirstSliderValue}
-//       />
-//       <input
-//         min={0}
-//         max={15}
-//         step={0.5}
-//         type="range"
-//         value={intSecondSliderValue}
-//         onChange={changeSecondSliderValue}
-//       />
-//     </SliderWrapper>
-//   );
-// });
 
 const Stars = (param) => {
   const arrStarCounts = [];

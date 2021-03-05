@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router";
+import { useHistory, Link } from "react-router-dom";
 
 const UserItem = ({
   data,
@@ -23,16 +23,7 @@ const UserItem = ({
   const history = useHistory();
 
   return (
-    <tr
-      id={id}
-      onClick={() =>
-        history.push({
-          pathname: "/editUser",
-          state: { id: id },
-        })
-      }
-      className="cursor-pointer"
-    >
+    <tr id={id}>
       <td className="px-6">
         <input
           type="checkbox"
@@ -48,7 +39,9 @@ const UserItem = ({
             <img className="h-10 w-10 rounded-full" src={photo} alt="person" />
           </div>
           <div className="ml-4">
-            <div className="text-sm font-medium text-gray-900">{name}</div>
+            <div className="text-sm font-medium text-gray-900 cursor-pointer">
+              <Link to={`/users/${id}`}>{name}</Link>
+            </div>
             <div className="text-sm text-gray-500">{email}</div>
           </div>
         </div>

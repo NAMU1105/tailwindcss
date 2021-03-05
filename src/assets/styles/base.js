@@ -5,7 +5,7 @@ import styled, { css } from "styled-components";
 typography
 */
 export const HeadingFirst = styled.h1.attrs({
-  className: "my-5 text-center text-3xl font-extrabold text-gray-900",
+  className: "w-full my-5 text-center text-3xl font-extrabold text-gray-900",
 })`
   ${(props) =>
     props.align &&

@@ -73,7 +73,7 @@ const Auth = (props) => {
           validationSchema={isLoginMode ? LoginSchema : SignupSchema}
           onSubmit={(values, { setSubmitting }) => {
             setTimeout(() => {
-              alert(JSON.stringify(values, null, 2));
+              // alert(JSON.stringify(values, null, 2));
               setSubmitting(false);
 
               const tokenExpirationDate = new Date(

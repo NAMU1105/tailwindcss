@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import Table from "../components/table/table";
+import UserTable from "../components/table/userTable";
 // import Pagination from "../container/pagination";
 
 const Users = (props) => {
@@ -41,7 +41,7 @@ const Users = (props) => {
         <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
           <div>
             {/* <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg"> */}
-            <Table
+            <UserTable
               type="user"
               data={arrPosts}
               posts={arrCurrentPosts}

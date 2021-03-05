@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import styled, { css } from "styled-components";
-// import tw from "twin.macro";
 
-// import { CheckboxContext } from "../../context/checkbox-context";
-
-// import UserList from "../../container/userList";
 import UserItem from "../userItem";
 import Pagination from "../../container/pagination";
 
@@ -37,7 +33,7 @@ const Table = ({
   handleSortDate,
   paginate,
   handleDataNumber,
-  loading,
+  isLoading,
 }) => {
   const [checkItems, setCheckItems] = useState([]);
 
@@ -80,9 +76,8 @@ const Table = ({
     setCheckItems([]);
   };
 
-  // 로딩 중일 경우
-  if (loading) {
-    return <span>Loading...</span>;
+  if (isLoading) {
+    return <h3 className="text-center">Loading...</h3>;
   }
 
   return (
