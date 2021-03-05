@@ -15,6 +15,7 @@ const UserDetail = (props) => {
     <>
       <ContainerLayout>
         <HeadingFirst align="left">Client Info</HeadingFirst>
+        <div></div>
       </ContainerLayout>
     </>
   );
