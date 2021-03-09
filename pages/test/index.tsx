@@ -5,7 +5,7 @@ import Button from "../../components/UI/form/button";
 import { Input } from "../../components/UI/form/input";
 import { Formik, Field, Form, FormikHelpers } from "formik";
 import { TestSchema } from "../../components/util/validator";
-import { Modal, CenteredModal } from "../../components/UI/modal";
+import { Modal } from "../../components/UI/modal";
 
 const Index = (props) => {
   const testFunction = () => {
@@ -139,7 +139,12 @@ const Index = (props) => {
 
       {/* modal */}
       <div className="w-screen h-screen bg-black opacity-70 relative z-30">
-        <Modal type="success">
+        <Modal
+          type="success"
+          title="titletitletitletitletitletitletitletitletitletitletitletitletitletitletitle"
+          content="contentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontent"
+          icon
+        >
           <div className="first:ml-5">
             <Button type="submit" size="sm" bgColor="danger">
               close
@@ -150,6 +155,41 @@ const Index = (props) => {
               go to mypage
             </Button>
           </div>
+        </Modal>
+      </div>
+      <br />
+      {/* modal center */}
+      <div className="w-screen h-screen bg-black opacity-70 relative z-30">
+        <Modal
+          type="warning"
+          title="titletitletitletitletitletitletitletitletitletitletitletitletitletitletitle"
+          content="contentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontent"
+          centered
+          icon
+        >
+          <div className="first:ml-5 w-full">
+            <Button type="submit" size="full" bgColor="danger">
+              close
+            </Button>
+          </div>
+          <div className=" w-full">
+            <Button type="submit" size="full">
+              go to mypage
+            </Button>
+          </div>
+        </Modal>
+      </div>
+      <br />
+      <div className="w-screen h-screen bg-black opacity-70 relative z-30">
+        <Modal
+          type="success"
+          title="titletitletitletitletitletitletitletitletitletitletitletitletitletitletitle"
+          content="contentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontent"
+          centered
+        >
+          <Button type="submit" size="full">
+            one button
+          </Button>
         </Modal>
       </div>
     </section>
