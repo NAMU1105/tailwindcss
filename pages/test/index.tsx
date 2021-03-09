@@ -5,6 +5,7 @@ import Button from "../../components/UI/form/button";
 import { Input } from "../../components/UI/form/input";
 import { Formik, Field, Form, FormikHelpers } from "formik";
 import { TestSchema } from "../../components/util/validator";
+import { Modal, CenteredModal } from "../../components/UI/modal";
 
 const Index = (props) => {
   const testFunction = () => {
@@ -20,7 +21,13 @@ const Index = (props) => {
       <p>buttons</p>
       <div id="buttons">
         {/* TODO: a 타입의 버튼일 때는 온클릭 못주는 등의 제한 방법 찾아보기 */}
-        <Button color="danger" design="text" size="sm" onClick={testFunction}>
+        <Button
+          color="danger"
+          bgColor="transparent"
+          design="text"
+          size="sm"
+          onClick={testFunction}
+        >
           test
         </Button>
         <Button
@@ -104,28 +111,15 @@ const Index = (props) => {
               { setSubmitting }: FormikHelpers<Values>
             ) => {
               setTimeout(() => {
+                // validation에 통과하지 못하면 아래 코드에 닿지 않는다.
                 alert(JSON.stringify(values, null, 2));
+                console.log(values);
                 setSubmitting(false);
               }, 500);
             }}
           >
             {({ errors, touched }) => (
               <Form>
-                {/* <label htmlFor="firstName">First Name</label>
-              <Field id="firstName" name="firstName" placeholder="John" />
-
-              <label htmlFor="lastName">Last Name</label>
-              <Field id="lastName" name="lastName" placeholder="Doe" />
-
-              <label htmlFor="email">Email</label>
-              <Field
-                id="email"
-                name="email"
-                placeholder="john@acme.com"
-                type="email"
-              />
-
-              <button type="submit">Submit</button> */}
                 <Input
                   name="email"
                   label="test"
@@ -136,11 +130,27 @@ const Index = (props) => {
                   <div>{errors.email}</div>
                 ) : null}
 
-                <button type="submit">Submit</button>
+                <Button type="submit">Submit</Button>
               </Form>
             )}
           </Formik>
         </div>
+      </div>
+
+      {/* modal */}
+      <div className="w-screen h-screen bg-black opacity-70 relative z-30">
+        <Modal type="success">
+          <div className="first:ml-5">
+            <Button type="submit" size="sm" bgColor="danger">
+              close
+            </Button>
+          </div>
+          <div>
+            <Button type="submit" size="sm">
+              go to mypage
+            </Button>
+          </div>
+        </Modal>
       </div>
     </section>
   );

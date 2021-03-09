@@ -5,9 +5,9 @@ import styled from "styled-components";
 const COLOR_VARIANT_MAPS = {
   white: "text-white",
   black: "text-black",
-  primary: "",
-  secondary: "",
-  danger: "",
+  primary: "text-primary",
+  secondary: "text-secondary-navy",
+  danger: "text-danger",
 };
 const BGCOLOR_VARIANT_MAPS = {
   white: "",
@@ -15,6 +15,21 @@ const BGCOLOR_VARIANT_MAPS = {
   primary: "",
   secondary: "",
   danger: "",
+};
+const SIZE_VARIANT_MAPS = {
+  sm: "w-auto",
+  md: "w-1/3",
+  lg: "w-1/2",
+  full: "w-full font-lg",
+};
+const DISALBED_VARIANT_MAPS = {
+  true: "bg-gray-600 cursor-default text-gray-800",
+};
+
+const TEXT_TRANSFORM_VARIANT_MAPS = {
+  uppercase: "uppercase",
+  capitalize: "capitalize",
+  lowercase: "lowercase",
 };
 // const COLOR_VARIANT_MAPS = {
 //   white: "",
@@ -38,14 +53,20 @@ type InputProps = {
   diabled?: boolean;
   color?: "default" | "white" | "black" | "primary" | "secondary" | "danger";
   bgColor?: "default" | "white" | "black" | "primary" | "secondary" | "danger";
+  textTransform?: "uppercase" | "capitalize" | "lowercase";
 };
 
 export const Input: React.FC<InputProps> = (props: InputProps) => {
   return (
-    <div className={``}>
+    <div className={`${SIZE_VARIANT_MAPS[props.size]}`}>
       <label
         htmlFor={props.name}
-        className="block font-medium text-gray-700 capitalize"
+        className={
+          props.noLabel
+            ? `sr-only`
+            : `block ${TEXT_TRANSFORM_VARIANT_MAPS[props.textTransform]}
+        `
+        }
       >
         {props.label}
       </label>
@@ -56,4 +77,9 @@ export const Input: React.FC<InputProps> = (props: InputProps) => {
       />
     </div>
   );
+};
+Input.defaultProps = {
+  color: "white",
+  size: "full",
+  textTransform: "capitalize",
 };

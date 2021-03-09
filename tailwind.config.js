@@ -143,6 +143,7 @@ module.exports = {
 
       minHeight: {
         content: "calc(100vh - 12rem)",
+        100: "20rem",
       },
 
       minWidth: {
@@ -168,11 +169,12 @@ module.exports = {
   },
   variants: {
     extend: {
-      backgroundColor: ["important", "active", "checked", "odd", "disabled"],
+      backgroundColor: ["active", "checked", "odd", "disabled", "important"],
       borderColor: ["checked"],
       fill: ["hover", "focus"],
       textColor: ["disabled"],
       outline: ["hover", "active", "focus"],
+      margin: ["first"],
     },
   },
   plugins: [

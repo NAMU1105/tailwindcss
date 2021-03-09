@@ -18,7 +18,7 @@ const BGCOLOR_VARIANT_MAPS = {
   secondary:
     "bg-text-secondary-navy focus:outline-none focus:ring-2  focus:ring-secondary-navy focus:ring-opacity-50",
   danger:
-    "text-danger hover:text-danger-dark focus:outline-none focus:ring-2  focus:ring-danger-dark focus:ring-opacity-50",
+    "text-white bg-danger hover:text-danger-dark focus:outline-none focus:ring-2  focus:ring-danger-dark focus:ring-opacity-50",
   transparent: "focus:outline-none focus:ring-2  focus:border-transparent",
 };
 
@@ -48,7 +48,7 @@ const TEXT_TRANSFORM_VARIANT_MAPS = {
 };
 
 type ButtonProps = {
-  type?: "button" | "link";
+  type?: "button" | "link" | "submit";
   color?: "white" | "black" | "primary" | "secondary" | "danger";
   bgColor?: "primary" | "secondary" | "danger" | "transparent";
   design?: "contained" | "text" | "outlined" | "withIcon";
@@ -57,7 +57,7 @@ type ButtonProps = {
   textTransform?: "uppercase" | "capitalize" | "lowercase";
   href?: string;
   children?: ReactNode;
-  onClick: () => void;
+  onClick?: () => void;
 };
 
 const Button: React.FC<ButtonProps> = (props: ButtonProps) => {
@@ -80,6 +80,7 @@ const Button: React.FC<ButtonProps> = (props: ButtonProps) => {
   } else {
     return (
       <button
+        type={props.type || "button"}
         onClick={props.onClick}
         className={`cursor-pointer inline-flex items-center justify-center px-5 py-3 text-base font-medium rounded-md
        ${COLOR_VARIANT_MAPS[props.color]}
@@ -103,6 +104,7 @@ Button.defaultProps = {
   size: "full",
   disabled: "false",
   textTransform: "uppercase",
+  bgColor: "primary",
 };
 // Button.defaultProps = defaultProps;
 
