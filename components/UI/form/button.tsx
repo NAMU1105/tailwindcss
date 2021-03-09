@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 // import styled, { css } from "styled-components";
 // import tw from "twin.macro";
 
-// TODO: outline 속성 추가
+// TODO: 아이콘 버튼 만들기
 
 const COLOR_VARIANT_MAPS = {
   white: "text-white",
@@ -13,15 +13,19 @@ const COLOR_VARIANT_MAPS = {
 };
 
 const BGCOLOR_VARIANT_MAPS = {
-  primary: "bg-primary hover:bg-primary-dark",
-  secondary: "bg-text-secondary-navy",
-  danger: "text-danger hover:text-danger-dark",
-  transparent: "!bg-transparent",
+  primary:
+    "bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2  focus:ring-primary-dark focus:ring-opacity-50",
+  secondary:
+    "bg-text-secondary-navy focus:outline-none focus:ring-2  focus:ring-secondary-navy focus:ring-opacity-50",
+  danger:
+    "text-danger hover:text-danger-dark focus:outline-none focus:ring-2  focus:ring-danger-dark focus:ring-opacity-50",
+  transparent: "focus:outline-none focus:ring-2  focus:border-transparent",
 };
 
 const DESIGN_VARIANT_MAPS = {
   contained: "rounded-md",
-  text: "bg-transparent",
+  text:
+    "bg-transparent  focus:outline-none focus:ring-transparent focus:border-transparent",
   outlined: "!bg-transparent border-2 rounded-md",
   withIcon: "",
 };
@@ -95,7 +99,6 @@ const Button: React.FC<ButtonProps> = (props: ButtonProps) => {
 Button.defaultProps = {
   type: "button",
   color: "white",
-  bgColor: "transparent",
   design: "contained",
   size: "full",
   disabled: "false",

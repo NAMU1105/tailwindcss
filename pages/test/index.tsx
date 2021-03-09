@@ -2,31 +2,33 @@ import React from "react";
 import { Avatar, AvatarGroup } from "../../components/UI/avatar";
 import { Alert } from "../../components/UI/alert";
 import Button from "../../components/UI/form/button";
-import { Input, PlaineInput } from "../../components/UI/form/input";
+import { Input } from "../../components/UI/form/input";
+import { Formik, Field, Form, FormikHelpers } from "formik";
+import { TestSchema } from "../../components/util/validator";
 
 const Index = (props) => {
   const testFunction = () => {
     console.log("test");
-    alert("button");
+    // alert("button");
   };
-
+  interface Values {
+    email: string;
+  }
   return (
     <section className="p-10">
       {/* buttons */}
       <p>buttons</p>
       <div id="buttons">
         {/* TODO: a 타입의 버튼일 때는 온클릭 못주는 등의 제한 방법 찾아보기 */}
-        <Button
-          color="danger"
-          textTransform="uppercase"
-          design="contained"
-          bgColor="danger"
-          size="sm"
-          onClick={testFunction}
-        >
+        <Button color="danger" design="text" size="sm" onClick={testFunction}>
           test
         </Button>
-        <Button design="outlined" onClick={testFunction} color="black">
+        <Button
+          design="outlined"
+          bgColor="transparent"
+          onClick={testFunction}
+          color="black"
+        >
           outlined
         </Button>
         <Button
@@ -87,9 +89,58 @@ const Index = (props) => {
       </div>
       {/* input */}
       <div id="input">
-        <Input label="email" type="email" placeholder="" />
+        {/* <Input label="email" type="email" placeholder="" /> */}
         {/* <Input label="filled" type="email" /> */}
-        <PlaineInput label="email" type="email" />
+        {/* <Input label="email" type="email" /> */}
+        {/* <BasicFormik /> */}
+        <div>
+          <Formik
+            initialValues={{
+              email: "",
+            }}
+            validationSchema={TestSchema}
+            onSubmit={(
+              values: Values,
+              { setSubmitting }: FormikHelpers<Values>
+            ) => {
+              setTimeout(() => {
+                alert(JSON.stringify(values, null, 2));
+                setSubmitting(false);
+              }, 500);
+            }}
+          >
+            {({ errors, touched }) => (
+              <Form>
+                {/* <label htmlFor="firstName">First Name</label>
+              <Field id="firstName" name="firstName" placeholder="John" />
+
+              <label htmlFor="lastName">Last Name</label>
+              <Field id="lastName" name="lastName" placeholder="Doe" />
+
+              <label htmlFor="email">Email</label>
+              <Field
+                id="email"
+                name="email"
+                placeholder="john@acme.com"
+                type="email"
+              />
+
+              <button type="submit">Submit</button> */}
+                <Input
+                  name="email"
+                  label="test"
+                  placeholder="test"
+                  type="email"
+                />
+                {errors.email && touched.email ? (
+                  <div>{errors.email}</div>
+                ) : null}
+
+                <button type="submit">Submit</button>
+              </Form>
+            )}
+          </Formik>
+        </div>
       </div>
     </section>
   );

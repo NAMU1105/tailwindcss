@@ -172,6 +172,7 @@ module.exports = {
       borderColor: ["checked"],
       fill: ["hover", "focus"],
       textColor: ["disabled"],
+      outline: ["hover", "active", "focus"],
     },
   },
   plugins: [
