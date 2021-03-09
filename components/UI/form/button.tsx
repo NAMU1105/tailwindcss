@@ -57,7 +57,7 @@ type ButtonProps = {
 };
 
 const Button: React.FC<ButtonProps> = (props: ButtonProps) => {
-  if (props.type === "button") {
+  if (props.type === "link") {
     return (
       <a
         href={props.href}

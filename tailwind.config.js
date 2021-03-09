@@ -176,6 +176,7 @@ module.exports = {
   },
   plugins: [
     // Complex variants
+    // 1. !important
     plugin(function ({ addVariant }) {
       addVariant("important", ({ container }) => {
         container.walkRules((rule) => {
@@ -185,6 +186,48 @@ module.exports = {
           });
         });
       });
+    }),
+
+    // 2. before, after pseudo class
+    plugin(({ addVariant, e }) => {
+      addVariant("before", ({ modifySelectors, separator }) => {
+        modifySelectors(({ className }) => {
+          return `.${e(`before${separator}${className}`)}::before`;
+        });
+      });
+      addVariant("after", ({ modifySelectors, separator }) => {
+        modifySelectors(({ className }) => {
+          return `.${e(`after${separator}${className}`)}::after`;
+        });
+      });
+    }),
+    plugin(({ addUtilities }) => {
+      const contentUtilities = {
+        ".content": {
+          content: "attr(data-content)",
+        },
+        ".content-before": {
+          content: "attr(data-before)",
+        },
+        ".content-after": {
+          content: "attr(data-after)",
+        },
+      };
+      const inputUtilities = {
+        ".label-after": {
+          content: " ",
+          // backgroundColor: "red",
+          position: "absolute",
+          left: "0px",
+          bottom: "-1px",
+          borderBottom: "3px solid black",
+          transform: "translateX(-100%)",
+          transition: "transform 0.3 ease",
+        },
+      };
+
+      addUtilities(contentUtilities, ["before", "after"]);
+      addUtilities(inputUtilities, ["after"]);
     }),
   ],
 };
