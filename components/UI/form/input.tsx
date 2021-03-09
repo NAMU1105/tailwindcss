@@ -38,8 +38,9 @@ const TEXT_TRANSFORM_VARIANT_MAPS = {
   lowercase: "lowercase",
 };
 
-type InputProps = {
+interface InputProps extends FieldInputProps<""> {
   name: string;
+  id?: string;
   label: string;
   placeholder?: string;
   //   no Label이면 클래스 이름을 sr-only로 한다.
@@ -53,11 +54,19 @@ type InputProps = {
   color?: "default" | "white" | "black" | "primary" | "secondary" | "danger";
   bgColor?: "default" | "white" | "black" | "primary" | "secondary" | "danger";
   textTransform?: "uppercase" | "capitalize" | "lowercase";
-};
+}
 
-export const Input: React.FC<InputProps> = (props: InputProps) => {
+export const Input: React.FC<InputProps> = ({
+  label,
+  id,
+  type,
+  size,
+  ...props
+}) => {
+  const [field, meta] = useField(props);
+
   return (
-    <div className={`${SIZE_VARIANT_MAPS[props.size]}`}>
+    <div className={`${SIZE_VARIANT_MAPS[size]}`}>
       <label
         htmlFor={props.name}
         className={
@@ -67,14 +76,12 @@ export const Input: React.FC<InputProps> = (props: InputProps) => {
         `
         }
       >
-        {props.label}
+        {label}
       </label>
-      <Field
+      <input
         name={props.name}
         placeholder={props.placeholder}
-        className={`${
-          SIZE_VARIANT_MAPS[props.size]
-        } mt-1 rounded-md pl-3 border border-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent`}
+        className={`${SIZE_VARIANT_MAPS[size]} mt-1 rounded-md pl-3 border border-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent`}
       />
     </div>
   );
@@ -113,6 +120,8 @@ export const TestInput: React.FC<MyProps> = ({
   );
 };
 
+// inputText
+//////////////////////////////////////////////
 interface Props {
   name: string;
   type: string;
@@ -129,5 +138,49 @@ export const InputField: React.FC<Props> = (props) => {
       <input {...field} {...props} />
       {error && touched && <div className="">{error}</div>}
     </div>
+  );
+};
+
+// checkbox
+///////////////////////////
+interface CheckboxProps {
+  name: string;
+}
+export const Checkbox: React.FC<CheckboxProps> = ({ children, ...props }) => {
+  const [field, meta] = useField({
+    name: props.name,
+  });
+
+  return (
+    <>
+      <input type="checkbox" {...field} {...props} />
+      {children}
+      {meta.touched && meta.error ? <div className="error"></div> : null}
+    </>
+  );
+};
+
+// select
+//////////////////////////////////////////
+interface SelectProps {
+  label: string;
+  name: string;
+}
+
+export const Select: React.FC<SelectProps> = ({ children, ...props }) => {
+  const [field, meta] = useField({
+    name: props.name,
+  });
+
+  return (
+    <>
+      <label className="sr-only" htmlFor={props.name}>
+        {props.label}
+      </label>
+      <select {...field} {...props}>
+        {children}
+      </select>
+      {meta.touched && meta.error ? <div className="error"></div> : null}
+    </>
   );
 };
