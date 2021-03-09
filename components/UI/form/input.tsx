@@ -1,5 +1,11 @@
 import React from "react";
-import { Formik, Field, Form, FormikHelpers } from "formik";
+import {
+  useField,
+  Field,
+  FieldAttributes,
+  FieldHookConfig,
+  FieldInputProps,
+} from "formik";
 import styled from "styled-components";
 
 const COLOR_VARIANT_MAPS = {
@@ -31,13 +37,6 @@ const TEXT_TRANSFORM_VARIANT_MAPS = {
   capitalize: "capitalize",
   lowercase: "lowercase",
 };
-// const COLOR_VARIANT_MAPS = {
-//   white: "",
-//   black: "",
-//   primary: "",
-//   secondary: "",
-//   danger: "",
-// };
 
 type InputProps = {
   name: string;
@@ -73,7 +72,9 @@ export const Input: React.FC<InputProps> = (props: InputProps) => {
       <Field
         name={props.name}
         placeholder={props.placeholder}
-        className="w-full mt-1 rounded-md pl-3 border border-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+        className={`${
+          SIZE_VARIANT_MAPS[props.size]
+        } mt-1 rounded-md pl-3 border border-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent`}
       />
     </div>
   );
@@ -82,4 +83,51 @@ Input.defaultProps = {
   color: "white",
   size: "full",
   textTransform: "capitalize",
+};
+
+// //////////////////////////////////////////////////////////////
+interface MyProps extends FieldInputProps<""> {
+  label: string;
+  id?: string;
+  type: "email" | "password" | "text";
+  size: "sm" | "md" | "lg" | "full";
+}
+
+export const TestInput: React.FC<MyProps> = ({
+  label,
+  id,
+  type,
+  size,
+  ...props
+}) => {
+  const [field, meta] = useField(props);
+
+  return (
+    <>
+      <label htmlFor={id || props.name} className="sr-only">
+        {label}
+      </label>
+      <input className={meta.touched && meta.error} {...field} {...props} />
+      {meta.touched && meta.error ? <div className="error">error</div> : null}
+    </>
+  );
+};
+
+interface Props {
+  name: string;
+  type: string;
+  placeholder: string;
+}
+
+export const InputField: React.FC<Props> = (props) => {
+  const [field, { error, touched }] = useField({
+    name: props.name,
+    type: props.name,
+  });
+  return (
+    <div>
+      <input {...field} {...props} />
+      {error && touched && <div className="">{error}</div>}
+    </div>
+  );
 };

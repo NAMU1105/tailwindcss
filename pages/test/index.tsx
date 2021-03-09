@@ -2,10 +2,11 @@ import React from "react";
 import { Avatar, AvatarGroup } from "../../components/UI/avatar";
 import { Alert } from "../../components/UI/alert";
 import Button from "../../components/UI/form/button";
-import { Input } from "../../components/UI/form/input";
+import { Input, InputField, TestInput } from "../../components/UI/form/input";
 import { Formik, Field, Form, FormikHelpers } from "formik";
 import { TestSchema } from "../../components/util/validator";
 import { Modal } from "../../components/UI/modal";
+import Backdrop from "../../components/UI/backdrop";
 
 const Index = (props) => {
   const testFunction = () => {
@@ -120,7 +121,7 @@ const Index = (props) => {
           >
             {({ errors, touched }) => (
               <Form>
-                <Input
+                {/* <Input
                   name="email"
                   label="test"
                   placeholder="test"
@@ -128,8 +129,15 @@ const Index = (props) => {
                 />
                 {errors.email && touched.email ? (
                   <div>{errors.email}</div>
-                ) : null}
+                ) : null} */}
 
+                {/* <TestInput
+                  name="email"
+                  label="test"
+                  type="email"
+                  size="sm"
+                /> */}
+                <InputField name="email" type="email" placeholder="wow" />
                 <Button type="submit">Submit</Button>
               </Form>
             )}
@@ -138,7 +146,8 @@ const Index = (props) => {
       </div>
 
       {/* modal */}
-      <div className="w-screen h-screen bg-black opacity-70 relative z-30">
+      {/* <div className="w-screen h-screen bg-black opacity-70 relative z-30"> */}
+      <Backdrop>
         <Modal
           type="success"
           title="titletitletitletitletitletitletitletitletitletitletitletitletitletitletitle"
@@ -156,10 +165,12 @@ const Index = (props) => {
             </Button>
           </div>
         </Modal>
-      </div>
+      </Backdrop>
+      {/* </div> */}
       <br />
       {/* modal center */}
-      <div className="w-screen h-screen bg-black opacity-70 relative z-30">
+      <Backdrop>
+        {" "}
         <Modal
           type="warning"
           title="titletitletitletitletitletitletitletitletitletitletitletitletitletitletitle"
@@ -178,9 +189,9 @@ const Index = (props) => {
             </Button>
           </div>
         </Modal>
-      </div>
+      </Backdrop>
       <br />
-      <div className="w-screen h-screen bg-black opacity-70 relative z-30">
+      <Backdrop>
         <Modal
           type="success"
           title="titletitletitletitletitletitletitletitletitletitletitletitletitletitletitle"
@@ -191,7 +202,7 @@ const Index = (props) => {
             one button
           </Button>
         </Modal>
-      </div>
+      </Backdrop>
     </section>
   );
 };
