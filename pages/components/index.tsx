@@ -4,10 +4,8 @@ import { Alert } from "../../components/UI/alert";
 import Button from "../../components/UI/form/button";
 import {
   Checkbox,
-  Input,
   InputField,
   Select,
-  TestInput,
   Radio,
 } from "../../components/UI/form/input";
 import { Formik, Field, Form, FormikHelpers } from "formik";
@@ -146,11 +144,25 @@ const Index = (props) => {
                 /> */}
                 <br />
                 <InputField
+                  label="1"
                   name="email"
                   type="email"
                   placeholder="input field"
+                  color="primary"
+                  filedsize="auto"
                 />
-                <br />
+                <InputField
+                  label="1"
+                  name="email"
+                  type="email"
+                  placeholder="input field2"
+                  color="danger"
+                  texttransform="uppercase"
+                  filedsize="md"
+                  ringcolor="danger"
+                  ringwidth="lg"
+                />
+
                 <Checkbox name="default" label="default" />
                 <Checkbox
                   name="primary"

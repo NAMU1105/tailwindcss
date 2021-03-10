@@ -1,13 +1,13 @@
 import React from "react";
-import {
-  useField,
-  Field,
-  FieldAttributes,
-  FieldHookConfig,
-  FieldInputProps,
-} from "formik";
+import { useField } from "formik";
 // import styled from "styled-components";
 import { classNames } from "../../util/utils";
+
+// TODO: 반복되는 코드 줄이기
+// 1. maps 통일
+// 2. ringwidth같은 공통 적인 속성 따로 만든 다음에 상속하기
+
+// //////////////////////////////////////////////////////////////
 
 const COLOR_VARIANT_MAPS = {
   white: "text-white",
@@ -17,21 +17,27 @@ const COLOR_VARIANT_MAPS = {
   danger: "text-danger",
 };
 const BGCOLOR_VARIANT_MAPS = {
-  white: "",
-  black: "",
-  primary: "",
-  secondary: "",
-  danger: "",
+  white: "bg-white",
+  black: "bg-black",
+  primary: "bg-primary",
+  secondary: "bg-secondary-navy",
+  danger: "bg-danger",
+};
+const RING_COLOR_VARIANT_MAPS = {
+  black: "ring-black border-black focus:ring-black focus:border-black",
+  primary:
+    "ring-primary border-primary focus:ring-primary focus:border-primary",
+  secondary:
+    "ring-secondary-navy border-secondary-navy focus:ring-secondary-navy focus:border-secondary-navy",
+  danger: "ring-danger border-danger focus:ring-danger focus:border-danger",
 };
 const SIZE_VARIANT_MAPS = {
-  sm: "w-auto",
   md: "w-1/3",
   lg: "w-1/2",
   full: "w-full font-lg",
+  auto: "w-auto",
 };
-const DISALBED_VARIANT_MAPS = {
-  true: "bg-gray-600 cursor-default text-gray-800",
-};
+const DISALBED_INPUT = "bg-gray-600 cursor-default text-gray-800";
 
 const TEXT_TRANSFORM_VARIANT_MAPS = {
   uppercase: "uppercase",
@@ -39,7 +45,14 @@ const TEXT_TRANSFORM_VARIANT_MAPS = {
   lowercase: "lowercase",
 };
 
-interface InputProps extends FieldInputProps<""> {
+// --
+const RING_WIDTH_VARIANT_MAPS = {
+  sm: "ring-2 border-2",
+  md: "ring-4 border-4",
+  lg: "ring-8 border-8",
+};
+
+interface InputProps {
   name: string;
   id?: string;
   label: string;
@@ -47,99 +60,64 @@ interface InputProps extends FieldInputProps<""> {
   //   no Label이면 클래스 이름을 sr-only로 한다.
   noLabel?: boolean;
   type: "email" | "text" | "password";
-  multiLine?: boolean;
+  multiLine?: boolean; //multiline일 경우 textarea
   required?: boolean;
-  design?: "default" | "filled" | "outlined";
-  size?: "sm" | "md" | "lg" | "full";
-  diabled?: boolean;
-  color?: "default" | "white" | "black" | "primary" | "secondary" | "danger";
-  bgColor?: "default" | "white" | "black" | "primary" | "secondary" | "danger";
-  textTransform?: "uppercase" | "capitalize" | "lowercase";
+  design?: "filled" | "outlined";
+  disabled?: boolean;
+  color?: "white" | "black" | "primary" | "secondary" | "danger";
+  bgColor?: "white" | "black" | "primary" | "secondary" | "danger";
+  ringcolor?: "white" | "black" | "primary" | "secondary" | "danger";
+  ringwidth?: "sm" | "md" | "lg";
+  texttransform?: "uppercase" | "capitalize" | "lowercase";
+  align?: "inline-flex" | "";
+  filedsize?: "md" | "lg" | "full" | "auto";
 }
-
-export const Input: React.FC<InputProps> = ({
-  label,
-  id,
-  type,
-  size,
-  ...props
-}) => {
-  const [field, meta] = useField(props);
-
-  return (
-    <div className={`${SIZE_VARIANT_MAPS[size]}`}>
-      <label
-        htmlFor={props.name}
-        className={
-          props.noLabel
-            ? `sr-only`
-            : `block ${TEXT_TRANSFORM_VARIANT_MAPS[props.textTransform]}
-        `
-        }
-      >
-        {label}
-      </label>
-      <input
-        name={props.name}
-        placeholder={props.placeholder}
-        className={`${SIZE_VARIANT_MAPS[size]} mt-1 rounded-md pl-3 border border-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent`}
-      />
-    </div>
-  );
-};
-Input.defaultProps = {
-  color: "white",
-  size: "full",
-  textTransform: "capitalize",
-};
-
-// //////////////////////////////////////////////////////////////
-interface MyProps extends FieldInputProps<""> {
-  label: string;
-  id?: string;
-  type: "email" | "password" | "text";
-  size: "sm" | "md" | "lg" | "full";
-}
-
-export const TestInput: React.FC<MyProps> = ({
-  label,
-  id,
-  type,
-  size,
-  ...props
-}) => {
-  const [field, meta] = useField(props);
-
-  return (
-    <>
-      <label htmlFor={id || props.name} className="sr-only">
-        {label}
-      </label>
-      <input className={meta.touched && meta.error} {...field} {...props} />
-      {meta.touched && meta.error ? <div className="error">error</div> : null}
-    </>
-  );
-};
 
 ////****************************** */
 // inputText
 ////****************************** */
-interface InputTextProps {
-  name: string;
-  type: string;
-  placeholder: string;
-  disabled?: boolean;
-}
-
-export const InputField: React.FC<InputTextProps> = (props) => {
+export const InputField: React.FC<InputProps> = (props) => {
   const [field, { error, touched }] = useField({
     name: props.name,
-    type: props.name,
   });
   return (
-    <div className={`inline-flex flex-col`}>
-      <input disabled={props.disabled} {...field} {...props} />
-      {error && touched && <div className="">{error}</div>}
+    <div className={`flex flex-col`}>
+      {props.multiLine ? (
+        <textarea
+          className={
+            props.disabled
+              ? `${DISALBED_INPUT}`
+              : classNames`form-input border-gray-500 border rounded-md
+        ${COLOR_VARIANT_MAPS[props.color]}
+        ${BGCOLOR_VARIANT_MAPS[props.bgColor]}
+        ${RING_COLOR_VARIANT_MAPS[props.ringcolor]}
+        ${SIZE_VARIANT_MAPS[props.filedsize]}
+        ${TEXT_TRANSFORM_VARIANT_MAPS[props.texttransform]}
+        ${RING_WIDTH_VARIANT_MAPS[props.ringwidth]}
+        `
+          }
+          {...field}
+          {...props}
+        ></textarea>
+      ) : (
+        <input
+          className={
+            props.disabled
+              ? `${DISALBED_INPUT}`
+              : classNames`form-input border-gray-500 border rounded-md
+        ${COLOR_VARIANT_MAPS[props.color]}
+        ${BGCOLOR_VARIANT_MAPS[props.bgColor]}
+        ${RING_COLOR_VARIANT_MAPS[props.ringcolor]}
+        ${SIZE_VARIANT_MAPS[props.filedsize]}
+        ${TEXT_TRANSFORM_VARIANT_MAPS[props.texttransform]}
+        ${RING_WIDTH_VARIANT_MAPS[props.ringwidth]}
+        `
+          }
+          {...field}
+          {...props}
+        />
+      )}
+      {error && touched && <div className={``}>{error}</div>}
     </div>
   );
 };
@@ -164,11 +142,6 @@ const ROUND_VARIANT_MAPS_CHECKBOX = {
   md: " rounded-md",
   lg: " rounded-lg",
   full: "rounded-full",
-};
-const RING_WIDTH_VARIANT_MAPS_CHECKBOX = {
-  sm: "ring-2",
-  md: "ring-4",
-  lg: "ring-7",
 };
 
 const FONT_SIZE_VARIANT_CHECKBOX = {
@@ -215,7 +188,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({ children, ...props }) => {
               : classNames`form-checkbox mr-2 border border-gray-700 ring-current focus:border-current	
           ${ROUND_VARIANT_MAPS_CHECKBOX[props.rounded]}
           ${RING_COLOR_VARIANT_MAPS_CHECKBOX[props.ringColor]}
-          ${RING_WIDTH_VARIANT_MAPS_CHECKBOX[props.ringWidth]}
+          ${RING_WIDTH_VARIANT_MAPS[props.ringWidth]}
           ${FONT_SIZE_VARIANT_CHECKBOX[props.fontSize]}
           ${BOX_SIZE_VARIANT_CHECKBOX[props.boxSize]}
           ${COLOR_VARIANT_MAPS_CHECKBOX[props.color]}`
