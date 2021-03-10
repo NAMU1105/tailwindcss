@@ -1,4 +1,5 @@
 import React, { ReactNode, useEffect, useState } from "react";
+import { classNames } from "../util/utils";
 
 const BGCOLOR_VARIANT_MAPS = {
   info: "bg-blue-300 border-blue-300",
@@ -63,7 +64,7 @@ export const Alert: React.FC<AlertProps> = (props: AlertProps) => {
   return (
     isOpen && (
       <div
-        className={`shadow-sm w-full flex items-center rounded-md p-5 bg-opacity-50 text-lg 
+        className={classNames`shadow-sm w-full flex items-center rounded-md p-5 bg-opacity-50 text-lg 
         ${BGCOLOR_VARIANT_MAPS[props.type]}
           ${COLOR_VARIANT_MAPS[props.color]}
           ${DESIGN_VARIANT_MAPS[props.design]}
@@ -71,7 +72,7 @@ export const Alert: React.FC<AlertProps> = (props: AlertProps) => {
       >
         <div></div>
         <svg
-          className={`w-8 mr-3   
+          className={classNames`w-8 mr-3   
           ${ICON_COLOR_VARIANT_MAPS[props.type]}
           `}
           xmlns="http://www.w3.org/2000/svg"

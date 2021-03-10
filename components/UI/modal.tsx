@@ -1,5 +1,5 @@
 import React, { ReactNode, useState } from "react";
-
+import { classNames } from "../util/utils";
 // close button
 const CloseBtn = (props) => {
   return (
@@ -71,10 +71,10 @@ export const Modal: React.FC<ModalProps> = (props: ModalProps) => {
             <div
               className={
                 props.centered
-                  ? `self-center ${
+                  ? classNames`self-center ${
                       TYPE_COLOR_VARIANT_MAPS[props.type]
                     } rounded-full  p-3 mb-5`
-                  : `self-center  ${
+                  : classNames`self-center  ${
                       TYPE_COLOR_VARIANT_MAPS[props.type]
                     } rounded-full p-3 mr-5`
               }
@@ -121,10 +121,10 @@ export const Modal: React.FC<ModalProps> = (props: ModalProps) => {
         <div
           className={
             props.centered
-              ? `flex justify-center flex-row-reverse p-5 ${
+              ? classNames`flex justify-center flex-row-reverse p-5 ${
                   FOOTER_COLOR_VARIANT_MAP[props.footerColor]
                 }`
-              : `flex flex-row-reverse p-5 ${
+              : classNames`flex flex-row-reverse p-5 ${
                   FOOTER_COLOR_VARIANT_MAP[props.footerColor]
                 }`
           }

@@ -8,6 +8,7 @@ import {
   InputField,
   Select,
   TestInput,
+  Radio,
 } from "../../components/UI/form/input";
 import { Formik, Field, Form, FormikHelpers } from "formik";
 import { TestSchema } from "../../components/util/validator";
@@ -143,15 +144,75 @@ const Index = (props) => {
                   type="email"
                   size="sm"
                 /> */}
-                <InputField name="email" type="email" placeholder="wow" />
-                <Checkbox name="checkbox">cchecck!!</Checkbox>
+                <br />
+                <InputField
+                  name="email"
+                  type="email"
+                  placeholder="input field"
+                />
+                <br />
+                <Checkbox name="default" label="default" />
+                <Checkbox
+                  name="primary"
+                  color="primary"
+                  label="primary color"
+                />
+                <Checkbox
+                  name="secondary"
+                  color="secondary"
+                  label="secondary color"
+                  rounded="md"
+                />
+                <Checkbox name="danger" color="danger" label="danger color" />
+
+                <br />
                 <Select name="select" label="wow select">
-                  <option value="">1</option>
+                  <option value="">Custom select</option>
                   <option value="">1d</option>
                   <option value="">1sdf</option>
                   <option value="">1wer</option>
                 </Select>
-                <Button type="submit">Submit</Button>
+
+                {/* radio */}
+                <div className="flex flex-col">
+                  <span>radio name</span>
+                  <Radio label="default radio" name="default" />
+                  <Radio
+                    label="primary radio"
+                    name="primary"
+                    color="primary"
+                    ringcolor="danger"
+                    radiosize="xl"
+                    ringwidth="lg"
+                  />
+                  <Radio
+                    label="secondary radio"
+                    name="secondary"
+                    color="secondary"
+                  />
+                  <Radio
+                    label="danger radio"
+                    name="danger"
+                    color="danger"
+                    radiosize="md"
+                  />
+                  <Radio
+                    label="default radio lg"
+                    name="defaultLg"
+                    radiosize="lg"
+                  />
+                  <Radio label="default radio" name="default" fontSize="xl" />
+                </div>
+
+                {/* btn */}
+                <Button
+                  type="submit"
+                  size="sm"
+                  color="black"
+                  bgColor="secondary"
+                >
+                  Submit
+                </Button>
               </Form>
             )}
           </Formik>
@@ -183,7 +244,6 @@ const Index = (props) => {
       <br />
       {/* modal center */}
       <Backdrop>
-        {" "}
         <Modal
           type="warning"
           title="titletitletitletitletitletitletitletitletitletitletitletitletitletitletitle"
@@ -210,6 +270,7 @@ const Index = (props) => {
           title="titletitletitletitletitletitletitletitletitletitletitletitletitletitletitle"
           content="contentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontent"
           centered
+          footerColor="white"
         >
           <Button type="submit" size="full">
             one button

@@ -1,4 +1,5 @@
 import React, { ReactNode } from "react";
+import { classNames } from "../../util/utils";
 // import styled, { css } from "styled-components";
 // import tw from "twin.macro";
 
@@ -16,7 +17,7 @@ const BGCOLOR_VARIANT_MAPS = {
   primary:
     "bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2  focus:ring-primary-dark focus:ring-opacity-50",
   secondary:
-    "bg-text-secondary-navy focus:outline-none focus:ring-2  focus:ring-secondary-navy focus:ring-opacity-50",
+    "bg-secondary-navy focus:outline-none focus:ring-2  focus:ring-secondary-navy focus:ring-opacity-50",
   danger:
     "text-white bg-danger hover:text-danger-dark focus:outline-none focus:ring-2  focus:ring-danger-dark focus:ring-opacity-50",
   transparent: "focus:outline-none focus:ring-2  focus:border-transparent",
@@ -65,7 +66,7 @@ const Button: React.FC<ButtonProps> = (props: ButtonProps) => {
     return (
       <a
         href={props.href}
-        className={`cursor-pointer inline-flex items-center justify-center px-5 py-3 text-base font-medium rounded-md
+        className={classNames`cursor-pointer inline-flex items-center justify-center px-5 py-3 text-base font-medium rounded-md
           ${COLOR_VARIANT_MAPS[props.color]}
           ${BGCOLOR_VARIANT_MAPS[props.bgColor]}
           ${DESIGN_VARIANT_MAPS[props.design]}
@@ -82,7 +83,7 @@ const Button: React.FC<ButtonProps> = (props: ButtonProps) => {
       <button
         type={props.type || "button"}
         onClick={props.onClick}
-        className={`cursor-pointer inline-flex items-center justify-center px-5 py-3 text-base font-medium rounded-md
+        className={classNames`cursor-pointer inline-flex items-center justify-center px-5 py-3 text-base font-medium rounded-md
        ${COLOR_VARIANT_MAPS[props.color]}
        ${BGCOLOR_VARIANT_MAPS[props.bgColor]}
        ${DESIGN_VARIANT_MAPS[props.design]}

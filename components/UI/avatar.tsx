@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import styled, { css } from "styled-components";
-import tw from "twin.macro";
+// import tw from "twin.macro";
+import { classNames } from "../util/utils";
 
 const AvatarGroupWrapper = styled.div.attrs({
   className: "flex",
@@ -49,7 +50,7 @@ export const Avatar: React.FC<AvatarProps> = (props: AvatarProps) => {
     elem = (
       <>
         <span
-          className={`absolute w-4 h-4 rounded-full -top-1 -right-1 ${
+          className={classNames`absolute w-4 h-4 rounded-full -top-1 -right-1 ${
             BADGE_VARIANT_MAPS[props.badge]
           }`}
         ></span>
@@ -63,7 +64,7 @@ export const Avatar: React.FC<AvatarProps> = (props: AvatarProps) => {
   }
 
   return (
-    <div className={`relative ${SIZE_VARIANT_MAPS[props.size]}`}>
+    <div className={classNames`relative ${SIZE_VARIANT_MAPS[props.size]}`}>
       {props.extra ? (
         <span className="block font-bold text-xl pt-1 w-full rounded-full h-inherit bg-gray-500 text-white">
           {props.extra}

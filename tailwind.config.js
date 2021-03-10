@@ -6,6 +6,26 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      // customForms: theme => ({
+      //   default: {
+      //     input: {
+      //       borderRadius: theme('borderRadius.lg'),
+      //       backgroundColor: theme('colors.gray.200'),
+      //       '&:focus': {
+      //         backgroundColor: theme('colors.white'),
+      //       }
+      //     },
+      //     select: {
+      //       borderRadius: theme('borderRadius.lg'),
+      //       boxShadow: theme('boxShadow.default'),
+      //     },
+      //     checkbox: {
+      //       width: theme('spacing.6'),
+      //       height: theme('spacing.6'),
+      //     },
+      //   },
+      // }),
+
       fontFamily: {
         inter: ["Inter", ...defaultTheme.fontFamily.sans],
       },
@@ -178,6 +198,8 @@ module.exports = {
     },
   },
   plugins: [
+    require("@tailwindcss/custom-forms"),
+
     // Complex variants
     // 1. !important
     plugin(function ({ addVariant }) {

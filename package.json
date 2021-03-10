@@ -25,6 +25,7 @@
     "yup": "^0.32.9"
   },
   "devDependencies": {
+    "@tailwindcss/custom-forms": "^0.2.1",
     "babel-plugin-macros": "^3.0.1",
     "postcss-cli": "^8.3.1",
     "twin.macro": "^2.3.0"
