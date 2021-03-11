@@ -26,17 +26,17 @@ const SIZE_VARIANT_MAPS = {
   lg: "w-40 w-40",
 };
 
-type AvatarProps = {
+interface AvatarProps {
   badge?: "active" | "busy" | "inActive";
   size?: "sm" | "md" | "lg";
   src: string | null;
   extra?: string;
-};
-type GroupAvatarProps = {
+}
+interface GroupAvatarProps {
   count?: number;
   size?: number;
   children: ReactNode;
-};
+}
 
 export const AvatarGroup: React.FC<GroupAvatarProps> = (
   props: GroupAvatarProps

@@ -1,8 +1,8 @@
 import React, { ReactNode } from "react";
 
-type BackdropProps = {
+interface BackdropProps {
   children: ReactNode;
-};
+}
 
 const Backdrop: React.FC<BackdropProps> = (props: BackdropProps) => {
   return (

@@ -48,7 +48,7 @@ const TEXT_TRANSFORM_VARIANT_MAPS = {
   lowercase: "lowercase",
 };
 
-type ButtonProps = {
+interface ButtonProps {
   type?: "button" | "link" | "submit";
   color?: "white" | "black" | "primary" | "secondary" | "danger";
   bgColor?: "primary" | "secondary" | "danger" | "transparent";
@@ -59,7 +59,7 @@ type ButtonProps = {
   href?: string;
   children?: ReactNode;
   onClick?: () => void;
-};
+}
 
 const Button: React.FC<ButtonProps> = (props: ButtonProps) => {
   if (props.type === "link") {

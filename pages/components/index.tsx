@@ -162,6 +162,31 @@ const Index = (props) => {
                   ringcolor="danger"
                   ringwidth="lg"
                 />
+                <InputField
+                  label="1"
+                  name="email"
+                  type="text"
+                  placeholder="input field3"
+                  color="secondary"
+                  texttransform="capitalize"
+                  filedsize="lg"
+                  ringcolor="secondary"
+                  ringwidth="md"
+                  bgcolor="primary"
+                  // className=""
+                />
+                <InputField
+                  label="1"
+                  name="email"
+                  type="text"
+                  placeholder="input field3"
+                  texttransform="capitalize"
+                  filedsize="full"
+                  ringcolor="secondary"
+                  color="danger"
+                  bgcolor="danger"
+                  disabled
+                />
 
                 <Checkbox name="default" label="default" />
                 <Checkbox
@@ -178,11 +203,54 @@ const Index = (props) => {
                 <Checkbox name="danger" color="danger" label="danger color" />
 
                 <br />
-                <Select name="select" label="wow select">
-                  <option value="">Custom select</option>
-                  <option value="">1d</option>
-                  <option value="">1sdf</option>
-                  <option value="">1wer</option>
+                <br />
+                <br />
+                <br />
+                {/* select */}
+                <Select label="select default" name="select" disabled>
+                  <option>$1,000</option>
+                  <option>$5,000</option>
+                  <option>$10,000</option>
+                </Select>
+                <Select
+                  label="select 2"
+                  name="select"
+                  filedsize="full"
+                  bgcolor="danger"
+                  ringcolor="primary"
+                  ringwidth="lg"
+                >
+                  <option>$1,000</option>
+                  <option>$5,000</option>
+                  <option>$10,000</option>
+                </Select>
+                <Select
+                  label="select 3"
+                  name="select"
+                  filedsize="md"
+                  bgcolor="danger"
+                  ringcolor="primary"
+                  ringwidth="lg"
+                  color="white"
+                >
+                  <option>$1,000</option>
+                  <option>$5,000</option>
+                  <option>$10,000</option>
+                </Select>
+                <Select
+                  label="select custom"
+                  name="select"
+                  filedsize="auto"
+                  bgcolor="white"
+                  ringcolor="secondary"
+                  ringwidth="sm"
+                  color="white"
+                  texttransform="uppercase"
+                  customstyle="text-lg text-bold text-yellow-500"
+                >
+                  <option>test</option>
+                  <option>$5,000</option>
+                  <option>$10,000</option>
                 </Select>
 
                 {/* radio */}

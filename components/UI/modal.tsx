@@ -40,7 +40,7 @@ const FOOTER_COLOR_VARIANT_MAP = {
   white: "bg-white",
 };
 
-type ModalProps = {
+interface ModalProps {
   type: "info" | "success" | "warning" | "danger";
   title: string;
   content: string;
@@ -49,7 +49,7 @@ type ModalProps = {
   closeBtn?: boolean;
   footerColor?: "gray" | "white";
   children: ReactNode;
-};
+}
 
 export const Modal: React.FC<ModalProps> = (props: ModalProps) => {
   const [isShowing, setIsShowing] = useState<boolean>(true);

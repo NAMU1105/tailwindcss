@@ -34,7 +34,7 @@ const DESIGN_VARIANT_MAPS = {
   filled: "bg-opacity-100",
 };
 
-type AlertProps = {
+interface AlertProps {
   type: "info" | "success" | "warning" | "danger";
   color?: "white" | "black" | "primary" | "secondary" | "danger";
   design?: "outlined" | "filled";
@@ -44,7 +44,7 @@ type AlertProps = {
   //   transition?: "ease-in" | "ease-out" | "ease-in-out";
   onClick?: () => void;
   children: ReactNode;
-};
+}
 
 export const Alert: React.FC<AlertProps> = (props: AlertProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(true);
