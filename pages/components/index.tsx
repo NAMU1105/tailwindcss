@@ -22,7 +22,7 @@ const Index = (props) => {
     email: string;
   }
   return (
-    <section className="p-10">
+    <section className="w-full">
       {/* buttons */}
       <p>buttons</p>
       <div id="buttons">
@@ -148,8 +148,11 @@ const Index = (props) => {
                   name="email"
                   type="email"
                   placeholder="input field"
-                  color="primary"
+                  color="black"
                   fieldsize="auto"
+                  bgcolor="danger"
+                  // ringcolor="black"
+                  // ringwidth="sm"
                 />
                 <InputField
                   label="1"
@@ -285,7 +288,7 @@ const Index = (props) => {
                     name="defaultLg"
                     radiosize="lg"
                   />
-                  <Radio label="default radio" name="default" fontsize="xl" />
+                  <Radio label="default radio" name="default" textsize="xl" />
                 </div>
 
                 {/* btn */}
@@ -305,7 +308,7 @@ const Index = (props) => {
 
       {/* modal */}
       {/* <div className="w-screen h-screen bg-black opacity-70 relative z-30"> */}
-      <Backdrop>
+      {/* <Backdrop>
         <Modal
           type="success"
           title="titletitletitletitletitletitletitletitletitletitletitletitletitletitletitle"
@@ -323,11 +326,11 @@ const Index = (props) => {
             </Button>
           </div>
         </Modal>
-      </Backdrop>
+      </Backdrop> */}
       {/* </div> */}
       <br />
       {/* modal center */}
-      <Backdrop>
+      {/* <Backdrop>
         <Modal
           type="warning"
           title="titletitletitletitletitletitletitletitletitletitletitletitletitletitletitle"
@@ -346,9 +349,9 @@ const Index = (props) => {
             </Button>
           </div>
         </Modal>
-      </Backdrop>
+      </Backdrop> */}
       <br />
-      <Backdrop>
+      {/* <Backdrop>
         <Modal
           type="success"
           title="titletitletitletitletitletitletitletitletitletitletitletitletitletitletitle"
@@ -360,7 +363,7 @@ const Index = (props) => {
             one button
           </Button>
         </Modal>
-      </Backdrop>
+      </Backdrop> */}
     </section>
   );
 };

@@ -49,8 +49,9 @@ module.exports = {
           violet: "#A22F81",
           purple: "#65488C",
           navy: "#334D79",
+
           gray: {
-            medium: "7F7F7F",
+            medium: "#7F7F7F",
             light: "#D9D9D9",
           },
         },
@@ -147,9 +148,10 @@ module.exports = {
       spacing: {
         0.25: "0.1rem",
         1.2: "0.3rem",
-        header: "6rem",
+        header: "4rem",
         footer: "6rem",
         content: "calc(100vh - 12rem)",
+        sidenav: "17rem",
         "1/10": "10%",
         "1/5": "20%",
       },
@@ -178,10 +180,18 @@ module.exports = {
         "1/2": "50%",
         "3/4": "75%",
         full: "100%",
+        sidenav: "17rem",
+      },
+      maxWidth: {
+        main: "calc(100vw-250px)",
       },
       height: {
         fit: "fit-content",
         inherit: "inherit",
+      },
+      width: {
+        sidenav: "17rem",
+        main: "calc(100vw-17rem)",
       },
 
       // inset: (theme, { negative }) => ({

@@ -2,7 +2,6 @@ import React from "react";
 import { useField } from "formik";
 // import styled from "styled-components";
 import { classNames } from "../../util/utils";
-import { string } from "yup/lib/locale";
 
 // TODO: 반복되는 코드 줄이기
 // 1. maps 통일
@@ -19,7 +18,7 @@ const FIELD_SIZE_VARIANT_MAPS = {
 
 const FONT_SIZE_VARIANT_MAPS = {
   sm: "text-sm",
-  base: "text-base",
+  base: "text-b ase",
   lg: "text-lg",
   xl: "text-xl",
 };
@@ -59,9 +58,9 @@ const RING_COLOR_VARIANT_MAPS = {
 };
 
 const RING_WIDTH_VARIANT_MAPS = {
-  sm: "ring-2 border-2",
-  md: "ring-4 border-4",
-  lg: "ring-8 border-8",
+  sm: "ring-2",
+  md: "ring-4",
+  lg: "ring-8",
 };
 
 const DISABLED_VARIANT_MAPS = {
@@ -94,7 +93,7 @@ interface InputProps {
   fieldsize?: "md" | "lg" | "full" | "auto";
   customstyle?: string;
   rounded?: "sm" | "md" | "lg" | "full";
-  fontsize?: "sm" | "base" | "lg" | "xl";
+  textsize?: "sm" | "base" | "lg" | "xl";
   // borderStyle?:"rectangle"|"round-all"|"round-"
 }
 
@@ -115,12 +114,14 @@ export const InputField: React.FC<InputTextProps> = (props) => {
     <div className={``}>
       {props.multiLine ? (
         <textarea
-          className={classNames`form-input border-gray-500 border rounded-md
+          className={classNames`form-input border border-transparent focus:border-transparent	 rounded-md 
         ${COLOR_VARIANT_MAPS[props.color]}
         ${TEXT_TRANSFORM_VARIANT_MAPS[props.texttransform]}
+        ${RING_COLOR_VARIANT_MAPS[props.ringcolor]}
         ${RING_WIDTH_VARIANT_MAPS[props.ringwidth]}
         ${FIELD_SIZE_VARIANT_MAPS[props.fieldsize]}
         ${BGCOLOR_VARIANT_MAPS[props.bgcolor]}
+        ${FONT_SIZE_VARIANT_MAPS[props.textsize]}
         ${props.customstyle && props.customstyle}
         ${props.disabled && DISABLED_VARIANT_MAPS["text"]}
 
@@ -132,12 +133,14 @@ export const InputField: React.FC<InputTextProps> = (props) => {
         <input
           className={
             // props.disabled              ? `${DISALBED_INPUT}`              :
-            classNames`form-input border-gray-500 border rounded-md
+            classNames`form-input border border-transparent focus:border-transparent rounded-md
         ${COLOR_VARIANT_MAPS[props.color]}
         ${TEXT_TRANSFORM_VARIANT_MAPS[props.texttransform]}
+        ${RING_COLOR_VARIANT_MAPS[props.ringcolor]}
         ${RING_WIDTH_VARIANT_MAPS[props.ringwidth]}
         ${FIELD_SIZE_VARIANT_MAPS[props.fieldsize]}
         ${BGCOLOR_VARIANT_MAPS[props.bgcolor]}
+        ${FONT_SIZE_VARIANT_MAPS[props.textsize]}
         ${props.customstyle && props.customstyle}
         ${props.disabled && DISABLED_VARIANT_MAPS["text"]}
         `
@@ -225,7 +228,7 @@ export const Radio: React.FC<RadioProps> = ({ children, ...props }) => {
           {...field}
           {...props}
         />
-        <span className={classNames`${FONT_SIZE_VARIANT_MAPS[props.fontsize]}`}>
+        <span className={classNames`${FONT_SIZE_VARIANT_MAPS[props.textsize]}`}>
           {props.label}
         </span>
         {children}
