@@ -149,7 +149,7 @@ const Index = (props) => {
                   type="email"
                   placeholder="input field"
                   color="primary"
-                  filedsize="auto"
+                  fieldsize="auto"
                 />
                 <InputField
                   label="1"
@@ -158,7 +158,7 @@ const Index = (props) => {
                   placeholder="input field2"
                   color="danger"
                   texttransform="uppercase"
-                  filedsize="md"
+                  fieldsize="md"
                   ringcolor="danger"
                   ringwidth="lg"
                 />
@@ -169,7 +169,7 @@ const Index = (props) => {
                   placeholder="input field3"
                   color="secondary"
                   texttransform="capitalize"
-                  filedsize="lg"
+                  fieldsize="lg"
                   ringcolor="secondary"
                   ringwidth="md"
                   bgcolor="primary"
@@ -181,7 +181,7 @@ const Index = (props) => {
                   type="text"
                   placeholder="input field3"
                   texttransform="capitalize"
-                  filedsize="full"
+                  fieldsize="full"
                   ringcolor="secondary"
                   color="danger"
                   bgcolor="danger"
@@ -190,9 +190,17 @@ const Index = (props) => {
 
                 <Checkbox name="default" label="default" />
                 <Checkbox
+                  name="danger"
+                  color="danger"
+                  label="rounded small"
+                  rounded="sm"
+                />
+
+                <Checkbox
                   name="primary"
                   color="primary"
                   label="primary color"
+                  rounded="full"
                 />
                 <Checkbox
                   name="secondary"
@@ -200,11 +208,7 @@ const Index = (props) => {
                   label="secondary color"
                   rounded="md"
                 />
-                <Checkbox name="danger" color="danger" label="danger color" />
 
-                <br />
-                <br />
-                <br />
                 <br />
                 {/* select */}
                 <Select label="select default" name="select" disabled>
@@ -215,7 +219,7 @@ const Index = (props) => {
                 <Select
                   label="select 2"
                   name="select"
-                  filedsize="full"
+                  fieldsize="full"
                   bgcolor="danger"
                   ringcolor="primary"
                   ringwidth="lg"
@@ -227,7 +231,7 @@ const Index = (props) => {
                 <Select
                   label="select 3"
                   name="select"
-                  filedsize="md"
+                  fieldsize="md"
                   bgcolor="danger"
                   ringcolor="primary"
                   ringwidth="lg"
@@ -240,7 +244,7 @@ const Index = (props) => {
                 <Select
                   label="select custom"
                   name="select"
-                  filedsize="auto"
+                  fieldsize="auto"
                   bgcolor="white"
                   ringcolor="secondary"
                   ringwidth="sm"
@@ -281,7 +285,7 @@ const Index = (props) => {
                     name="defaultLg"
                     radiosize="lg"
                   />
-                  <Radio label="default radio" name="default" fontSize="xl" />
+                  <Radio label="default radio" name="default" fontsize="xl" />
                 </div>
 
                 {/* btn */}

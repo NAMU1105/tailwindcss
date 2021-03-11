@@ -10,7 +10,7 @@ import { string } from "yup/lib/locale";
 
 // //////////////////////////////////////////////////////////////
 
-const SIZE_VARIANT_MAPS = {
+const FIELD_SIZE_VARIANT_MAPS = {
   md: "w-1/3",
   lg: "w-1/2",
   full: "w-full font-lg",
@@ -24,17 +24,15 @@ const FONT_SIZE_VARIANT_MAPS = {
   xl: "text-xl",
 };
 
-const ROUND_VARIANT_MAPS = {
-  sm: " rounded-sm",
-  md: " rounded-md",
-  lg: " rounded-lg",
-  full: "rounded-full",
-};
-
 const TEXT_TRANSFORM_VARIANT_MAPS = {
   uppercase: "uppercase",
   capitalize: "capitalize",
-  lowercase: "lowercase",
+};
+const ROUND_VARIANT_MAPS = {
+  sm: "rounded-sm",
+  md: "rounded-md",
+  lg: "rounded-lg",
+  full: "rounded-full",
 };
 
 const COLOR_VARIANT_MAPS = {
@@ -84,29 +82,32 @@ interface InputProps {
   name: string;
   id?: string;
   label: string;
-  placeholder?: string;
-  //   no Label이면 클래스 이름을 sr-only로 한다.
   noLabel?: boolean;
-  type: "email" | "text" | "password";
-  multiLine?: boolean; //multiline일 경우 textarea
-  required?: boolean;
-  design?: "filled" | "outlined";
+  align?: "inline-flex" | "";
+  design?: "filled" | "outlined"; //dashed, dotted..
   disabled?: boolean;
   color?: "white" | "black" | "primary" | "secondary" | "danger";
   bgcolor?: "white" | "black" | "primary" | "secondary" | "danger";
   ringcolor?: "white" | "black" | "primary" | "secondary" | "danger";
   ringwidth?: "sm" | "md" | "lg";
   texttransform?: "uppercase" | "capitalize" | "lowercase";
-  align?: "inline-flex" | "";
-  filedsize?: "md" | "lg" | "full" | "auto";
+  fieldsize?: "md" | "lg" | "full" | "auto";
   customstyle?: string;
+  rounded?: "sm" | "md" | "lg" | "full";
+  fontsize?: "sm" | "base" | "lg" | "xl";
   // borderStyle?:"rectangle"|"round-all"|"round-"
+}
+
+interface InputTextProps extends InputProps {
+  type: "email" | "text" | "password";
+  multiLine?: boolean; //multiline일 경우 textarea
+  placeholder: string;
 }
 
 ////****************************** */
 // inputText
 ////****************************** */
-export const InputField: React.FC<InputProps> = (props) => {
+export const InputField: React.FC<InputTextProps> = (props) => {
   const [field, { error, touched }] = useField({
     name: props.name,
   });
@@ -116,11 +117,11 @@ export const InputField: React.FC<InputProps> = (props) => {
         <textarea
           className={classNames`form-input border-gray-500 border rounded-md
         ${COLOR_VARIANT_MAPS[props.color]}
-        ${BGCOLOR_VARIANT_MAPS[props.bgcolor]}
-        ${RING_COLOR_VARIANT_MAPS[props.ringcolor]}
-        ${SIZE_VARIANT_MAPS[props.filedsize]}
         ${TEXT_TRANSFORM_VARIANT_MAPS[props.texttransform]}
         ${RING_WIDTH_VARIANT_MAPS[props.ringwidth]}
+        ${FIELD_SIZE_VARIANT_MAPS[props.fieldsize]}
+        ${BGCOLOR_VARIANT_MAPS[props.bgcolor]}
+        ${props.customstyle && props.customstyle}
         ${props.disabled && DISABLED_VARIANT_MAPS["text"]}
 
         `}
@@ -133,13 +134,12 @@ export const InputField: React.FC<InputProps> = (props) => {
             // props.disabled              ? `${DISALBED_INPUT}`              :
             classNames`form-input border-gray-500 border rounded-md
         ${COLOR_VARIANT_MAPS[props.color]}
-        ${BGCOLOR_VARIANT_MAPS[props.bgcolor]}
-        ${RING_COLOR_VARIANT_MAPS[props.ringcolor]}
-        ${SIZE_VARIANT_MAPS[props.filedsize]}
         ${TEXT_TRANSFORM_VARIANT_MAPS[props.texttransform]}
         ${RING_WIDTH_VARIANT_MAPS[props.ringwidth]}
-        ${props.disabled && DISABLED_VARIANT_MAPS["text"]}
+        ${FIELD_SIZE_VARIANT_MAPS[props.fieldsize]}
+        ${BGCOLOR_VARIANT_MAPS[props.bgcolor]}
         ${props.customstyle && props.customstyle}
+        ${props.disabled && DISABLED_VARIANT_MAPS["text"]}
         `
           }
           {...field}
@@ -156,17 +156,8 @@ export const InputField: React.FC<InputProps> = (props) => {
 ////****************************** */
 // TODO: checkbox icon 도 커스텀
 
-interface CheckboxProps {
-  label: string;
-  name: string;
-  color?: "primary" | "secondary" | "danger";
-  ringColor?: "primary" | "secondary" | "danger";
-  ringWidth?: "sm" | "md" | "lg";
-  rounded?: "sm" | "md" | "lg" | "full";
+interface CheckboxProps extends InputProps {
   boxSize?: "sm" | "md" | "lg" | "xl";
-  fontSize?: "sm" | "base" | "lg" | "xl";
-  disabled?: boolean;
-  customstyle?: string;
 }
 export const Checkbox: React.FC<CheckboxProps> = ({ children, ...props }) => {
   const [field, meta] = useField({
@@ -183,13 +174,13 @@ export const Checkbox: React.FC<CheckboxProps> = ({ children, ...props }) => {
             // props.disabled              ? `${DISABLED_CHECKBOX}` :
             classNames`form-checkbox mr-2 border border-gray-700 ring-current focus:border-current	
           ${ROUND_VARIANT_MAPS[props.rounded]}
-          ${RING_COLOR_VARIANT_MAPS[props.ringColor]}
-          ${RING_WIDTH_VARIANT_MAPS[props.ringWidth]}
-          ${FONT_SIZE_VARIANT_MAPS[props.fontSize]}
-          ${BOX_SIZE_VARIANT_MAPS[props.boxSize]}
+          ${RING_COLOR_VARIANT_MAPS[props.ringcolor]}
           ${COLOR_VARIANT_MAPS[props.color]}
-          ${props.disabled && DISABLED_VARIANT_MAPS["checkbox"]}
+          ${FIELD_SIZE_VARIANT_MAPS[props.fieldsize]}
+          ${BGCOLOR_VARIANT_MAPS[props.bgcolor]}
+          ${BOX_SIZE_VARIANT_MAPS[props.boxSize]}
           ${props.customstyle && props.customstyle}
+          ${props.disabled && DISABLED_VARIANT_MAPS["checkbox"]}
           `
           }
           {...field}
@@ -207,18 +198,8 @@ export const Checkbox: React.FC<CheckboxProps> = ({ children, ...props }) => {
 // radio
 ////****************************** */
 
-interface RadioProps {
-  label: string;
-  name: string;
-  align?: "row" | "col";
-  color?: "primary" | "secondary" | "danger";
-  ringcolor?: "primary" | "secondary" | "danger";
-  ringwidth?: "sm" | "md" | "lg";
-  rounded?: "sm" | "md" | "lg" | "full";
+interface RadioProps extends InputProps {
   radiosize?: "sm" | "md" | "lg" | "xl";
-  fontSize?: "sm" | "base" | "lg" | "xl";
-  disabled?: boolean;
-  customstyle?: string;
 }
 export const Radio: React.FC<RadioProps> = ({ children, ...props }) => {
   const [field, meta] = useField({
@@ -234,18 +215,17 @@ export const Radio: React.FC<RadioProps> = ({ children, ...props }) => {
           className={classNames`form-radio mr-2 border border-gray-700 ring-current focus:border-current	
           ${ROUND_VARIANT_MAPS[props.rounded]}
           ${COLOR_VARIANT_MAPS[props.color]}
-          ${RING_COLOR_VARIANT_MAPS[props.ringcolor]}
-          ${RING_WIDTH_VARIANT_MAPS[props.ringwidth]}
+          ${FIELD_SIZE_VARIANT_MAPS[props.fieldsize]}
+          ${BGCOLOR_VARIANT_MAPS[props.bgcolor]}
           ${BOX_SIZE_VARIANT_MAPS[props.radiosize]}
-          ${COLOR_VARIANT_MAPS[props.color]}
-          ${props.disabled && DISABLED_VARIANT_MAPS["radio"]}
           ${props.customstyle && props.customstyle}
+          ${props.disabled && DISABLED_VARIANT_MAPS["radio"]}
           `}
           // {...props.disabled&&disabled={true}}
           {...field}
           {...props}
         />
-        <span className={classNames`${FONT_SIZE_VARIANT_MAPS[props.fontSize]}`}>
+        <span className={classNames`${FONT_SIZE_VARIANT_MAPS[props.fontsize]}`}>
           {props.label}
         </span>
         {children}
@@ -258,22 +238,8 @@ export const Radio: React.FC<RadioProps> = ({ children, ...props }) => {
 ////****************************** */
 // select
 ////****************************** */
-interface SelectProps {
+interface SelectProps extends InputProps {
   multiSelect?: boolean;
-  name: string;
-  label: string;
-  id?: string;
-  //   no Label이면 클래스 이름을 sr-only로 한다.
-  noLabel?: boolean;
-  disabled?: boolean;
-  color?: "white" | "black" | "primary" | "secondary" | "danger";
-  bgcolor?: "white" | "black" | "primary" | "secondary" | "danger";
-  ringcolor?: "white" | "black" | "primary" | "secondary" | "danger";
-  ringwidth?: "sm" | "md" | "lg";
-  texttransform?: "uppercase" | "capitalize" | "lowercase";
-  align?: "inline-flex" | "";
-  filedsize?: "md" | "lg" | "full" | "auto";
-  customstyle?: string;
 }
 
 export const Select: React.FC<SelectProps> = ({ children, ...props }) => {
@@ -289,13 +255,12 @@ export const Select: React.FC<SelectProps> = ({ children, ...props }) => {
         disabled={props.disabled}
         className={classNames`form-select mt-1 block rounded-md
         ${COLOR_VARIANT_MAPS[props.color]}
-        ${BGCOLOR_VARIANT_MAPS[props.bgcolor]}
-        ${RING_COLOR_VARIANT_MAPS[props.ringcolor]}
-        ${SIZE_VARIANT_MAPS[props.filedsize]}
         ${TEXT_TRANSFORM_VARIANT_MAPS[props.texttransform]}
         ${RING_WIDTH_VARIANT_MAPS[props.ringwidth]}
-        ${props.disabled && DISABLED_VARIANT_MAPS["select"]}
+        ${FIELD_SIZE_VARIANT_MAPS[props.fieldsize]}
+        ${BGCOLOR_VARIANT_MAPS[props.bgcolor]}
         ${props.customstyle && props.customstyle}
+        ${props.disabled && DISABLED_VARIANT_MAPS["select"]}
         `}
         {...field}
         {...props}
