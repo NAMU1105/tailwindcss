@@ -4,18 +4,9 @@ import ReactDOM from "react-dom";
 interface BackdropProps {
   children: ReactNode;
 }
+let isMonted = false;
 
 const Backdrop: React.FC<BackdropProps> = (props: BackdropProps) => {
-  return ReactDOM.createPortal(
-    <div className="w-screen h-screen bg-black opacity-70 relative z-30">
-      {props.children}
-    </div>,
-    document.getElementById("backdrop-hook")
-  );
-};
-
-let isMonted = false;
-export const BackDrop = () => {
   const [showBackdrop, setShowBackdrop] = useState(false);
 
   useEffect(() => {
@@ -26,13 +17,16 @@ export const BackDrop = () => {
     }
   }, []);
 
-  return (
-    <>
-      {showBackdrop && (
-        <Backdrop>
-          <div>test</div>
-        </Backdrop>
-      )}
-    </>
-  );
+  if (!showBackdrop) {
+    return null;
+  } else {
+    return ReactDOM.createPortal(
+      <div className="w-screen h-screen bg-black opacity-70 relative z-30">
+        {props.children}
+      </div>,
+      document.getElementById("backdrop-hook")
+    );
+  }
 };
+
+export default Backdrop;

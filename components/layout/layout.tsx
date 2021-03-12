@@ -19,8 +19,8 @@ const Layout: React.FC<LayoutProps> = (props: LayoutProps) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div id="backdrop-hook"></div>
-      <div id="modal-hook"></div>
-      <div id="drawer-hook"></div>
+      {/* <div id="modal-hook"></div>
+      <div id="drawer-hook"></div> */}
       {/* 컨텐츠 */}
       <div className="content flex flex-col w-full">
         <Header />

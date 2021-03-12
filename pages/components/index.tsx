@@ -351,7 +351,7 @@ const Index = (props) => {
         </Modal>
       </Backdrop> */}
       <br />
-      {/* <Backdrop>
+      <Backdrop>
         <Modal
           type="success"
           title="titletitletitletitletitletitletitletitletitletitletitletitletitletitletitle"
@@ -363,8 +363,8 @@ const Index = (props) => {
             one button
           </Button>
         </Modal>
-      </Backdrop> */}
-      <BackDrop />
+      </Backdrop>
+      {/* <BackDrop /> */}
     </section>
   );
 };
