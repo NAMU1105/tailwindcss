@@ -41,6 +41,9 @@ export const useLayout = () => {
   const ToggleNavHandler = () => {
     setIsNavOpen((prev) => !prev);
   };
+  const SetToggleStateNavHandler = (state) => {
+    setIsNavOpen(state);
+  };
 
   return {
     BGCOLOR_VARIANT_MAPS,
@@ -49,5 +52,6 @@ export const useLayout = () => {
     changeLayoutColorHandler,
     isNavOpen,
     ToggleNavHandler,
+    SetToggleStateNavHandler,
   };
 };

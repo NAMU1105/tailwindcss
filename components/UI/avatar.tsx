@@ -31,11 +31,13 @@ interface AvatarProps {
   size?: "sm" | "md" | "lg";
   src: string | null;
   extra?: string;
+  customstyle?: string;
 }
 interface GroupAvatarProps {
   count?: number;
   size?: number;
   children: ReactNode;
+  // customstyle?: string;
 }
 
 export const AvatarGroup: React.FC<GroupAvatarProps> = (
@@ -52,7 +54,8 @@ export const Avatar: React.FC<AvatarProps> = (props: AvatarProps) => {
         <span
           className={classNames`absolute w-4 h-4 rounded-full -top-1 -right-1 ${
             BADGE_VARIANT_MAPS[props.badge]
-          }`}
+          }
+          ${props.customstyle}`}
         ></span>
         <img src={props.src} className="w-full rounded-full h-inherit"></img>
       </>
@@ -64,7 +67,11 @@ export const Avatar: React.FC<AvatarProps> = (props: AvatarProps) => {
   }
 
   return (
-    <div className={classNames`relative ${SIZE_VARIANT_MAPS[props.size]}`}>
+    <div
+      className={classNames`relative ${SIZE_VARIANT_MAPS[props.size]} ${
+        props.customstyle
+      }`}
+    >
       {props.extra ? (
         <span className="block font-bold text-xl pt-1 w-full rounded-full h-inherit bg-gray-500 text-white">
           {props.extra}

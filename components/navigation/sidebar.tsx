@@ -17,9 +17,9 @@ const Sidebar: React.FC<SidebarProp> = (props: SidebarProp) => {
 
   return (
     <aside
-      className={classNames`fixed p-4 flex flex-col h-screen top-header ${
+      className={classNames`fixed left-0 top-header p-4 shadow-sm flex flex-col h-screen ${
         layoutContext.isNavOpen && `w-sidenav`
-      } ${BGCOLOR_VARIANT_MAPS[layoutContext.layoutColor].bg} shadow-md`}
+      } ${BGCOLOR_VARIANT_MAPS[layoutContext.layoutColor].bg} `}
     >
       <h1 className="sr-only">Sidebar</h1>
       <SidebarItemGroup />

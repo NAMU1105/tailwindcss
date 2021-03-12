@@ -18,6 +18,7 @@ function MyApp({ Component, pageProps }) {
     changeLayoutColorHandler,
     isNavOpen,
     ToggleNavHandler,
+    SetToggleStateNavHandler,
   } = useLayout();
 
   return (
@@ -37,6 +38,7 @@ function MyApp({ Component, pageProps }) {
           changeLayoutColorHandler,
           isNavOpen,
           ToggleNavHandler,
+          SetToggleStateNavHandler,
         }}
       >
         <Layout>

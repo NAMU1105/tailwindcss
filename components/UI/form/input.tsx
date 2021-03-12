@@ -37,6 +37,7 @@ const ROUND_VARIANT_MAPS = {
 const COLOR_VARIANT_MAPS = {
   white: "text-white",
   black: "text-black",
+  gray: "text-secondary-gray-medium",
   primary: "text-primary",
   secondary: "text-secondary-navy",
   danger: "text-danger",
@@ -44,17 +45,24 @@ const COLOR_VARIANT_MAPS = {
 const BGCOLOR_VARIANT_MAPS = {
   white: "bg-white",
   black: "bg-black",
+  gray: "bg-secondary-gray-medium",
   primary: "bg-primary",
   secondary: "bg-secondary-navy",
   danger: "bg-danger",
 };
 const RING_COLOR_VARIANT_MAPS = {
   black: "ring-black border-black focus:ring-black focus:border-black",
+  gray:
+    "ring-secondary-gray-light border-secondary-gray-light focus:ring-secondary-gray-light focus:border-secondary-gray-light",
   primary:
     "ring-primary border-primary focus:ring-primary focus:border-primary",
   secondary:
     "ring-secondary-navy border-secondary-navy focus:ring-secondary-navy focus:border-secondary-navy",
   danger: "ring-danger border-danger focus:ring-danger focus:border-danger",
+  transparent:
+    "ring-transparent border-transparent focus:ring-transparent focus:border-transparent",
+  current:
+    "ring-current border-current focus:ring-current focus:border-current",
 };
 
 const RING_WIDTH_VARIANT_MAPS = {
@@ -85,22 +93,34 @@ interface InputProps {
   align?: "inline-flex" | "";
   design?: "filled" | "outlined"; //dashed, dotted..
   disabled?: boolean;
-  color?: "white" | "black" | "primary" | "secondary" | "danger";
-  bgcolor?: "white" | "black" | "primary" | "secondary" | "danger";
-  ringcolor?: "white" | "black" | "primary" | "secondary" | "danger";
+  color?: "white" | "black" | "gray" | "primary" | "secondary" | "danger";
+  bgcolor?: "white" | "black" | "gray" | "primary" | "secondary" | "danger";
+  ringcolor?:
+    | "white"
+    | "black"
+    | "gray"
+    | "primary"
+    | "secondary"
+    | "danger"
+    | "transprent"
+    | "current";
   ringwidth?: "sm" | "md" | "lg";
   texttransform?: "uppercase" | "capitalize" | "lowercase";
   fieldsize?: "md" | "lg" | "full" | "auto";
-  customstyle?: string;
   rounded?: "sm" | "md" | "lg" | "full";
   textsize?: "sm" | "base" | "lg" | "xl";
+  customstyle?: string;
   // borderStyle?:"rectangle"|"round-all"|"round-"
 }
 
 interface InputTextProps extends InputProps {
   type: "email" | "text" | "password";
-  multiLine?: boolean; //multiline일 경우 textarea
+  //multiline일 경우 textarea
+  multiLine?: boolean;
+  // search input box
+  searchbar?: "true" | "false";
   placeholder: string;
+  autoComplete?: "on" | "off";
 }
 
 ////****************************** */
@@ -110,11 +130,13 @@ export const InputField: React.FC<InputTextProps> = (props) => {
   const [field, { error, touched }] = useField({
     name: props.name,
   });
-  return (
-    <div className={``}>
-      {props.multiLine ? (
-        <textarea
-          className={classNames`form-input border border-transparent focus:border-transparent	 rounded-md 
+
+  // let element;
+  if (props.multiLine) {
+    return (
+      // <div className={`w-full`}>
+      <textarea
+        className={classNames`form-input border border-transparent focus:border-transparent	 rounded-md 
         ${COLOR_VARIANT_MAPS[props.color]}
         ${TEXT_TRANSFORM_VARIANT_MAPS[props.texttransform]}
         ${RING_COLOR_VARIANT_MAPS[props.ringcolor]}
@@ -122,36 +144,95 @@ export const InputField: React.FC<InputTextProps> = (props) => {
         ${FIELD_SIZE_VARIANT_MAPS[props.fieldsize]}
         ${BGCOLOR_VARIANT_MAPS[props.bgcolor]}
         ${FONT_SIZE_VARIANT_MAPS[props.textsize]}
+        ${ROUND_VARIANT_MAPS[props.rounded]}
         ${props.customstyle && props.customstyle}
         ${props.disabled && DISABLED_VARIANT_MAPS["text"]}
 
         `}
-          {...field}
-          {...props}
-        ></textarea>
-      ) : (
+        {...field}
+        {...props}
+      ></textarea>
+      // </div>
+    );
+  } else if (props.searchbar === "true") {
+    return (
+      <div
+        className={classNames`w-full ${props.customstyle && props.customstyle}`}
+      >
+        <div className="flex items-center border border-gray-200 rounded-2xl px-4">
+          <button className="focus:outline-none transform hover:scale-125">
+            <svg
+              className="w-7"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M8 16l2.879-2.879m0 0a3 3 0 104.243-4.242 3 3 0 00-4.243 4.242zM21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+          </button>
+          <input
+            className={
+              // props.disabled              ? `${DISALBED_INPUT}`              :
+              classNames`form-input border border-transparent focus:border-transparent
+            ${COLOR_VARIANT_MAPS[props.color]}
+            ${TEXT_TRANSFORM_VARIANT_MAPS[props.texttransform]}
+            ${RING_COLOR_VARIANT_MAPS[props.ringcolor]}
+            ${RING_WIDTH_VARIANT_MAPS[props.ringwidth]}
+            ${FIELD_SIZE_VARIANT_MAPS[props.fieldsize]}
+            ${BGCOLOR_VARIANT_MAPS[props.bgcolor]}
+            ${FONT_SIZE_VARIANT_MAPS[props.textsize]}
+            ${ROUND_VARIANT_MAPS[props.rounded]}
+            // ${props.customstyle && props.customstyle}
+            ${props.disabled && DISABLED_VARIANT_MAPS["text"]}
+            `
+            }
+            {...field}
+            {...props}
+          />
+        </div>
+        {error && touched && <div className={``}>{error}</div>}
+      </div>
+    );
+  } else {
+    return (
+      // <div className={`w-full`}>
+      <div
+        className={classNames`w-full ${props.customstyle && props.customstyle}`}
+      >
         <input
           className={
             // props.disabled              ? `${DISALBED_INPUT}`              :
-            classNames`form-input border border-transparent focus:border-transparent rounded-md
-        ${COLOR_VARIANT_MAPS[props.color]}
-        ${TEXT_TRANSFORM_VARIANT_MAPS[props.texttransform]}
-        ${RING_COLOR_VARIANT_MAPS[props.ringcolor]}
-        ${RING_WIDTH_VARIANT_MAPS[props.ringwidth]}
-        ${FIELD_SIZE_VARIANT_MAPS[props.fieldsize]}
-        ${BGCOLOR_VARIANT_MAPS[props.bgcolor]}
-        ${FONT_SIZE_VARIANT_MAPS[props.textsize]}
-        ${props.customstyle && props.customstyle}
-        ${props.disabled && DISABLED_VARIANT_MAPS["text"]}
-        `
+            classNames`form-input border border-transparent focus:border-transparent
+            ${COLOR_VARIANT_MAPS[props.color]}
+            ${TEXT_TRANSFORM_VARIANT_MAPS[props.texttransform]}
+            ${RING_COLOR_VARIANT_MAPS[props.ringcolor]}
+            ${RING_WIDTH_VARIANT_MAPS[props.ringwidth]}
+            ${FIELD_SIZE_VARIANT_MAPS[props.fieldsize]}
+            ${BGCOLOR_VARIANT_MAPS[props.bgcolor]}
+            ${FONT_SIZE_VARIANT_MAPS[props.textsize]}
+            ${ROUND_VARIANT_MAPS[props.rounded]}
+            // ${props.customstyle && props.customstyle}
+            ${props.disabled && DISABLED_VARIANT_MAPS["text"]}
+            `
           }
           {...field}
           {...props}
         />
-      )}
-      {error && touched && <div className={``}>{error}</div>}
-    </div>
-  );
+        {error && touched && <div className={``}>{error}</div>}
+      </div>
+    );
+  }
+};
+
+InputField.defaultProps = {
+  ringcolor: "gray",
+  rounded: "lg",
 };
 
 ////****************************** */

@@ -11,16 +11,16 @@ import {
 import { Formik, Field, Form, FormikHelpers } from "formik";
 import { TestSchema } from "../../components/util/validator";
 import { Modal } from "../../components/UI/modal";
-import Backdrop from "../../components/UI/backdrop";
+import Backdrop, { BackDrop } from "../../components/UI/backdrop";
 
 const Index = (props) => {
   const testFunction = () => {
     console.log("test");
     // alert("button");
   };
-  interface Values {
+  type Values = {
     email: string;
-  }
+  };
   return (
     <section className="w-full">
       {/* buttons */}
@@ -364,6 +364,7 @@ const Index = (props) => {
           </Button>
         </Modal>
       </Backdrop> */}
+      <BackDrop />
     </section>
   );
 };

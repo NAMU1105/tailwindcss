@@ -8,4 +8,5 @@ export const LayoutContext = createContext({
   changeLayoutColorHandler: (newColor: LayoutColorType) => {},
   isNavOpen: true,
   ToggleNavHandler: () => {},
+  SetToggleStateNavHandler: (state: boolean) => {},
 });

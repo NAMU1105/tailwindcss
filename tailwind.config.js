@@ -154,6 +154,7 @@ module.exports = {
         sidenav: "17rem",
         "1/10": "10%",
         "1/5": "20%",
+        18: "4.5rem",
       },
 
       fontSize: {
@@ -206,6 +207,7 @@ module.exports = {
       textColor: ["disabled"],
       outline: ["hover", "active", "focus"],
       margin: ["first"],
+      scale: ["active", "group-hover", "hover"],
     },
   },
   plugins: [
