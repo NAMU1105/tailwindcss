@@ -11,7 +11,7 @@ import {
 import { Formik, Field, Form, FormikHelpers } from "formik";
 import { TestSchema } from "../../components/util/validator";
 import { Modal } from "../../components/UI/modal";
-import Backdrop, { BackDrop } from "../../components/UI/backdrop";
+import Backdrop from "../../components/UI/backdrop";
 
 const Index = (props) => {
   const testFunction = () => {
